@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+         #
+#    By: RAMON <RAMON@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 16:47:15 by cmarcu            #+#    #+#              #
-#    Updated: 2021/04/23 17:05:33 by cmarcu           ###   ########.fr        #
+#    Updated: 2021/04/27 17:29:17 by RAMON            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,15 @@ OBJS	=	$(SRCS:.c=.o)
 NAME	=	miniRT
 
 CC	= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 RM	= rm -f
 INCLUDES = -I./includes/
-MLX	= -L./minilibx-linux -lmlx -framework OpenGL -framework AppKit
+MLX	= -L./mlx libmlx.dylib -framework Metal -framework AppKit
 
 INCLUDE_LIBFT	= ./srcs/libft
 
  %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -Imlx -c $< -o $@
 
 all : $(NAME)
 
