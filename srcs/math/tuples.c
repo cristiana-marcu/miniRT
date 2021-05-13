@@ -20,64 +20,84 @@ int	equal(double a, double b)
 		return (0);
 }
 
-void	vec3_add(t_vec3 result, t_vec3 a, t_vec3 b)
+t_vec3	vec3_add(t_vec3 a, t_vec3 b)
 {
-	result[0] = a[0] + b[0];
-	result[1] = a[1] + b[1];
-	result[2] = a[2] + b[2];
+	t_vec3 result;
+
+	result.x = a.x + b.x;
+	result.y = a.y + b.y;
+	result.z = a.z + b.z;
+	return (result);
 }
 
-void	vec3_subs(t_vec3 result, t_vec3 a, t_vec3 b)
+t_vec3	vec3_subs(t_vec3 a, t_vec3 b)
 {
-	result[0] = a[0] - b[0];
-	result[1] = a[1] - b[1];
-	result[2] = a[2] - b[2];
+	t_vec3 result;
+
+	result.x = a.x - b.x;
+	result.y = a.y - b.y;
+	result.z = a.z - b.z;
+	return (result);
 }
 
-void	vec3_negate(t_vec3 a)
+t_vec3	vec3_negate(t_vec3 a)
 {
-	a[0] = -a[0];
-	a[1] = -a[1];
-	a[2] = -a[2];
+	t_vec3 result;
+
+	result.x = -a.x;
+	result.y = -a.y;
+	result.z = -a.z;
+	return (result);
 }
 
-void	vec3_mult(t_vec3 result, t_vec3 a, double n)
+t_vec3	vec3_mult(t_vec3 a, double n)
 {
-	result[0] = a[0] * n;
-	result[1] = a[1] * n;
-	result[2] = a[2] * n;
+	t_vec3 result;
+
+	result.x = a.x * n;
+	result.y = a.y * n;
+	result.z = a.z * n;
+	return (result);
 }
 
 double	vec3_magnitude(t_vec3 a)
 {
-	return (sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]));
+	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
-void	vec3_normalize(t_vec3 result, t_vec3 a)
+t_vec3	vec3_normalize(t_vec3 a)
 {
 	double magnitude;
+	t_vec3 result;
 
 	magnitude = vec3_magnitude(a);
-	result[0] = a[0] / magnitude;
-	result[1] = a[1] / magnitude;
-	result[2] = a[2] / magnitude;
+	result.x = a.x / magnitude;
+	result.y = a.y / magnitude;
+	result.z = a.z / magnitude;
+	return (result);
 }
 
 double	vec3_dot(t_vec3 a, t_vec3 b)
 {
-	return (a[0] * b[0] + a[1] * b[1] + a[2] * b[2]);
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-void	vec3_cross(t_vec3 result, t_vec3 a, t_vec3 b)
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 {
-	result[0] = a[1] * b[2] - a[2] * b[1];
-	result[1] = a[2] * b[0] - a[0] * b[2];
-	result[2] = a[0] * b[1] - a[1] * b[0];
+	t_vec3 result;
+
+	result.x = a.y * b.z - a.z * b.y;
+	result.y = a.z * b.x - a.x * b.z;
+	result.z = a.x * b.y - a.y * b.x;
+	return (result);
 }
 
-void	hadamard_product(t_vec3 result, t_vec3 c1, t_vec3 c2)
+t_vec3	hadamard_product(t_vec3 c1, t_vec3 c2)
 {
-	result[0] = c1[0] * c2[0];
-	result[1] = c1[1] * c2[1];
-	result[2] = c1[2] * c2[2];
+	t_vec3 result;
+
+	result.x = c1.x * c2.x;
+	result.y = c1.y * c2.y;
+	result.z = c1.z * c2.z;
+	return (result);
 }

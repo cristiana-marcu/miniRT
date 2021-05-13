@@ -19,18 +19,32 @@
 #  define EPSILON 0.00001
 # endif
 
-typedef double t_vec3[3];
-typedef double t_mat44[4][4];
+typedef struct	s_vec3
+{
+	double x;
+	double y;
+	double z;
+}				t_vec3;
+
+typedef struct	s_mat44
+{
+	double d[4][4];
+}				t_mat44;
+
+typedef struct	s_mat33
+{
+	double d[3][3];
+}				t_mat33;
 
 int	equal(double a, double b);
-void	vec3_add(t_vec3 result, t_vec3 a, t_vec3 b);
-void	vec3_subs(t_vec3 result, t_vec3 a, t_vec3 b);
-void	vec3_negate(t_vec3 a);
-void	vec3_mult(t_vec3 result, t_vec3 a, double n);
+t_vec3	vec3_add(t_vec3 a, t_vec3 b);
+t_vec3	vec3_subs(t_vec3 a, t_vec3 b);
+t_vec3	vec3_negate(t_vec3 a);
+t_vec3	vec3_mult(t_vec3 a, double n);
 double	vec3_magnitude(t_vec3 a);
-void	vec3_normalize(t_vec3 result, t_vec3 a);
+t_vec3	vec3_normalize(t_vec3 a);
 double	vec3_dot(t_vec3 a, t_vec3 b);
-void	vec3_cross(t_vec3 result, t_vec3 a, t_vec3 b);
-void	hadamard_product(t_vec3 result, t_vec3 c1, t_vec3 c2);
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
+t_vec3	hadamard_product(t_vec3 c1, t_vec3 c2);
 
 #endif
