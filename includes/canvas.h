@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 16:36:08 by cmarcu            #+#    #+#             */
-/*   Updated: 2021/04/23 14:56:18 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/11 17:46:56 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define CANVAS_H
 
 #include <math.h>
-#include "my_math.h"
+#include "vectors.h"
+#include "ray.h"
 #include <mlx.h>
+#include <stdlib.h>
 
 typedef struct s_pixel
 {
