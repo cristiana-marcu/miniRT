@@ -6,7 +6,7 @@
 /*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/11 17:57:06 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/13 20:35:41 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	t_data	img;
 
 	const double aspect_ratio = 16.0 / 9.0;
-    const int image_width = 400;
+    const int image_width = 720;
 	const int image_height = (int)(image_width / aspect_ratio);
 
 	double viewport_height = 2.0;
@@ -34,8 +34,8 @@ int	main(void)
     t_vec3 lower_left_corner = vec3_subs(vec3_subs(origin, vec3_division(horizontal, 2)), vec3_subs(vec3_division(vertical, 2), vctor(0, 0, focal_length)));
 
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 700, 700, "miniRT");
-	img.img = mlx_new_image(mlx, 700, 700);
+	mlx_win = mlx_new_window(mlx, image_width, image_height, "miniRT");
+	img.img = mlx_new_image(mlx, image_width, image_height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 									&img.endian);
 	for (int j = image_height-1; j >= 0; --j) {
@@ -44,7 +44,7 @@ int	main(void)
             double v = (double)j / (image_height-1);
             t_ray r = rctor(origin, vec3_add(vec3_add(lower_left_corner, vec3_mult(horizontal, u)), vec3_subs(vec3_mult(vertical, v), origin)));
             t_vec3 pixel_color = ray_color(&r);
-			my_mlx_pixel_put(&img, i, j, (int)vec3_magnitude(pixel_color)*100);
+			my_mlx_pixel_put(&img, i, j, vec3_toInt(pixel_color)*1000);
         }
     }
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);

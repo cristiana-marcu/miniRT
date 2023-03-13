@@ -6,11 +6,11 @@
 /*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 11:15:42 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/11 18:02:34 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/13 20:12:34 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/canvas.h"
+#include "canvas.h"
 
 // t_canvas canvas(unsigned short x, unsigned short y)
 // {

@@ -6,11 +6,10 @@
 /*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/11 17:27:12 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/13 20:21:20 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vectors.h"
 #include "vectors.h"
 
 t_vec3 vctor(double x, double y, double z)
@@ -22,12 +21,12 @@ t_vec3 vctor(double x, double y, double z)
 	result.z = z;
 	return (result);
 }
-int	equal(double a, double b)
+bool	equal(double a, double b)
 {
 	if (fabs(a - b) < EPSILON)
-		return (1);
+		return (true);
 	else
-		return (0);
+		return (false);
 }
 
 t_vec3	vec3_add(t_vec3 a, t_vec3 b)
@@ -118,6 +117,11 @@ double length(t_vec3 e)
 double length_squared(t_vec3 e)
 {
 	return e.x*e.x + e.y*e.y + e.z*e.z;
+}
+
+int vec3_toInt(t_vec3 v)
+{
+	return((int)v.x << 16 | (int)v.y << 8 | (int)v.z);
 }
 		
 // t_vec3	hadamard_product(t_vec3 c1, t_vec3 c2)
