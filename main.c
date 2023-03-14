@@ -3,16 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/13 20:35:41 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/14 18:55:56 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "canvas.h"
 #include <stdio.h>
 #include <mlx.h>
+
+int	hook_keydown(int key, t_data *mlx)
+{
+	if (key == K_ESC)
+	{
+		mlx_destroy_image(mlx->mlx, mlx->img);
+		exit(EXIT_SUCCESS);
+	}
+	return (0);
+}
+
+int	close()
+{
+	exit(0);
+}
 
 int	main(void)
 {
@@ -48,5 +63,7 @@ int	main(void)
         }
     }
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_key_hook(mlx_win, hook_keydown, mlx);
+	mlx_hook(mlx_win, 17, 0, close, NULL);
 	mlx_loop(mlx);
 }
