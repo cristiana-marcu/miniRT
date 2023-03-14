@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/14 18:55:56 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/14 19:10:49 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(void)
 {
 	void	*mlx;
 	void	*mlx_win;
-	t_data	img;
+	t_data	img; //TODO
 
 	const double aspect_ratio = 16.0 / 9.0;
     const int image_width = 720;
@@ -63,7 +63,7 @@ int	main(void)
         }
     }
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_key_hook(mlx_win, hook_keydown, mlx);
+	mlx_key_hook(mlx_win, hook_keydown, &img);
 	mlx_hook(mlx_win, 17, 0, close, NULL);
 	mlx_loop(mlx);
 }

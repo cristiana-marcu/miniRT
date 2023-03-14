@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 16:36:08 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/14 18:54:16 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/14 19:09:16 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ typedef struct s_canvas
 } t_canvas;
 
 typedef struct s_data {
-	void	*mlx;
+	void	*mlx; //TODO
 	void	*img;
 	char	*addr;
+	void	*win; //TODO
 	int	bits_per_pixel;
 	int	line_length;
 	int	endian;
