@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:57:33 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/11 17:44:22 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/15 20:23:47 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ typedef struct s_ray
 
 t_ray	rctor(t_vec3 origin, t_vec3 direction);
 t_vec3	ray_color(t_ray *r);
+t_vec3	rayAt(t_ray *r, double pointOnRay);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:00:37 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/13 20:20:15 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/15 19:49:23 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct	s_vec3
 }				t_vec3;
 
 t_vec3	vctor(double x, double y, double z);
-bool	equal(double a, double b);
+double	equal(double a, double b);
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_subs(t_vec3 a, t_vec3 b);
 t_vec3	vec3_negate(t_vec3 a);
@@ -40,8 +40,6 @@ double	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 double	length(t_vec3 e);
 double	length_squared(t_vec3 e);
-int		vec3_toInt(t_vec3 v);
-
-//t_vec3	hadamard_product(t_vec3 c1, t_vec3 c2);
+int		vec3_toRGB(t_vec3 v);
 
 #endif

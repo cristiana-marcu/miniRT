@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/13 20:21:20 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/15 20:20:37 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec3 vctor(double x, double y, double z)
 	result.z = z;
 	return (result);
 }
-bool	equal(double a, double b)
+double	equal(double a, double b)
 {
 	if (fabs(a - b) < EPSILON)
 		return (true);
@@ -84,14 +84,7 @@ double	vec3_magnitude(t_vec3 a)
 
 t_vec3	vec3_normalize(t_vec3 a)
 {
-	double magnitude;
-	t_vec3 result;
-
-	magnitude = vec3_magnitude(a);
-	result.x = a.x / magnitude;
-	result.y = a.y / magnitude;
-	result.z = a.z / magnitude;
-	return (result);
+	return (vec3_division(a, vec3_magnitude(a)));
 }
 
 double	vec3_dot(t_vec3 a, t_vec3 b)
@@ -119,17 +112,7 @@ double length_squared(t_vec3 e)
 	return e.x*e.x + e.y*e.y + e.z*e.z;
 }
 
-int vec3_toInt(t_vec3 v)
+int vec3_toRGB(t_vec3 v)
 {
-	return((int)v.x << 16 | (int)v.y << 8 | (int)v.z);
-}
-		
-// t_vec3	hadamard_product(t_vec3 c1, t_vec3 c2)
-// {
-// 	t_vec3 result;
-
-// 	result.x = c1.x * c2.x;
-// 	result.y = c1.y * c2.y;
-// 	result.z = c1.z * c2.z;
-// 	return (result);
-// }
+	return((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z * 255.999));
+}	

@@ -3,49 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 11:15:42 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/13 20:12:34 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/15 19:28:43 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "canvas.h"
-
-// t_canvas canvas(unsigned short x, unsigned short y)
-// {
-// 	t_canvas canvas;
-// 	int i;
-// 	int j;
-
-// 	canvas.width = x;
-// 	canvas.height = y;
-// 	i = 0;
-// 	j = 0;
-// 	while (i < x)
-// 	{
-// 		while (j < y)
-// 		{
-// 			canvas.pixel.x = j;
-// 			canvas.pixel.y = i;
-// 			canvas.pixel.color[0] = 0;
-// 			canvas.pixel.color[1] = 0;
-// 			canvas.pixel.color[2] = 0;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (canvas);
-// }
-
-// void	write_pixel(t_canvas ca, unsigned short x, unsigned short y, t_vec3 c)
-// {
-// 	ca.pixel.x = x;
-// 	ca.pixel.y = y;
-// 	ca.pixel.color[0] = c[0];
-// 	ca.pixel.color[1] = c[1];
-// 	ca.pixel.color[2] = c[2];
-// }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
