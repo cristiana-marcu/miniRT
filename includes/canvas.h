@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 16:36:08 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/14 19:09:16 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/18 15:38:50 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,22 @@
 
 # define K_ESC 53
 
-typedef struct s_pixel
-{
-	unsigned short x;
-	unsigned short y;
-	t_vec3 color;
-} t_pixel;
-
 typedef struct s_canvas
 {
 	unsigned short width;
 	unsigned short height;
-	t_pixel pixel;
+	double aspect_ratio;
 } t_canvas;
 
 typedef struct s_data {
-	void	*mlx; //TODO
+	void	*mlx;
+	void	*win;
 	void	*img;
 	char	*addr;
-	void	*win; //TODO
 	int	bits_per_pixel;
 	int	line_length;
 	int	endian;
+	t_canvas view;
 } t_data;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
