@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/18 19:23:46 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/21 18:56:46 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum e_type
 typedef struct s_sphere
 {
     t_vec3 center;
-    double D;
+    double r;
     t_vec3 color;
 } t_sphere;
 
@@ -69,6 +69,39 @@ typedef struct s_camera
     double HFOV;
 } t_camera;
 
+typedef struct s_hit_record
+{
+    t_vec3 hit_point;
+    t_vec3 N;
+    double t;
+    bool front_face;
+    double t_min;
+    double t_max;
+} t_hit_record;
+
+typedef struct s_world
+{
+    t_list *objs;
+    t_list *lights;
+    t_ambientLight AL;
+    t_camera camera;
+    t_hit_record *rec;
+} t_world;
+
+typedef struct s_ray
+{
+	t_vec3 origin;
+	t_vec3 direction;
+} t_ray;
+
+typedef struct s_hit
+{
+    t_vec3 pos;
+    t_vec3 N;
+    double t; //t parameter of ray equation x + tP
+    
+} t_hit;
+
 typedef bool (*t_intersection_function)(t_object *, t_ray *, t_hit *);
 
 struct s_object
@@ -79,14 +112,7 @@ struct s_object
     t_intersection_function intersect;
 };
 
-typedef struct s_world
-{
-    t_list *objs;
-    t_list *lights;
-    t_ambientLight AL;
-    t_camera camera;
-} t_world;
 
-double hit_sphere(t_vec3 center, double radius, const t_ray r);
+bool hit_sphere(t_sphere *obj, const t_ray r,t_hit_record *rec);
 
 #endif

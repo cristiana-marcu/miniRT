@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/18 19:22:26 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/21 18:59:49 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void render(t_data *data)
         while (aux.x < data->view.width)
 		{
 			shoot_ray(data, &ray, &aux);
-            pixel_color = ray_color(&ray);
+            pixel_color = ray_color(&ray, &data->world);
 			my_mlx_pixel_put(data, aux.x, aux.y, vec3_toRGB(pixel_color));
 			aux.x++;
         }
@@ -95,17 +95,19 @@ t_object	*add_obj_to_scene(t_world *world, t_object *obj)
 	return (obj);
 }
 
-t_object *new_sphere(t_vec3 center, double r, t_vec3 color)
+void *new_sphere(t_vec3 center, double r, t_vec3 color)
 {
-	t_object *sph;
+	void *sph;
 
-	sph = malloc(sizeof(t_object));
+	sph = malloc(sizeof(t_sphere));
 	if (!sph)
 		return (NULL);
+	(t_sphere*)sph;
 	sph->type = SPHERE;
 	sph->pos = center;
 	sph->color  = color;
 	sph->intersect = &hit_sphere;
+	return (sph);
 }
 
 int	main(void)
