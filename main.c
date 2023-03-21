@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/21 18:59:49 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/21 20:10:12 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,57 @@ void render(t_data *data)
     }
 }
 
-t_object	*add_obj_to_scene(t_world *world, t_object *obj)
+t_object_list	*obj_lstnew(void *obj, int type)
 {
-	t_list	*elem;
+	t_object_list	*result;
 
-	elem = ft_lstnew(obj);
+	result = (t_object_list *)malloc(sizeof(t_object_list));
+	if (!result)
+		return (NULL);
+	result->type = type;
+	result->obj = obj;
+	result->next = NULL;
+	return (result);
+}
+
+void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
+{
+	t_object_list	*last;
+
+	if (!(*lst))
+		*lst = new;
+	else
+	{
+		last = *lst;
+		while (last->next)
+			last = last->next;
+		last->next = new;
+	}
+	new->next = NULL;
+	return ;
+}
+
+void	*add_obj_to_scene(t_world *world, void *obj)
+{
+	t_object_list	*elem;
+
+	elem = obj_lstnew(obj, 1); //TODO Parser: el type de objeto tiene que llegar de la escena
 	if (!elem)
 		return (NULL);
-	ft_lstadd_back(&world->objs, elem);
+	obj_lstadd_back(&world->objs, elem);
 	return (obj);
 }
 
-void *new_sphere(t_vec3 center, double r, t_vec3 color)
+t_sphere *new_sphere(t_vec3 center, double r, t_vec3 color)
 {
-	void *sph;
+	t_sphere *sph;
 
 	sph = malloc(sizeof(t_sphere));
 	if (!sph)
 		return (NULL);
-	(t_sphere*)sph;
-	sph->type = SPHERE;
-	sph->pos = center;
+	sph->center = center;
+	sph->r = r;
 	sph->color  = color;
-	sph->intersect = &hit_sphere;
 	return (sph);
 }
 
@@ -119,8 +147,8 @@ int	main(void)
 	/*TODO PARSER: Hardcodeado porque esto vendrá del parser*/
 	data->world.camera.from = vctor(0, 0, 0);
 	data->world.camera.HFOV = 150.0;
-	t_object *sphere = new_sphere(vctor(0, 0, -1), 0.5, vctor(1, 1, 1));
-	sphere = add_obj_to_scene(&data->world, sphere);
+	t_sphere *sphere = new_sphere(vctor(0, 0, -1), 0.5, vctor(1, 1, 1));
+	add_obj_to_scene(&data->world, sphere);
 	/*______________________________________________________*/
 	render(data);
 	

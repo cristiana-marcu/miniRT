@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/21 18:56:46 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/21 20:12:54 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "ray.h"
 #include "../srcs/libft/libft.h"
 
-typedef struct s_object t_object;
+typedef struct s_object_list t_object_list;
 
 typedef enum e_type
 {
@@ -81,7 +81,7 @@ typedef struct s_hit_record
 
 typedef struct s_world
 {
-    t_list *objs;
+    t_object_list *objs;
     t_list *lights;
     t_ambientLight AL;
     t_camera camera;
@@ -94,25 +94,15 @@ typedef struct s_ray
 	t_vec3 direction;
 } t_ray;
 
-typedef struct s_hit
-{
-    t_vec3 pos;
-    t_vec3 N;
-    double t; //t parameter of ray equation x + tP
-    
-} t_hit;
+typedef bool (*t_intersection_function)(t_object_list *, t_ray *, t_hit_record *);
 
-typedef bool (*t_intersection_function)(t_object *, t_ray *, t_hit *);
-
-struct s_object
+struct s_object_list
 {
     t_type type;
-    t_vec3 pos;
-    t_vec3 color;
-    t_intersection_function intersect;
+    void *obj;
+    void *next;
 };
 
-
-bool hit_sphere(t_sphere *obj, const t_ray r,t_hit_record *rec);
+bool hit_sphere(t_sphere *obj, t_ray *r,t_hit_record *rec);
 
 #endif

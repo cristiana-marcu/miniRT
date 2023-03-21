@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/21 18:53:54 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/21 20:12:56 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	set_face_normal(t_ray *ray, t_hit_record *rec)
 		rec->N = vec3_negate(rec->N);
 }
 
-bool hit_sphere(t_sphere *obj, const t_ray r,t_hit_record *rec) {
-    t_vec3 oc = vec3_subs(r.origin, obj->center);
-    double a = vec3_dot(r.direction, r.direction);
-    double half_b = vec3_dot(oc, r.direction);
+bool hit_sphere(t_sphere *obj, t_ray *ray,t_hit_record *rec) {
+    t_vec3 oc = vec3_subs(ray->origin, obj->center);
+    double a = vec3_dot(ray->direction, ray->direction);
+    double half_b = vec3_dot(oc, ray->direction);
     double c = vec3_dot(oc, oc) - obj->r * obj->r;
     double discriminant = half_b*half_b - a*c;
     if (discriminant < 0.0)
@@ -38,9 +38,9 @@ bool hit_sphere(t_sphere *obj, const t_ray r,t_hit_record *rec) {
             return (false);
     }
     rec->t = root;
-    rec->hit_point = rayAt(&r, rec->t);
+    rec->hit_point = rayAt(ray, rec->t);
     rec->N = vec3_division(vec3_subs(rec->hit_point, obj->center), obj->r); 
-    set_face_normal(&r, rec);
+    set_face_normal(ray, rec);
 	return (true);
 }
 
@@ -63,8 +63,8 @@ t_vec3 rayAt(t_ray *r, double pointOnRay)
 
 t_vec3 ray_color(t_ray *r, t_world *world)
 {
-    double hitP;
-    t_vec3 N;
+    // double hitP;
+    // t_vec3 N;
     
     world->rec->t_min = EPSILON;
     world->rec->t_max = INFINITY;
