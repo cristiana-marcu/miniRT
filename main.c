@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/22 19:51:04 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:58:55 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,17 @@ void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
 {
 	t_object_list	*last;
 
-	//printf("Object type: %d\n", new->type);
-	last = (t_object_list*)malloc(sizeof(t_object_list));
-
 	if (!(*lst))
-		*lst = new;
-	else
 	{
-		last = *lst;
-		printf("Object type: %d\n", last->type);
-		while (last->next)
-			last = last->next;
-		last->next = new;
-	}
+		*lst = new;
+		new->next = NULL;
+		return ;
+	}	
+	last = *lst;
+	printf("Object type: %d\n", last->type);
+	while (last->next)
+		last = last->next;
+	last->next = new;
 	new->next = NULL;
 	return ;
 }
