@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/22 19:58:55 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:15:50 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 #include <stdio.h>
 #include <mlx.h>
 #include "objects.h"
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	char	*a;
+	size_t	i;
+
+	a = (char *)malloc(count * size);
+	if (!a)
+		return (NULL);
+	i = 0;
+	while (i < count * size)
+	{
+		a[i] = 0;
+		i++;
+	}
+	return ((void *)a);
+}
+
 
 int	hook_keydown(int key, t_data *mlx)
 {
@@ -108,7 +126,7 @@ void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
 		return ;
 	}	
 	last = *lst;
-	printf("Object type: %d\n", last->type);
+	printf("Object type: %d\n", (*lst)->type); //Se pierde la referencia en algún momento, aquí ya llega mal
 	while (last->next)
 		last = last->next;
 	last->next = new;
@@ -121,9 +139,10 @@ void	*add_obj_to_scene(t_world *world, void *obj)
 	t_object_list	*elem;
 
 	elem = obj_lstnew(obj, SPHERE); //TODO Parser: el type de objeto tiene que llegar de la escena
+	printf("FIRST - %p\n", world->objs);
 	if (!elem)
 		return (NULL);
-	obj_lstadd_back(&world->objs, elem);
+	obj_lstadd_back(&(world->objs), elem);
 	return (obj);
 }
 
@@ -148,7 +167,7 @@ int	main(void)
 
 	/*TODO PARSER: Hardcodeado porque esto vendrá del parser*/
 	data->world = (t_world*)malloc(sizeof(t_world));
-	data->world->objs = (t_object_list*)malloc(sizeof(t_object_list));
+	data->world->objs = (t_object_list*)ft_calloc(sizeof(t_object_list), 1);
 	data->world->camera.from = vctor(0, 0, 0);
 	data->world->camera.HFOV = 150.0;
 	t_sphere *sphere = new_sphere(vctor(0, 0, -1), 0.5, vctor(1, 1, 1));
