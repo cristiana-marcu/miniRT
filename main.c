@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/21 20:10:12 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:51:04 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
 	t_vec3 origin = vctor(0, 0, 0);
     t_vec3 horizontal = vctor(data->view.width, 0, 0);
     t_vec3 vertical = vctor(0, data->view.height, 0);
-    t_vec3 lower_left_corner = vec3_subs(vec3_subs(origin, vec3_division(horizontal, 2)), vec3_subs(vec3_division(vertical, 2), vctor(0, 0, data->world.camera.HFOV)));
+    t_vec3 lower_left_corner = vec3_subs(vec3_subs(origin, vec3_division(horizontal, 2)), vec3_subs(vec3_division(vertical, 2), vctor(0, 0, data->world->camera.HFOV)));
 	
 	double u = (double)aux->x / (data->view.width-1);
 	double v = (double)aux->y / (data->view.height-1);
@@ -76,7 +76,7 @@ void render(t_data *data)
         while (aux.x < data->view.width)
 		{
 			shoot_ray(data, &ray, &aux);
-            pixel_color = ray_color(&ray, &data->world);
+            pixel_color = ray_color(&ray, data->world);
 			my_mlx_pixel_put(data, aux.x, aux.y, vec3_toRGB(pixel_color));
 			aux.x++;
         }
@@ -101,11 +101,15 @@ void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
 {
 	t_object_list	*last;
 
+	//printf("Object type: %d\n", new->type);
+	last = (t_object_list*)malloc(sizeof(t_object_list));
+
 	if (!(*lst))
 		*lst = new;
 	else
 	{
 		last = *lst;
+		printf("Object type: %d\n", last->type);
 		while (last->next)
 			last = last->next;
 		last->next = new;
@@ -118,7 +122,7 @@ void	*add_obj_to_scene(t_world *world, void *obj)
 {
 	t_object_list	*elem;
 
-	elem = obj_lstnew(obj, 1); //TODO Parser: el type de objeto tiene que llegar de la escena
+	elem = obj_lstnew(obj, SPHERE); //TODO Parser: el type de objeto tiene que llegar de la escena
 	if (!elem)
 		return (NULL);
 	obj_lstadd_back(&world->objs, elem);
@@ -145,10 +149,12 @@ int	main(void)
 	data = init_mlx();
 
 	/*TODO PARSER: Hardcodeado porque esto vendrá del parser*/
-	data->world.camera.from = vctor(0, 0, 0);
-	data->world.camera.HFOV = 150.0;
+	data->world = (t_world*)malloc(sizeof(t_world));
+	data->world->objs = (t_object_list*)malloc(sizeof(t_object_list));
+	data->world->camera.from = vctor(0, 0, 0);
+	data->world->camera.HFOV = 150.0;
 	t_sphere *sphere = new_sphere(vctor(0, 0, -1), 0.5, vctor(1, 1, 1));
-	add_obj_to_scene(&data->world, sphere);
+	add_obj_to_scene(data->world, sphere);
 	/*______________________________________________________*/
 	render(data);
 	

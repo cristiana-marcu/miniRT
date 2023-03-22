@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/21 20:12:56 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:25:23 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,29 @@ t_vec3 rayAt(t_ray *r, double pointOnRay)
 
 t_vec3 ray_color(t_ray *r, t_world *world)
 {
-    // double hitP;
-    // t_vec3 N;
+    double hitP;
+    t_vec3 N;
+    t_object_list *obj;
     
     world->rec->t_min = EPSILON;
     world->rec->t_max = INFINITY;
     
-    // hitP = hit_sphere(vctor(0,0,-1), 0.5, *r);
-    // if (hitP > 0.0)
-    // {
-    //     N = vec3_normalize(vec3_subs(rayAt(r, hitP), vctor(0, 0, -1)));
-    //     return (vec3_mult(vctor(N.x + 1, N.y + 1, N.z + 1), 0.789));
-    // }
-    // t_vec3 unit_direction = vec3_normalize(r->direction);
-    // hitP = 0.5*(unit_direction.y + 1.0);
-    // return vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0-hitP)), vec3_mult(vctor(0.5, 0.7, 1.0), hitP));
+    obj = world->objs;
+    while (obj)
+    {
+        if (obj->type == SPHERE)
+            hitP = hit_sphere((t_sphere*)obj, r, world->rec);
+            
+        obj = obj->next;
+    }
+
+    
+    if (hitP > 0.0)
+    {
+        N = vec3_normalize(vec3_subs(rayAt(r, hitP), vctor(0, 0, -1)));
+        return (vec3_mult(vctor(N.x + 1, N.y + 1, N.z + 1), 0.789));
+    }
+    t_vec3 unit_direction = vec3_normalize(r->direction);
+    hitP = 0.5*(unit_direction.y + 1.0);
+    return vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0-hitP)), vec3_mult(vctor(0.5, 0.7, 1.0), hitP));
 }
