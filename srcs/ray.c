@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/22 19:25:23 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/23 14:04:01 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@ void	set_face_normal(t_ray *ray, t_hit_record *rec)
 		rec->N = vec3_negate(rec->N);
 }
 
-bool hit_sphere(t_sphere *obj, t_ray *ray,t_hit_record *rec) {
-    t_vec3 oc = vec3_subs(ray->origin, obj->center);
+bool hit_sphere(t_object_list *obj, t_ray *ray,t_hit_record *rec)
+{
+	t_sphere *sphere;
+
+	sphere = (t_sphere*)obj;
+	
+	t_vec3 oc = vec3_subs(ray->origin, sphere->center);
     double a = vec3_dot(ray->direction, ray->direction);
     double half_b = vec3_dot(oc, ray->direction);
-    double c = vec3_dot(oc, oc) - obj->r * obj->r;
+    double c = vec3_dot(oc, oc) - sphere->r * sphere->r;
     double discriminant = half_b*half_b - a*c;
     if (discriminant < 0.0)
         return (false);
@@ -39,7 +44,7 @@ bool hit_sphere(t_sphere *obj, t_ray *ray,t_hit_record *rec) {
     }
     rec->t = root;
     rec->hit_point = rayAt(ray, rec->t);
-    rec->N = vec3_division(vec3_subs(rec->hit_point, obj->center), obj->r); 
+    rec->N = vec3_division(vec3_subs(rec->hit_point, sphere->center), sphere->r); 
     set_face_normal(ray, rec);
 	return (true);
 }
@@ -71,15 +76,13 @@ t_vec3 ray_color(t_ray *r, t_world *world)
     world->rec->t_max = INFINITY;
     
     obj = world->objs;
-    while (obj)
+	while (obj)
     {
         if (obj->type == SPHERE)
-            hitP = hit_sphere((t_sphere*)obj, r, world->rec);
+            hitP = hit_sphere(obj->obj, r, world->rec); //Este casteo da problemas
             
         obj = obj->next;
     }
-
-    
     if (hitP > 0.0)
     {
         N = vec3_normalize(vec3_subs(rayAt(r, hitP), vctor(0, 0, -1)));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/22 20:15:50 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/23 14:03:42 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_object_list	*obj_lstnew(void *obj, int type)
 {
 	t_object_list	*result;
 
-	result = (t_object_list *)malloc(sizeof(t_object_list));
+	result = ft_calloc(1, sizeof(t_object_list));
 	if (!result)
 		return (NULL);
 	result->type = type;
@@ -119,14 +119,13 @@ void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
 {
 	t_object_list	*last;
 
-	if (!(*lst))
+	if (!(*lst)->obj) //En la primera vuelta tendria que entrar por aqui
 	{
 		*lst = new;
 		new->next = NULL;
 		return ;
 	}	
 	last = *lst;
-	printf("Object type: %d\n", (*lst)->type); //Se pierde la referencia en algún momento, aquí ya llega mal
 	while (last->next)
 		last = last->next;
 	last->next = new;
@@ -138,8 +137,7 @@ void	*add_obj_to_scene(t_world *world, void *obj)
 {
 	t_object_list	*elem;
 
-	elem = obj_lstnew(obj, SPHERE); //TODO Parser: el type de objeto tiene que llegar de la escena
-	printf("FIRST - %p\n", world->objs);
+	elem = obj_lstnew(obj, 0); //TODO Parser: el type de objeto tiene que llegar de la escena
 	if (!elem)
 		return (NULL);
 	obj_lstadd_back(&(world->objs), elem);
@@ -166,12 +164,18 @@ int	main(void)
 	data = init_mlx();
 
 	/*TODO PARSER: Hardcodeado porque esto vendrá del parser*/
-	data->world = (t_world*)malloc(sizeof(t_world));
-	data->world->objs = (t_object_list*)ft_calloc(sizeof(t_object_list), 1);
+	data->world = malloc(sizeof(t_world));
+	
+	data->world->objs = malloc(sizeof(t_object_list));
+	data->world->objs->type = 0;
+	data->world->objs->obj = NULL;
+	data->world->objs->next = NULL;
+	
+	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
 	data->world->camera.from = vctor(0, 0, 0);
 	data->world->camera.HFOV = 150.0;
 	t_sphere *sphere = new_sphere(vctor(0, 0, -1), 0.5, vctor(1, 1, 1));
-	add_obj_to_scene(data->world, sphere);
+	add_obj_to_scene(data->world, (void*)sphere);
 	/*______________________________________________________*/
 	render(data);
 	

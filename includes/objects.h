@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/21 20:12:54 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/23 10:47:12 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ struct s_object_list
     void *next;
 };
 
-bool hit_sphere(t_sphere *obj, t_ray *r,t_hit_record *rec);
+bool hit_sphere(t_object_list *obj, t_ray *r,t_hit_record *rec);
 
 #endif
