@@ -6,13 +6,13 @@
 /*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/23 14:03:42 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/23 14:44:59 by cristianama      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "canvas.h"
 #include <stdio.h>
 #include <mlx.h>
+#include "canvas.h"
 #include "objects.h"
 
 void	*ft_calloc(size_t count, size_t size)
@@ -174,8 +174,10 @@ int	main(void)
 	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
 	data->world->camera.from = vctor(0, 0, 0);
 	data->world->camera.HFOV = 150.0;
-	t_sphere *sphere = new_sphere(vctor(0, 0, -1), 0.5, vctor(1, 1, 1));
-	add_obj_to_scene(data->world, (void*)sphere);
+	t_sphere *sphere1 = new_sphere(vctor(0, 0.5, 1), 0.5, vctor(1, 1, 1));
+	t_sphere *sphere2 = new_sphere(vctor(0, -0.5, 1), 0.5, vctor(1, 1, 1));
+	add_obj_to_scene(data->world, (void*)sphere1);
+	add_obj_to_scene(data->world, (void*)sphere2);
 	/*______________________________________________________*/
 	render(data);
 	
