@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/25 19:17:08 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/25 19:40:44 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_data *init_mlx() //TODO pasar argv para chequear formatos
 	if (data == NULL)
 		return (NULL);
 	data->view.aspect_ratio = 16.0 / 9.0;
-	data->view.width = 720;
+	data->view.width = 1080;
 	data->view.height = (int)(data->view.width / data->view.aspect_ratio);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->view.width, data->view.height, "miniRT");
