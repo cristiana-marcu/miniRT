@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/23 14:47:04 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/25 16:57:16 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	hook_keydown(int key, t_data *mlx)
 	return (0);
 }
 
-int	close()
+int	close_win(t_data *mlx)
 {
+	mlx_destroy_image(mlx->mlx, mlx->img);
 	exit(0);
 }
 
@@ -173,16 +174,22 @@ int	main(void)
 	
 	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
 	data->world->camera.from = vctor(0, 0, 0);
-	data->world->camera.HFOV = 150.0;
-	t_sphere *sphere1 = new_sphere(vctor(0, 0.5, 1), 0.5, vctor(1, 1, 1));
-	t_sphere *sphere2 = new_sphere(vctor(0, -0.5, 1), 0.5, vctor(1, 1, 1));
+	data->world->camera.HFOV = 100.0;
+	t_sphere *sphere1 = new_sphere(vctor(0, 0, 1), 0.5, vctor(0.5, 1, 1));
+	t_sphere *sphere2 = new_sphere(vctor(0, 100.5, 1), 100, vctor(1, 1, 1));
+	t_sphere *sphere3 = new_sphere(vctor(1, 0, 1), 0.5, vctor(1, 1, 1));
+	t_sphere *sphere4 = new_sphere(vctor(1, 0, 1), -0.45, vctor(1, 1, 1));
+	t_sphere *sphere5 = new_sphere(vctor(-1, 0, 1), 0.5, vctor(1, 1, 1));
 	add_obj_to_scene(data->world, (void*)sphere1);
 	add_obj_to_scene(data->world, (void*)sphere2);
+	add_obj_to_scene(data->world, (void*)sphere3);
+	add_obj_to_scene(data->world, (void*)sphere4);
+	add_obj_to_scene(data->world, (void*)sphere5);
 	/*______________________________________________________*/
 	render(data);
 	
 	mlx_put_image_to_window(data->mlx,data->win, data->img, 0, 0);
 	mlx_key_hook(data->win, hook_keydown, &data->mlx);
-	mlx_hook(data->win, 17, 0, close, NULL);
+	mlx_hook(data->win, 17, 0, close_win, data);
 	mlx_loop(data->mlx);
 }

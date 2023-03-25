@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/23 14:17:42 by cristianama      ###   ########.fr       */
+/*   Updated: 2023/03/25 16:30:00 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ bool hit_sphere(t_object_list *obj, t_ray *ray,t_hit_record *rec)
     rec->hit_point = rayAt(ray, rec->t);
     rec->N = vec3_division(vec3_subs(rec->hit_point, sphere->center), sphere->r); 
     set_face_normal(ray, rec);
+    rec->t_max = rec->t;
 	return (true);
 }
 
@@ -68,8 +69,7 @@ t_vec3 rayAt(t_ray *r, double pointOnRay)
 
 t_vec3 ray_color(t_ray *r, t_world *world)
 {
-    double hitP;
-    t_vec3 N;
+    bool hit_anything;
     t_object_list *obj;
     
     world->rec->t_min = EPSILON;
@@ -79,16 +79,12 @@ t_vec3 ray_color(t_ray *r, t_world *world)
 	while (obj)
     {
         if (obj->type == SPHERE)
-            hitP = hit_sphere(obj, r, world->rec); //Este casteo da problemas
-            
+            hit_anything = hit_sphere(obj, r, world->rec); 
+        if (hit_anything)
+            return (vec3_mult(vec3_add(world->rec->N, vctor(1, 1, 1)), 0.5));
         obj = obj->next;
     }
-    if (hitP > 0.0)
-    {
-        N = vec3_normalize(vec3_subs(rayAt(r, hitP), vctor(0, 0, -1)));
-        return (vec3_mult(vctor(N.x + 1, N.y + 1, N.z + 1), 0.789));
-    }
     t_vec3 unit_direction = vec3_normalize(r->direction);
-    hitP = 0.5*(unit_direction.y + 1.0);
-    return vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0-hitP)), vec3_mult(vctor(0.5, 0.7, 1.0), hitP));
+    hit_anything = 0.5*(unit_direction.y + 1.0);
+    return vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0-hit_anything)), vec3_mult(vctor(0.5, 0.7, 1.0), hit_anything));
 }
