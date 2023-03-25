@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/25 14:54:43 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/25 18:03:29 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef enum e_type
 {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+    LIGHT
 }			t_type;
 
 typedef struct s_sphere
@@ -82,7 +83,7 @@ typedef struct s_hit_record
 typedef struct s_world
 {
     t_object_list *objs;
-    t_list *lights;
+    t_object_list *lights;
     t_ambientLight AL;
     t_camera camera;
     t_hit_record *rec;

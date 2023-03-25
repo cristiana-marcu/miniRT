@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/25 16:30:00 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/25 18:20:51 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_vec3 ray_color(t_ray *r, t_world *world)
         if (obj->type == SPHERE)
             hit_anything = hit_sphere(obj, r, world->rec); 
         if (hit_anything)
-            return (vec3_mult(vec3_add(world->rec->N, vctor(1, 1, 1)), 0.5));
+            return (vec3_mult(((t_sphere*)(obj->obj))->color, vec3_dot(vec3_normalize(world->rec->N), vec3_normalize(vctor(-1, -1, -1)))));
         obj = obj->next;
     }
     t_vec3 unit_direction = vec3_normalize(r->direction);

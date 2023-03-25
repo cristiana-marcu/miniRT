@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/15 20:20:37 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/03/25 19:02:37 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,24 @@ double length_squared(t_vec3 e)
 	return e.x*e.x + e.y*e.y + e.z*e.z;
 }
 
+double clamp(double x, double min, double max)
+{
+	if (x < min)
+		return min;
+	if (x > max)
+		return max;
+	return x;
+}
+
 int vec3_toRGB(t_vec3 v)
 {
-	return((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z * 255.999));
+	int samples_per_pixel;
+	double scale;
+
+	samples_per_pixel = 100;
+	scale = 1.0 / samples_per_pixel;
+	v.x *= scale;
+	v.y *= scale;
+	v.z *= scale;
+	return((int)(256 * clamp(v.x, 0.0, 0.999)) << 16 | (int)(256 * clamp(v.y, 0.0, 0.999)) << 8 | (int)(256 * clamp(v.z, 0.0, 0.999)));
 }	
