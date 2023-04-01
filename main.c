@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/25 19:40:44 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/01 17:27:09 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
     t_vec3 vertical = vctor(0, data->view.height, 0);
     t_vec3 lower_left_corner = vec3_subs(vec3_subs(origin, vec3_division(horizontal, 2)), vec3_subs(vec3_division(vertical, 2), vctor(0, 0, data->world->camera.HFOV)));
 	
-	double u = ((double)aux->x + random_double()) / (data->view.width-1);
-	double v = ((double)aux->y + random_double()) / (data->view.height-1);
+	double u = ((double)aux->x + random_double()) / (data->view.width-1); //Antialiasing random_double()
+	double v = ((double)aux->y + random_double()) / (data->view.height-1);//Antialiasing random_double()
 	ray->origin = vctor(0, 0, 0);
 	ray->direction = vec3_add(vec3_add(lower_left_corner, vec3_mult(horizontal, u)), vec3_subs(vec3_mult(vertical, v), origin));
 }
@@ -91,7 +91,6 @@ void render(t_data *data)
 	t_vec3	aux;
 	t_ray	ray;
 	t_vec3	pixel_color;
-	int s;
 
 	aux.y = 0;
 	while (aux.y < data->view.height)
@@ -100,13 +99,8 @@ void render(t_data *data)
         while (aux.x < data->view.width)
 		{
 			pixel_color = vctor(0, 0, 0);
-			s = 1;
-			while (s < 100)
-			{
-				shoot_ray(data, &ray, &aux);
-				pixel_color = vec3_add(ray_color(&ray, data->world), pixel_color);
-				s++;
-			}
+			shoot_ray(data, &ray, &aux);
+			pixel_color = vec3_add(ray_color(&ray, data->world), pixel_color);
 			my_mlx_pixel_put(data, aux.x, aux.y, vec3_toRGB(pixel_color));
 			aux.x++;
         }
@@ -190,17 +184,15 @@ int	main(void)
 	
 	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
 	data->world->camera.from = vctor(0, 0, 0);
-	data->world->camera.HFOV = 100.0;
-	t_sphere *sphere1 = new_sphere(vctor(0, 0, 1), 0.5, vctor(0.5, 1, 1));
-	t_sphere *sphere2 = new_sphere(vctor(0, 100.5, 1), 100, vctor(1, 1, 0.15));
-	t_sphere *sphere3 = new_sphere(vctor(1, 0, 1), 0.5, vctor(1, 0.75, 1));
-	t_sphere *sphere4 = new_sphere(vctor(1, 0, 1), -0.45, vctor(1, 1, 1));
-	t_sphere *sphere5 = new_sphere(vctor(-1, 0, 1), 0.5, vctor(1, 1, 1));
+	data->world->camera.HFOV = 20.0;
+	t_sphere *sphere1 = new_sphere(vctor(0, 0, 1), 0.5, vctor(0.5, 1, 1)); //azul
+	t_sphere *sphere2 = new_sphere(vctor(0, 100.5, 1), 100, vctor(1, 1, 0.15)); //verde
+	t_sphere *sphere3 = new_sphere(vctor(1, 0, 1), 1, vctor(1, 0.75, 1)); //rosa
+	t_sphere *sphere4 = new_sphere(vctor(-1, 0, 1), 0.5, vctor(1, 1, 1)); //negra-gris
+	add_obj_to_scene(data->world, (void*)sphere4);
+	add_obj_to_scene(data->world, (void*)sphere2);
 	add_obj_to_scene(data->world, (void*)sphere1);
 	add_obj_to_scene(data->world, (void*)sphere3);
-	add_obj_to_scene(data->world, (void*)sphere4);
-	add_obj_to_scene(data->world, (void*)sphere5);
-	add_obj_to_scene(data->world, (void*)sphere2);
 	/*______________________________________________________*/
 	render(data);
 	

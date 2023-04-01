@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/25 19:02:37 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/01 15:05:10 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ double clamp(double x, double min, double max)
 
 int vec3_toRGB(t_vec3 v)
 {
+	/*_________Antialiasing shit__________*
 	int samples_per_pixel;
 	double scale;
 
@@ -131,5 +132,6 @@ int vec3_toRGB(t_vec3 v)
 	v.x *= scale;
 	v.y *= scale;
 	v.z *= scale;
-	return((int)(256 * clamp(v.x, 0.0, 0.999)) << 16 | (int)(256 * clamp(v.y, 0.0, 0.999)) << 8 | (int)(256 * clamp(v.z, 0.0, 0.999)));
+	*_____________________________________*/
+	return((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z * 255.999)); //Con esta solución aparece la línea blanca rara en las esferas al sombrear
 }	

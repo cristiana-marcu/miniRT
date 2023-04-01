@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/25 18:20:51 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/01 17:18:17 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,33 @@ t_vec3 rayAt(t_ray *r, double pointOnRay)
 t_vec3 ray_color(t_ray *r, t_world *world)
 {
     bool hit_anything;
+    double closest_so_far;
     t_object_list *obj;
+    t_vec3 color;
     
     world->rec->t_min = EPSILON;
     world->rec->t_max = INFINITY;
     
     obj = world->objs;
+    closest_so_far = world->rec->t_max;
 	while (obj)
     {
         if (obj->type == SPHERE)
-            hit_anything = hit_sphere(obj, r, world->rec); 
-        if (hit_anything)
-            return (vec3_mult(((t_sphere*)(obj->obj))->color, vec3_dot(vec3_normalize(world->rec->N), vec3_normalize(vctor(-1, -1, -1)))));
+        {
+            if (hit_sphere(obj, r, world->rec))
+            {
+                hit_anything = true;
+                if (world->rec->t_max < closest_so_far)
+                {
+                    closest_so_far = world->rec->t;
+                    color = ((t_sphere*)(obj->obj))->color;
+                }
+            }
+        }
         obj = obj->next;
     }
+    if (hit_anything)
+        return (vec3_mult(color, vec3_dot(vec3_normalize(world->rec->N), vec3_normalize(vctor(-1, -1, -1)))));
     t_vec3 unit_direction = vec3_normalize(r->direction);
     hit_anything = 0.5*(unit_direction.y + 1.0);
     return vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0-hit_anything)), vec3_mult(vctor(0.5, 0.7, 1.0), hit_anything));
