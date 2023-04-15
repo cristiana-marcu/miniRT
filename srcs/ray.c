@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/04/01 17:18:17 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/15 17:44:45 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "objects.h"
+#include "canvas.h"
 
-void	set_face_normal(t_ray *ray, t_hit_record *rec)
+
+double random_double()
 {
-	rec->front_face = vec3_dot(ray->direction, rec->N) < 0;
-	if (rec->front_face == false)
-		rec->N = vec3_negate(rec->N);
-}
-
-bool hit_sphere(t_object_list *obj, t_ray *ray,t_hit_record *rec)
-{
-	t_sphere *sphere;
-
-	sphere = (t_sphere*)obj->obj;
-	
-	t_vec3 oc = vec3_subs(ray->origin, sphere->center);
-    double a = vec3_dot(ray->direction, ray->direction);
-    double half_b = vec3_dot(oc, ray->direction);
-    double c = vec3_dot(oc, oc) - sphere->r * sphere->r;
-    double discriminant = half_b*half_b - a*c;
-    if (discriminant < 0.0)
-        return (false);
-    double root = (-half_b - sqrt(discriminant)) / a;
-    if (root < rec->t_min || root > rec->t_max)
-    {
-        root = (-half_b + sqrt(discriminant)) / a;
-        if (root < rec->t_min || root > rec->t_max)
-            return (false);
-    }
-    rec->t = root;
-    rec->hit_point = rayAt(ray, rec->t);
-    rec->N = vec3_division(vec3_subs(rec->hit_point, sphere->center), sphere->r); 
-    set_face_normal(ray, rec);
-    rec->t_max = rec->t;
-	return (true);
+	return (rand() / RAND_MAX + 1.0);
 }
 
 t_ray rctor(t_vec3 origin, t_vec3 direction)
@@ -100,4 +72,24 @@ t_vec3 ray_color(t_ray *r, t_world *world)
     t_vec3 unit_direction = vec3_normalize(r->direction);
     hit_anything = 0.5*(unit_direction.y + 1.0);
     return vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0-hit_anything)), vec3_mult(vctor(0.5, 0.7, 1.0), hit_anything));
+}
+
+void shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
+{
+	double u;
+	double v;
+	t_vec3 temp;
+
+	u = ((double)aux->x) / (data->view.width-1); //Antialiasing ((double)aux->x + random_double())
+	v = ((double)aux->y) / (data->view.height-1);//Antialiasing ((double)aux->y + random_double())
+	ray->origin = data->world->camera.from;
+	//ray->direction = vec3_add(vec3_add(data->world->camera.lower_left_corner, vec3_mult(data->world->camera.horizontal, u)), vec3_subs(vec3_mult(data->world->camera.vertical, v), data->world->camera.from));
+	/*Todo esto debería ser lo mismo que ray(origin, lower_left_corner + s*horizontal + t*vertical - origin)*/
+	ray->direction = vec3_mult(data->world->camera.horizontal, u);
+	ray->direction = vec3_add(data->world->camera.lower_left_corner, ray->direction);
+	temp = vec3_mult(data->world->camera.vertical, v);
+	ray->direction = vec3_add(ray->direction, temp);
+	ray->direction = vec3_subs(ray->direction, data->world->camera.from);
+	ray->direction = vec3_normalize(ray->direction);
+	
 }

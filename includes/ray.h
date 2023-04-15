@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:57:33 by cristianama       #+#    #+#             */
-/*   Updated: 2023/03/21 19:09:36 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/15 17:57:21 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,19 @@
 # define RAYS_H
 
 #include <math.h>
+#include "canvas.h"
 #include "vectors.h"
 #include "objects.h"
 
 t_ray	rctor(t_vec3 origin, t_vec3 direction);
 t_vec3	ray_color(t_ray *r, t_world *world);
 t_vec3	rayAt(t_ray *r, double pointOnRay);
+void shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux);
+
+double	degree_to_radian(double degree);
+
+void	set_face_normal(t_ray *ray, t_hit_record *rec);
+t_sphere *new_sphere(t_vec3 center, double r, t_vec3 color);
+bool hit_sphere(t_object_list *obj, t_ray *ray,t_hit_record *rec);
 
 #endif

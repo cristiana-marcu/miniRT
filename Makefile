@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cristianamarcu <cristianamarcu@student.    +#+  +:+       +#+         #
+#    By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 16:47:15 by cmarcu            #+#    #+#              #
-#    Updated: 2023/03/13 20:22:20 by cristianama      ###   ########.fr        #
+#    Updated: 2023/04/15 17:52:53 by cmarcu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	srcs/canvas/canvas.c srcs/math/vectors.c ./main.c ./srcs/ray.c
+SRCS	=	srcs/canvas/canvas.c ./main.c srcs/vectors.c ./srcs/ray.c srcs/camera.c srcs/render.c srcs/sphere.c
 OBJS	=	$(SRCS:.c=.o)
 
 NAME	=	miniRT

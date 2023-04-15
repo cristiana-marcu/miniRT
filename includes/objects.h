@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/15 15:37:25 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/15 17:56:29 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 #include "vectors.h"
 #include "ray.h"
-#include "../srcs/libft/libft.h"
+#include <math.h>
+#include <stdlib.h>
+#include <mlx.h>
 
 typedef struct s_object_list t_object_list;
 
@@ -112,6 +114,33 @@ struct s_object_list
     void *next;
 };
 
+typedef struct s_canvas
+{
+	unsigned short width;
+	unsigned short height;
+	double aspect_ratio;
+} t_canvas;
+
+typedef struct s_data {
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
+	t_canvas view;
+	t_world *world;
+} t_data;
+
 bool hit_sphere(t_object_list *obj, t_ray *r,t_hit_record *rec);
+t_camera init_camera(t_data *data);
+void render(t_data *data);
+
+t_object_list	*obj_lstnew(void *obj, int type);
+void	obj_lstadd_back(t_object_list **lst, t_object_list *new);
+void	*add_obj_to_scene(t_world *world, void *obj);
+
+void	*ft_calloc(size_t count, size_t size);
 
 #endif
