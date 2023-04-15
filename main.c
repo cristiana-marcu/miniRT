@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/01 17:27:09 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/15 17:04:48 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_data *init_mlx() //TODO pasar argv para chequear formatos
 	if (data == NULL)
 		return (NULL);
 	data->view.aspect_ratio = 16.0 / 9.0;
-	data->view.width = 1080;
+	data->view.width = 720;
 	data->view.height = (int)(data->view.width / data->view.aspect_ratio);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->view.width, data->view.height, "miniRT");
@@ -75,15 +75,24 @@ double random_double()
 
 void shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
 {
-	t_vec3 origin = vctor(0, 0, 0);
-    t_vec3 horizontal = vctor(data->view.width, 0, 0);
-    t_vec3 vertical = vctor(0, data->view.height, 0);
-    t_vec3 lower_left_corner = vec3_subs(vec3_subs(origin, vec3_division(horizontal, 2)), vec3_subs(vec3_division(vertical, 2), vctor(0, 0, data->world->camera.HFOV)));
+	// t_vec3 origin = data->world->camera.from;
+    // t_vec3 horizontal = vctor(data->view.width, 0, 0);
+    // t_vec3 vertical = vctor(0, data->view.height, 0);
+    // t_vec3 lower_left_corner = vec3_subs(vec3_subs(origin, vec3_division(horizontal, 2)), vec3_subs(vec3_division(vertical, 2), vctor(0, 0, data->world->camera.HFOV)));
+	// // (origin - h/2) - (v/2 - HFOV)
+	double u = ((double)aux->x) / (data->view.width-1); //Antialiasing ((double)aux->x + random_double())
+	double v = ((double)aux->y) / (data->view.height-1);//Antialiasing ((double)aux->y + random_double())
+	t_vec3 temp;
+	ray->origin = data->world->camera.from;
+	//ray->direction = vec3_add(vec3_add(data->world->camera.lower_left_corner, vec3_mult(data->world->camera.horizontal, u)), vec3_subs(vec3_mult(data->world->camera.vertical, v), data->world->camera.from));
+	/*Todo esto debería ser lo mismo que ray(origin, lower_left_corner + s*horizontal + t*vertical - origin)*/
+	ray->direction = vec3_mult(data->world->camera.horizontal, u);
+	ray->direction = vec3_add(data->world->camera.lower_left_corner, ray->direction);
+	temp = vec3_mult(data->world->camera.vertical, v);
+	ray->direction = vec3_add(ray->direction, temp);
+	ray->direction = vec3_subs(ray->direction, data->world->camera.from);
+	ray->direction = vec3_normalize(ray->direction);
 	
-	double u = ((double)aux->x + random_double()) / (data->view.width-1); //Antialiasing random_double()
-	double v = ((double)aux->y + random_double()) / (data->view.height-1);//Antialiasing random_double()
-	ray->origin = vctor(0, 0, 0);
-	ray->direction = vec3_add(vec3_add(lower_left_corner, vec3_mult(horizontal, u)), vec3_subs(vec3_mult(vertical, v), origin));
 }
 
 void render(t_data *data)
@@ -163,6 +172,40 @@ t_sphere *new_sphere(t_vec3 center, double r, t_vec3 color)
 	return (sph);
 }
 
+double	degree_to_radian(double degree)
+{
+	return (degree * M_PI / 180);
+}
+
+t_camera init_camera(t_data *data)
+{
+	t_camera camera;
+	
+	/*TODO que venga del parser todo lo hardcodeado*/
+	camera.from = vctor(-2, -2, -1);
+	camera.HFOV = 120.0;
+	camera.lookAt = vctor(0, 0, 1);
+	/*_____________________________________________*/
+	
+	double theta;
+	double field_width;
+
+	theta = degree_to_radian(camera.HFOV);
+	field_width = 2.0 * (double)tan(theta / 2);
+	camera.viewport_width = field_width;
+	camera.viewport_height = data->view.aspect_ratio * field_width;
+
+	camera.w = vec3_normalize(vec3_subs(camera.from, camera.lookAt));
+	camera.u = vec3_normalize(vec3_cross(vctor(0, 1, 0), camera.w));
+	camera.v = vec3_cross(camera.w, camera.u);
+
+	camera.horizontal = vec3_mult(camera.u, camera.viewport_width);
+	camera.vertical = vec3_mult(camera.v, camera.viewport_height);
+	camera.lower_left_corner = vec3_subs(vec3_subs(vec3_subs(camera.from, vec3_division(camera.horizontal, 2)), vec3_division(camera.vertical, 2)), camera.w);
+
+	return (camera);
+}
+
 int	main(void)
 {
 	t_data	*data;
@@ -183,8 +226,7 @@ int	main(void)
 	data->world->lights->next = NULL;
 	
 	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
-	data->world->camera.from = vctor(0, 0, 0);
-	data->world->camera.HFOV = 20.0;
+	data->world->camera = init_camera(data);
 	t_sphere *sphere1 = new_sphere(vctor(0, 0, 1), 0.5, vctor(0.5, 1, 1)); //azul
 	t_sphere *sphere2 = new_sphere(vctor(0, 100.5, 1), 100, vctor(1, 1, 0.15)); //verde
 	t_sphere *sphere3 = new_sphere(vctor(1, 0, 1), 1, vctor(1, 0.75, 1)); //rosa

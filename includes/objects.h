@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/25 18:03:29 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/15 15:37:25 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,17 @@ typedef struct s_light
 
 typedef struct s_camera
 {
-    t_vec3 from;
-    t_vec3 lookAt; //Normalized direction vector
-    double HFOV;
+    t_vec3  from;
+    t_vec3  lookAt; //Normalized direction vector
+    double  HFOV;
+	double  viewport_height;
+	double  viewport_width;
+    t_vec3  w;
+    t_vec3  u;
+    t_vec3  v;
+    t_vec3  horizontal;
+    t_vec3  vertical;
+    t_vec3  lower_left_corner;
 } t_camera;
 
 typedef struct s_hit_record
