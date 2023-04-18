@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/15 17:56:29 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/18 17:54:12 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_cylinder
 {
     t_vec3 pos;
     t_vec3 N;
-    double D;
+    double r;
     double H;
     t_vec3 color;
 } t_cylinder;
