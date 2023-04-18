@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:40:48 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/18 15:09:53 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/18 15:13:38 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool hit_sphere(t_object_list *obj, t_ray *ray,t_hit_record *rec)
 	return (true);
 }
 
-t_sphere *new_plane(t_vec3 pos, t_vec3 N, t_vec3 color)
+t_plane *new_plane(t_vec3 pos, t_vec3 N, t_vec3 color)
 {
 	t_plane *pl;
 
