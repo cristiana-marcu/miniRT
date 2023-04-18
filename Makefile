@@ -6,11 +6,11 @@
 #    By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 16:47:15 by cmarcu            #+#    #+#              #
-#    Updated: 2023/04/15 17:52:53 by cmarcu           ###   ########.fr        #
+#    Updated: 2023/04/18 14:56:04 by cmarcu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	srcs/canvas/canvas.c ./main.c srcs/vectors.c ./srcs/ray.c srcs/camera.c srcs/render.c srcs/sphere.c
+SRCS	=	srcs/canvas/canvas.c ./main.c srcs/vectors.c ./srcs/ray.c srcs/camera.c srcs/render.c srcs/sphere-plane.c
 OBJS	=	$(SRCS:.c=.o)
 
 NAME	=	miniRT

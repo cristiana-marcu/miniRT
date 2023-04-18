@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/15 17:43:51 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/18 14:49:57 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include <stdio.h>
 #include "objects.h"
 #include "canvas.h"
+
+void	set_face_normal(t_ray *ray, t_hit_record *rec)
+{
+	rec->front_face = vec3_dot(ray->direction, rec->N) < 0;
+	if (rec->front_face == false)
+		rec->N = vec3_negate(rec->N);
+}
 
 t_object_list	*obj_lstnew(void *obj, int type)
 {

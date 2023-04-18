@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   sphere-plane.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:40:48 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/15 17:44:52 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/18 15:09:53 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 #include <stdio.h>
 #include "objects.h"
 #include "canvas.h"
-
-void	set_face_normal(t_ray *ray, t_hit_record *rec)
-{
-	rec->front_face = vec3_dot(ray->direction, rec->N) < 0;
-	if (rec->front_face == false)
-		rec->N = vec3_negate(rec->N);
-}
 
 t_sphere *new_sphere(t_vec3 center, double r, t_vec3 color)
 {
@@ -61,5 +54,42 @@ bool hit_sphere(t_object_list *obj, t_ray *ray,t_hit_record *rec)
     rec->N = vec3_division(vec3_subs(rec->hit_point, sphere->center), sphere->r); 
     set_face_normal(ray, rec);
     rec->t_max = rec->t;
+	return (true);
+}
+
+t_sphere *new_plane(t_vec3 pos, t_vec3 N, t_vec3 color)
+{
+	t_plane *pl;
+
+	pl = malloc(sizeof(t_plane));
+	if (!pl)
+		return (NULL);
+	pl->pos = pos;
+	pl->N = N;
+	pl->color  = color;
+	return (pl);
+}
+
+/*Ray-plane intersection equation: 
+	t = dot(N, P - Q) / dot(N, B)
+	where B is ray direction, A its origin*/
+bool hit_plane(t_object_list *obj, t_ray *ray,t_hit_record *rec)
+{
+	t_plane *plane;
+	double denominator;
+	double t;
+
+	plane = (t_plane*)obj->obj;
+	denominator = vec3_dot(plane->N, ray->direction);
+	if (fabs(denominator) < EPSILON)
+		return (false);
+	t = vec3_dot(vec3_subs(plane->pos, ray->origin), plane->N) / denominator;
+	if (t < rec->t_min || t > rec->t_max)
+		return (false);
+	rec->t = t;
+	rec->hit_point = rayAt(ray, t);
+	rec->N = plane->N;
+	set_face_normal(ray, rec);
+	rec->t_max = t;
 	return (true);
 }
