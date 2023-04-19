@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:51:40 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/18 17:57:30 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/19 14:38:01 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, t_vec3 color)
 	if (!cylinder)
 		return (NULL);
 	cylinder->pos = pos;
+	cylinder->N = N;
 	cylinder->r = r;
 	cylinder->color  = color;
 	return (cylinder);
