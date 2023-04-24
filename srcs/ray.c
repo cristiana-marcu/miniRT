@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/04/15 17:44:45 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/24 15:33:10 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ t_vec3 ray_color(t_ray *r, t_world *world)
                 {
                     closest_so_far = world->rec->t;
                     color = ((t_sphere*)(obj->obj))->color;
+                }
+            }
+        }
+        else if (obj->type == CYLINDER)
+        {
+            if (hit_cylinder(obj, r, world->rec))
+            {
+                hit_anything = true;
+                if (world->rec->t_max < closest_so_far)
+                {
+                    closest_so_far = world->rec->t;
+                    color = ((t_cylinder*)(obj->obj))->color;
                 }
             }
         }

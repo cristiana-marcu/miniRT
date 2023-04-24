@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/15 19:02:42 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/24 15:31:30 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ int	main(void)
 	add_obj_to_scene(data->world, (void*)sphere2);
 	add_obj_to_scene(data->world, (void*)sphere1);
 	add_obj_to_scene(data->world, (void*)sphere3);
+
+	t_cylinder *cyl1 = new_cylinder(vctor(-1, 0, 1), vctor(-1, 0, 1), 0.5, vctor(1, 1, 1)); //negra-gris
+	add_obj_to_scene(data->world, (void*)cyl1);
 	/*______________________________________________________*/
 	render(data);
 	

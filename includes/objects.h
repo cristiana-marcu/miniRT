@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/18 17:54:12 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/24 15:34:31 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,10 @@ typedef struct s_data {
 } t_data;
 
 bool hit_sphere(t_object_list *obj, t_ray *r,t_hit_record *rec);
+
+t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, t_vec3 color);
+bool hit_cylinder(t_object_list *obj, t_ray *ray,t_hit_record *rec);
+
 t_camera init_camera(t_data *data);
 void render(t_data *data);
 
