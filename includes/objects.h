@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/26 15:44:35 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/26 17:53:51 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,9 @@ bool hit_sphere(t_object_list *obj, t_ray *r,t_hit_record *rec);
 
 t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, double H, t_vec3 color);
 bool hit_cylinder(t_object_list *obj, t_ray *ray,t_hit_record *rec);
+
+t_plane *new_plane(t_vec3 pos, t_vec3 N, t_vec3 color);
+bool hit_plane(t_object_list *obj, t_ray *ray,t_hit_record *rec);
 
 t_camera init_camera(t_data *data);
 void render(t_data *data);
