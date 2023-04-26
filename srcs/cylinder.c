@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:51:40 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/24 15:28:28 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/26 15:43:25 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "objects.h"
 #include "canvas.h"
 
-t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, t_vec3 color)
+t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, double H, t_vec3 color)
 {
 	t_cylinder *cylinder;
 
@@ -26,6 +26,7 @@ t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, t_vec3 color)
 	cylinder->pos = pos;
 	cylinder->N = N;
 	cylinder->r = r;
+    cylinder->H = H;
 	cylinder->color  = color;
 	return (cylinder);
 }

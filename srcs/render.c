@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/24 15:37:55 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/26 15:09:03 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
 	return ;
 }
 
-void	*add_obj_to_scene(t_world *world, void *obj)
+void	*add_obj_to_scene(t_world *world, void *obj, int type)
 {
 	t_object_list	*elem;
 
-	elem = obj_lstnew(obj, 0); //TODO Parser: el type de objeto tiene que llegar de la escena
+	elem = obj_lstnew(obj, type); //TODO Parser: el type de objeto tiene que llegar de la escena
 	if (!elem)
 		return (NULL);
 	obj_lstadd_back(&(world->objs), elem);
