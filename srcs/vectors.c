@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/01 15:05:10 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/29 16:28:20 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ t_vec3 vec3_division(t_vec3 a, double n)
 	
 	result = vec3_mult(a, 1/n);
 	return (result);
+}
+
+double	vec3_sqrd_length(t_vec3 a)
+{
+	return ((a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
 double	vec3_magnitude(t_vec3 a)

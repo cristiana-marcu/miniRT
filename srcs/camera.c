@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:35:29 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/26 20:33:15 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/29 11:26:50 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_camera init_camera(t_data *data)
 	
 	/*TODO que venga del parser todo lo hardcodeado*/
 	camera.from = vctor(-1, -2, 0);
-	camera.HFOV = 120.0;
+	camera.HFOV = 110.0;
 	camera.lookAt = vctor(-0.5, 0, 1);
 	/*_____________________________________________*/
 	

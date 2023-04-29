@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:00:37 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/03/18 15:58:36 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/29 16:28:28 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_subs(t_vec3 a, t_vec3 b);
 t_vec3	vec3_negate(t_vec3 a);
 t_vec3	vec3_mult(t_vec3 a, double n);
-t_vec3	vec3_division(t_vec3 a, double n) ;
+t_vec3	vec3_division(t_vec3 a, double n);
+double	vec3_sqrd_length(t_vec3 a);
 double	vec3_magnitude(t_vec3 a);
 t_vec3	vec3_normalize(t_vec3 a);
 double	vec3_dot(t_vec3 a, t_vec3 b);
