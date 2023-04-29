@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/04/26 17:59:43 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/29 18:41:32 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ t_vec3 rayAt(t_ray *r, double pointOnRay)
     return (ray_at);
 }
 
+bool hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec, t_vec3 *color)
+{
+    if (obj->type == SPHERE && hit_sphere(obj, r, rec))
+    {
+        *color = ((t_sphere*)(obj->obj))->color;
+        return (true);
+    }
+    else if (obj->type == CYLINDER && hit_cylinder(obj, r, rec))
+    {
+        *color = ((t_cylinder*)(obj->obj))->color;
+        return (true);
+    }
+    else if (obj->type == PLANE && hit_plane(obj, r, rec))
+    {
+        *color = ((t_plane*)(obj->obj))->color;
+        return (true);
+    }
+    return (false);
+}
+
 t_vec3 ray_color(t_ray *r, t_world *world)
 {
     bool hit_anything;
@@ -53,42 +73,12 @@ t_vec3 ray_color(t_ray *r, t_world *world)
     closest_so_far = world->rec->t_max;
 	while (obj)
     {
-        if (obj->type == SPHERE)
+        if (hit_object(obj, r, world->rec, &color))
         {
-            if (hit_sphere(obj, r, world->rec))
-            {
-                hit_anything = true;
-                if (world->rec->t_max < closest_so_far)
-                {
-                    closest_so_far = world->rec->t;
-                    color = ((t_sphere*)(obj->obj))->color;
-                }
-            }
-        }
-        else if (obj->type == CYLINDER)
-        {
-            if (hit_cylinder(obj, r, world->rec))
-            {
-                hit_anything = true;
-                if (world->rec->t_max < closest_so_far)
-                {
-                    closest_so_far = world->rec->t;
-                    color = ((t_cylinder*)(obj->obj))->color;
-                }
-            }
-        }
-        else if (obj->type == PLANE)
-        {
-            if (hit_plane(obj, r, world->rec))
-            {
-                hit_anything = true;
-                if (world->rec->t_max < closest_so_far)
-                {
-                    closest_so_far = world->rec->t;
-                    color = ((t_plane*)(obj->obj))->color;
-                }
-            }
-        }
+            hit_anything = true;
+            if (world->rec->t_max < closest_so_far)
+                closest_so_far = world->rec->t;
+        }       
         obj = obj->next;
     }
     if (hit_anything)
