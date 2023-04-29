@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:51:40 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/29 17:03:55 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/04/29 17:59:42 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ bool hit_cylinder(t_object_list *obj, t_ray *ray, t_hit_record *rec)
     if (height < 0 || height > cyl->H)
         return (false);   
     // if (!(hit_cylinder_caps(cyl, ray, rec)))
-    //     return (false);   
+    //     return (false); 
+      
     rec->t = root;
     rec->hit_point = hit_point;
     rec->N = vec3_normalize(vec3_subs(rec->hit_point, vec3_add(cyl->pos, vec3_mult(cyl->N, vec3_dot(vec3_subs(rec->hit_point, cyl->pos), cyl->N)))));
