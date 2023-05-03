@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/26 15:09:03 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/03 14:07:48 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
 		*lst = new;
 		new->next = NULL;
 		return ;
-	}	
+	}
 	last = *lst;
 	while (last->next)
 		last = last->next;
@@ -65,7 +65,7 @@ void	*add_obj_to_scene(t_world *world, void *obj, int type)
 	return (obj);
 }
 
-void render(t_data *data)
+void	render(t_data *data)
 {
 	t_vec3	aux;
 	t_ray	ray;
@@ -75,14 +75,14 @@ void render(t_data *data)
 	while (aux.y < data->view.height)
 	{
 		aux.x = 0;
-        while (aux.x < data->view.width)
+		while (aux.x < data->view.width)
 		{
 			pixel_color = vctor(0, 0, 0);
 			shoot_ray(data, &ray, &aux);
 			pixel_color = vec3_add(ray_color(&ray, data->world), pixel_color);
-			my_mlx_pixel_put(data, aux.x, aux.y, vec3_toRGB(pixel_color));
+			my_mlx_pixel_put(data, aux.x, aux.y, vec3_to_rgb(pixel_color));
 			aux.x++;
-        }
+		}
 		aux.y++;
-    }
+	}
 }

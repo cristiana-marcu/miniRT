@@ -6,21 +6,22 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/29 16:28:20 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/03 13:50:20 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vectors.h"
 
-t_vec3 vctor(double x, double y, double z)
+t_vec3	vctor(double x, double y, double z)
 {
-	t_vec3 result;
-	
+	t_vec3	result;
+
 	result.x = x;
 	result.y = y;
 	result.z = z;
 	return (result);
 }
+
 double	equal(double a, double b)
 {
 	if (fabs(a - b) < EPSILON)
@@ -31,7 +32,7 @@ double	equal(double a, double b)
 
 t_vec3	vec3_add(t_vec3 a, t_vec3 b)
 {
-	t_vec3 result;
+	t_vec3	result;
 
 	result.x = a.x + b.x;
 	result.y = a.y + b.y;
@@ -41,7 +42,7 @@ t_vec3	vec3_add(t_vec3 a, t_vec3 b)
 
 t_vec3	vec3_subs(t_vec3 a, t_vec3 b)
 {
-	t_vec3 result;
+	t_vec3	result;
 
 	result.x = a.x - b.x;
 	result.y = a.y - b.y;
@@ -51,7 +52,7 @@ t_vec3	vec3_subs(t_vec3 a, t_vec3 b)
 
 t_vec3	vec3_negate(t_vec3 a)
 {
-	t_vec3 result;
+	t_vec3	result;
 
 	result.x = -a.x;
 	result.y = -a.y;
@@ -61,7 +62,7 @@ t_vec3	vec3_negate(t_vec3 a)
 
 t_vec3	vec3_mult(t_vec3 a, double n)
 {
-	t_vec3 result;
+	t_vec3	result;
 
 	result.x = a.x * n;
 	result.y = a.y * n;
@@ -69,27 +70,27 @@ t_vec3	vec3_mult(t_vec3 a, double n)
 	return (result);
 }
 
-t_vec3 vec3_division(t_vec3 a, double n)
+t_vec3	vec3_div(t_vec3 a, double n)
 {
-	t_vec3 result;
-	
-	result = vec3_mult(a, 1/n);
+	t_vec3	result;
+
+	result = vec3_mult(a, 1 / n);
 	return (result);
 }
 
-double	vec3_sqrd_length(t_vec3 a)
+double	vec3_sqrd_len(t_vec3 a)
 {
 	return ((a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
-double	vec3_magnitude(t_vec3 a)
+double	vec3_magn(t_vec3 a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
-t_vec3	vec3_normalize(t_vec3 a)
+t_vec3	vec3_norm(t_vec3 a)
 {
-	return (vec3_division(a, vec3_magnitude(a)));
+	return (vec3_div(a, vec3_magn(a)));
 }
 
 double	vec3_dot(t_vec3 a, t_vec3 b)
@@ -99,7 +100,7 @@ double	vec3_dot(t_vec3 a, t_vec3 b)
 
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 {
-	t_vec3 result;
+	t_vec3	result;
 
 	result.x = a.y * b.z - a.z * b.y;
 	result.y = a.z * b.x - a.x * b.z;
@@ -107,26 +108,7 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 	return (result);
 }
 
-double length(t_vec3 e)
-{
-	return sqrt(length_squared(e));
-}
-
-double length_squared(t_vec3 e)
-{
-	return e.x*e.x + e.y*e.y + e.z*e.z;
-}
-
-double clamp(double x, double min, double max)
-{
-	if (x < min)
-		return min;
-	if (x > max)
-		return max;
-	return x;
-}
-
-int vec3_toRGB(t_vec3 v)
+int	vec3_to_rgb(t_vec3 v)
 {
 	/*_________Antialiasing shit__________*
 	int samples_per_pixel;
@@ -138,5 +120,5 @@ int vec3_toRGB(t_vec3 v)
 	v.y *= scale;
 	v.z *= scale;
 	*_____________________________________*/
-	return((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z * 255.999)); //Con esta solución aparece la línea blanca rara en las esferas al sombrear
+	return ((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z * 255.999)); //Con esta solución aparece la línea blanca rara en las esferas al sombrear
 }	

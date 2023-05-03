@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:57:33 by cristianama       #+#    #+#             */
-/*   Updated: 2023/04/15 17:57:21 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/03 14:04:27 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 t_ray	rctor(t_vec3 origin, t_vec3 direction);
 t_vec3	ray_color(t_ray *r, t_world *world);
-t_vec3	rayAt(t_ray *r, double pointOnRay);
+t_vec3	ray_at(t_ray *r, double pointOnRay);
 void shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux);
 
 double	degree_to_radian(double degree);
