@@ -51,5 +51,12 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-.DS_Store
-miniRT
+# Others
+.vscode
+.vscode/*
+.gitignore
+.*
+*_bk
+bin/
+compile_commands.json
+
