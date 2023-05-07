@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 14:07:48 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 12:25:34 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ t_object_list	*obj_lstnew(void *obj, int type)
 	return (result);
 }
 
-void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
+void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj)
 {
 	t_object_list	*last;
 
 	if (!(*lst)->obj) //En la primera vuelta tendria que entrar por aqui
 	{
-		*lst = new;
-		new->next = NULL;
+		*lst = new_obj;
+		new_obj->next = NULL;
 		return ;
 	}
 	last = *lst;
 	while (last->next)
 		last = last->next;
-	last->next = new;
-	new->next = NULL;
+	last->next = new_obj;
+	new_obj->next = NULL;
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/03 14:06:11 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 14:16:39 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,26 @@ bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec, t_vec3 *color)
 	return (false);
 }
 
+t_vec3	illumination(t_world *world)
+{
+	t_vec3		color;
+	t_ray			ray;
+	t_object_list	*obj;
+	double			intensity;
+
+	ray = rctor(world->rec->hit_point, vec3_subs(world->light->pos, world->rec->hit_point));
+	obj = world->objs;
+	while (obj)
+	{
+		if (hit_object(obj, &ray, world->rec, &color))
+			break;
+		obj = obj->next;
+	}
+	//calcular color de objeto + luz;
+	intensity = world->light->brightness * vec3_dot(vec3_norm(world->rec->N), vec3_norm(vec3_subs(world->light->pos, world->rec->hit_point)));
+	return (vec3_mult(color, vec3_magn(vec3_mult(world->light->color, intensity * 0.2))));
+}
+
 t_vec3	ray_color(t_ray *r, t_world *world)
 {
 	bool			hit_anything;
@@ -80,8 +100,7 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 		obj = obj->next;
 	}
 	if (hit_anything)
-		return (vec3_mult(color, vec3_dot(vec3_norm(world->rec->N), vec3_norm(vctor(-1, -1, -1)))));
-	hit_anything = 0.5 * (vec3_norm(r->direction).y + 1.0);
+		return (illumination(world));
 	return (vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0 - hit_anything)), vec3_mult(vctor(0.5, 0.7, 1.0), hit_anything)));
 }
 

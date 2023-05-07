@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 14:30:13 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 13:39:09 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_hit_record
 typedef struct s_world
 {
 	t_object_list	*objs;
-	t_object_list	*lights;
+	t_light			*light;
 	t_ambientLight	AL;
 	t_camera		camera;
 	t_hit_record	*rec;
@@ -133,6 +133,7 @@ typedef struct s_data {
 	t_world	*world;
 }	t_data;
 
+bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec, t_vec3 *color);
 bool hit_sphere(t_object_list *obj, t_ray *r,t_hit_record *rec);
 
 t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, double H, t_vec3 color);
@@ -141,11 +142,14 @@ bool hit_cylinder(t_object_list *obj, t_ray *ray,t_hit_record *rec);
 t_plane *new_plane(t_vec3 pos, t_vec3 N, t_vec3 color);
 bool hit_plane(t_object_list *obj, t_ray *ray,t_hit_record *rec);
 
+t_light *new_light(t_vec3 pos, double brightness, t_vec3 color);
+t_vec3 illumination(t_world *world);
+
 t_camera init_camera(t_data *data);
 void render(t_data *data);
 
 t_object_list	*obj_lstnew(void *obj, int type);
-void	obj_lstadd_back(t_object_list **lst, t_object_list *new);
+void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj);
 void	*add_obj_to_scene(t_world *world, void *obj, int type);
 
 void	*ft_calloc(size_t count, size_t size);

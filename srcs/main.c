@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/04/29 16:32:19 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 13:32:48 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,15 @@ int	main(void)
 
 	/*TODO PARSER: Hardcodeado porque esto vendrá del parser*/
 	data->world = malloc(sizeof(t_world));
-	
+
 	data->world->objs = malloc(sizeof(t_object_list));
 	data->world->objs->type = 0;
 	data->world->objs->obj = NULL;
 	data->world->objs->next = NULL;
 
-	data->world->lights = malloc(sizeof(t_object_list));
-	data->world->lights->type = 3;
-	data->world->lights->obj = NULL;
-	data->world->lights->next = NULL;
-	
 	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
 	data->world->camera = init_camera(data);
+	data->world->light = new_light(vctor(1, 1, 1), 0.5, vctor(1, 1, 1));
 	t_sphere *sphere1 = new_sphere(vctor(0, 0, 1), 0.5, vctor(0.5, 1, 1)); //azul
 	//t_sphere *sphere2 = new_sphere(vctor(0, 100.5, 1), 100, vctor(1, 1, 0.15)); //verde
 	t_sphere *sphere3 = new_sphere(vctor(1, 0, 1), 1, vctor(1, 0.75, 1)); //rosa
@@ -111,7 +107,7 @@ int	main(void)
 	// add_obj_to_scene(data->world, (void*)pl3, 1);
 	/*______________________________________________________*/
 	render(data);
-	
+
 	mlx_put_image_to_window(data->mlx,data->win, data->img, 0, 0);
 	mlx_key_hook(data->win, hook_keydown, &data->mlx);
 	mlx_hook(data->win, 17, 0, close_win, data);
