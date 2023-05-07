@@ -41,7 +41,7 @@ DEPS := $(OBJS:.o=.d)
 CC = gcc
 CFLAGS = -Wall -Wextra #-Werror
 CPPFLAGS := -MMD -MP
-DEBUGFLAGS = -g3 -fsanitize=address
+DEBUGFLAGS = -g3 #-fsanitize=address
 INCFLAGS = $(addprefix -I, $(INC))
 LINK_FLAGS = $(LIBFT) $(MLX_LINK)
 

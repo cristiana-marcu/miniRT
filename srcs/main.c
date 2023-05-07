@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/07 13:32:48 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 15:48:59 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,27 @@ int	main(void)
 
 	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
 	data->world->camera = init_camera(data);
-	data->world->light = new_light(vctor(1, 1, 1), 0.5, vctor(1, 1, 1));
-	t_sphere *sphere1 = new_sphere(vctor(0, 0, 1), 0.5, vctor(0.5, 1, 1)); //azul
-	//t_sphere *sphere2 = new_sphere(vctor(0, 100.5, 1), 100, vctor(1, 1, 0.15)); //verde
-	t_sphere *sphere3 = new_sphere(vctor(1, 0, 1), 1, vctor(1, 0.75, 1)); //rosa
-	t_sphere *sphere4 = new_sphere(vctor(-1, 0, 1), 0.5, vctor(1, 1, 1)); //negra-gris
-	add_obj_to_scene(data->world, (void*)sphere4, 0);
-	///add_obj_to_scene(data->world, (void*)sphere2, 0);
+	data->world->light = new_light(vctor(0, 1, 0), 2, vctor(1, 1, 1)); //luz blanca 255, 255, 255, revisar intensidad de 2
+	t_sphere *sphere1 = new_sphere(vctor(-1.6, 0.5, -3.5), 1, vctor(0.5, 1, 1)); //azul
+	t_sphere *sphere2 = new_sphere(vctor(-0.8, 0.5, -3), 1, vctor(1, 1, 0.15)); //verde
+	t_sphere *sphere3 = new_sphere(vctor(0, 0.5, -2.5), 1, vctor(1, 0.75, 1)); //rosa
+	t_sphere *sphere4 = new_sphere(vctor(0.8, 0.5, -3), 1, vctor(1, 1, 1)); //negra-gris
+	t_sphere *sphere5 = new_sphere(vctor(1.6, 0.5, -3.5), 1, vctor(1, 0, 0)); //roja
 	add_obj_to_scene(data->world, (void*)sphere1, 0);
+	add_obj_to_scene(data->world, (void*)sphere2, 0);
 	add_obj_to_scene(data->world, (void*)sphere3, 0);
+	add_obj_to_scene(data->world, (void*)sphere4, 0);
+	add_obj_to_scene(data->world, (void*)sphere5, 0);
 
 
-	t_cylinder *cyl1 = new_cylinder(vctor(-0.5, 0, 1), vctor(1, 0, 0), 0.5, 3, vctor(1, 0.1, 1));
-	add_obj_to_scene(data->world, (void*)cyl1, 2);
+	// t_cylinder *cyl1 = new_cylinder(vctor(-0.5, 0, 1), vctor(1, 0, 0), 0.5, 3, vctor(1, 0.1, 1));
+	// add_obj_to_scene(data->world, (void*)cyl1, 2);
 
-	// t_plane *pl = new_plane(vctor(1, 0, 1), vctor(0, 1, 0), vctor(0, 0.51, 0.41));
-	// add_obj_to_scene(data->world, (void*)pl, 1);
+	t_plane *pl = new_plane(vctor(0, -1, 0), vctor(0, 1, 0), vctor(0, 0.51, 0.41));
+	add_obj_to_scene(data->world, (void*)pl, 1);
 
-	t_plane *pl2 = new_plane(vctor(1, 0, 1), vctor(1, 0, 0), vctor(0, 1, 0.41));
-	add_obj_to_scene(data->world, (void*)pl2, 1);
+	// t_plane *pl2 = new_plane(vctor(1, 0, 1), vctor(1, 0, 0), vctor(0, 1, 0.41));
+	// add_obj_to_scene(data->world, (void*)pl2, 1);
 
 	// t_plane *pl3 = new_plane(vctor(1, 0, 1), vctor(0, 0, 1), vctor(1, 0.51, 1));
 	// add_obj_to_scene(data->world, (void*)pl3, 1);
