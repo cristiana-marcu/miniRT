@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/07 13:39:09 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 17:49:17 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct s_world
 {
 	t_object_list	*objs;
 	t_light			*light;
-	t_ambientLight	AL;
+	t_ambientLight	*amb_light;
 	t_camera		camera;
 	t_hit_record	*rec;
 }	t_world;
@@ -142,8 +142,9 @@ bool hit_cylinder(t_object_list *obj, t_ray *ray,t_hit_record *rec);
 t_plane *new_plane(t_vec3 pos, t_vec3 N, t_vec3 color);
 bool hit_plane(t_object_list *obj, t_ray *ray,t_hit_record *rec);
 
+t_ambientLight	*new_ambient_light(double range, t_vec3 color);
 t_light *new_light(t_vec3 pos, double brightness, t_vec3 color);
-t_vec3 illumination(t_world *world);
+t_vec3 calculate_pixel_color(t_world *world);
 
 t_camera init_camera(t_data *data);
 void render(t_data *data);

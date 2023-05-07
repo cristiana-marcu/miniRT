@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/07 14:16:39 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 17:51:36 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec, t_vec3 *color)
 	return (false);
 }
 
-t_vec3	illumination(t_world *world)
+t_vec3	calculate_pixel_color(t_world *world)
 {
 	t_vec3		color;
 	t_ray			ray;
@@ -70,7 +70,7 @@ t_vec3	illumination(t_world *world)
 	while (obj)
 	{
 		if (hit_object(obj, &ray, world->rec, &color))
-			break;
+			return (vec3_mult(world->amb_light->color, world->amb_light->range));
 		obj = obj->next;
 	}
 	//calcular color de objeto + luz;
@@ -100,7 +100,8 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 		obj = obj->next;
 	}
 	if (hit_anything)
-		return (illumination(world));
+		return (calculate_pixel_color(world));
+	hit_anything = 0.5 * (vec3_norm(r->direction).y + 1.0);
 	return (vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0 - hit_anything)), vec3_mult(vctor(0.5, 0.7, 1.0), hit_anything)));
 }
 

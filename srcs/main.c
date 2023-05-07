@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/07 15:48:59 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/07 16:08:40 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(void)
 
 	data->world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
 	data->world->camera = init_camera(data);
+	data->world->amb_light = new_ambient_light(0.2, vctor(1, 1, 1));
 	data->world->light = new_light(vctor(0, 1, 0), 2, vctor(1, 1, 1)); //luz blanca 255, 255, 255, revisar intensidad de 2
 	t_sphere *sphere1 = new_sphere(vctor(-1.6, 0.5, -3.5), 1, vctor(0.5, 1, 1)); //azul
 	t_sphere *sphere2 = new_sphere(vctor(-0.8, 0.5, -3), 1, vctor(1, 1, 0.15)); //verde
