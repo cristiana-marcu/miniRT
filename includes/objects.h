@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/07 17:49:17 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/08 20:01:09 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_hit_record
 	bool	front_face;
 	double	t_min;
 	double	t_max;
+	t_vec3	color;
 }	t_hit_record;
 
 typedef struct s_world
@@ -133,8 +134,8 @@ typedef struct s_data {
 	t_world	*world;
 }	t_data;
 
-bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec, t_vec3 *color);
-bool hit_sphere(t_object_list *obj, t_ray *r,t_hit_record *rec);
+bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec);
+bool	hit_sphere(t_object_list *obj, t_ray *r, t_hit_record *rec);
 
 t_cylinder *new_cylinder(t_vec3 pos, t_vec3 N, double r, double H, t_vec3 color);
 bool hit_cylinder(t_object_list *obj, t_ray *ray,t_hit_record *rec);

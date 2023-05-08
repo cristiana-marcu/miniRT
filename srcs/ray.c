@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/07 17:51:36 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/08 20:09:11 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,18 @@ t_vec3	ray_at(t_ray *r, double pointOnRay)
 	return (ray_at);
 }
 
-bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec, t_vec3 *color)
+bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec)
 {
 	if (obj->type == SPHERE && hit_sphere(obj, r, rec))
 	{
-		*color = ((t_sphere *)(obj->obj))->color;
 		return (true);
 	}
 	else if (obj->type == CYLINDER && hit_cylinder(obj, r, rec))
 	{
-		*color = ((t_cylinder *)(obj->obj))->color;
 		return (true);
 	}
 	else if (obj->type == PLANE && hit_plane(obj, r, rec))
 	{
-		*color = ((t_plane *)(obj->obj))->color;
 		return (true);
 	}
 	return (false);
@@ -61,21 +58,24 @@ bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec, t_vec3 *color)
 t_vec3	calculate_pixel_color(t_world *world)
 {
 	t_vec3		color;
-	t_ray			ray;
+	t_ray			shadow_ray;
 	t_object_list	*obj;
 	double			intensity;
+	t_hit_record	shadow_rec;
 
-	ray = rctor(world->rec->hit_point, vec3_subs(world->light->pos, world->rec->hit_point));
+	shadow_ray = rctor(world->rec->hit_point, vec3_subs(world->light->pos, world->rec->hit_point));
 	obj = world->objs;
+	shadow_rec.t_min = 0;
+	shadow_rec.t_max = world->rec->t;
 	while (obj)
 	{
-		if (hit_object(obj, &ray, world->rec, &color))
-			return (vec3_mult(world->amb_light->color, world->amb_light->range));
+		if (hit_object(obj, &shadow_ray, &shadow_rec))
+			return (vctor(0, 0, 0));
 		obj = obj->next;
 	}
 	//calcular color de objeto + luz;
 	intensity = world->light->brightness * vec3_dot(vec3_norm(world->rec->N), vec3_norm(vec3_subs(world->light->pos, world->rec->hit_point)));
-	return (vec3_mult(color, vec3_magn(vec3_mult(world->light->color, intensity * 0.2))));
+	return (vec3_mult(color, intensity)); //vec3_magn(vec3_mult(world->light->color, intensity * 0.2)))
 }
 
 t_vec3	ray_color(t_ray *r, t_world *world)
@@ -91,11 +91,12 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 	closest_so_far = world->rec->t_max;
 	while (obj)
 	{
-		if (hit_object(obj, r, world->rec, &color))
+		if (hit_object(obj, r, world->rec))
 		{
 			hit_anything = true;
 			if (world->rec->t_max < closest_so_far)
 				closest_so_far = world->rec->t;
+			color = world->rec->color;
 		}
 		obj = obj->next;
 	}

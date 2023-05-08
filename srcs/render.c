@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/07 12:25:34 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/08 19:57:51 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,8 @@ void	render(t_data *data)
 		aux.x = 0;
 		while (aux.x < data->view.width)
 		{
-			pixel_color = vctor(0, 0, 0);
 			shoot_ray(data, &ray, &aux);
-			pixel_color = vec3_add(ray_color(&ray, data->world), pixel_color);
+			pixel_color = ray_color(&ray, data->world);
 			my_mlx_pixel_put(data, aux.x, aux.y, vec3_to_rgb(pixel_color));
 			aux.x++;
 		}
