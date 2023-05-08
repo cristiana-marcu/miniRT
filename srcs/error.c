@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 13:24:01 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/08 18:32:06 by drontome         ###   ########.fr       */
+/*   Created: 2023/05/08 17:11:09 by drontome          #+#    #+#             */
+/*   Updated: 2023/05/08 18:21:29 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+# include "minirt.h"
 
-bool	check_scene(int argc, char **argv)
+void print_err(uint16_t err)
 {
-	if (argc != 2)
-		print_err(E_BADARG);
-	else if (!ft_str_ends_with(argv[1], ".rt"))
-		print_err(E_EXT);
-	else
-		return (true);
-	return (false);
-}
+	ft_putstr_fd("Error\n", STDERR_FILENO);
+	if (err & E_BADARG)
+		ft_putstr_fd("\t- Just one argument valid\n", 2);
+	else if (err & E_EXT)
+		ft_putstr_fd("\t- File does not end with '.rt'\n", STDERR_FILENO);
 
-int main(int argc, char **argv)
-{
-	if (check_scene(argc, argv))
-		printf("HECHO\n");
 }
