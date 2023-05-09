@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/08 20:09:11 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/09 20:36:39 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,51 @@ bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec)
 	return (false);
 }
 
+t_vec3	ambient_light_on_obj(t_world *world)
+{
+	t_vec3	amb_and_obj;
+	t_ambientLight al;
+
+	al = *world->amb_light;
+	amb_and_obj = vctor(al.range * (al.color.x) * (world->rec->color.x),
+			al.range * (al.color.y) * (world->rec->color.y),
+			al.range * (al.color.z) * (world->rec->color.z));
+
+	return (amb_and_obj);
+}
+
 t_vec3	calculate_pixel_color(t_world *world)
 {
-	t_vec3		color;
 	t_ray			shadow_ray;
 	t_object_list	*obj;
-	double			intensity;
 	t_hit_record	shadow_rec;
 
-	shadow_ray = rctor(world->rec->hit_point, vec3_subs(world->light->pos, world->rec->hit_point));
+	shadow_ray = rctor(vec3_add(world->rec->hit_point, vec3_mult(world->rec->N, 0.001)), vec3_subs(world->light->pos, world->rec->hit_point));
 	obj = world->objs;
-	shadow_rec.t_min = 0;
-	shadow_rec.t_max = world->rec->t;
+	shadow_rec.t_min = EPSILON;
+	shadow_rec.t_max = vec3_magn(vec3_subs(world->light->pos, world->rec->hit_point));
 	while (obj)
 	{
 		if (hit_object(obj, &shadow_ray, &shadow_rec))
-			return (vctor(0, 0, 0));
+		{
+			return (ambient_light_on_obj(world));
+		}
 		obj = obj->next;
 	}
 	//calcular color de objeto + luz;
-	intensity = world->light->brightness * vec3_dot(vec3_norm(world->rec->N), vec3_norm(vec3_subs(world->light->pos, world->rec->hit_point)));
-	return (vec3_mult(color, intensity)); //vec3_magn(vec3_mult(world->light->color, intensity * 0.2)))
+	t_vec3 diffuse;
+	double dot_NL;
+
+	// Calcula el producto escalar entre N y L
+	dot_NL = vec3_dot(vec3_norm(world->rec->N), vec3_norm(shadow_ray.direction));
+	if (dot_NL < 0)
+		dot_NL = 0;
+
+	// Calcula el componente de iluminación difusa
+	diffuse.x = world->light->brightness * world->rec->color.x * dot_NL;
+	diffuse.y = world->light->brightness * world->rec->color.y * dot_NL;
+	diffuse.z = world->light->brightness * world->rec->color.z * dot_NL;
+	return (clamp_color(vec3_add(ambient_light_on_obj(world), diffuse))); //vec3_magn(vec3_mult(world->light->color, intensity * 0.2)))
 }
 
 t_vec3	ray_color(t_ray *r, t_world *world)
@@ -112,7 +136,7 @@ void	shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
 	double	v;
 
 	u = ((double)aux->x) / (data->view.width - 1); //Antialiasing ((double)aux->x + random_double())
-	v = ((double)aux->y) / (data->view.height - 1);//Antialiasing ((double)aux->y + random_double())
+	v = 1 - ((double)aux->y) / (data->view.height - 1);//Antialiasing ((double)aux->y + random_double())
 	ray->origin = data->world->camera.from;
 	ray->direction = vec3_add(vec3_add(data->world->camera.lower_left_corner, vec3_mult(data->world->camera.horizontal, u)), vec3_subs(vec3_mult(data->world->camera.vertical, v), data->world->camera.from));
 }
