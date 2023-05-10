@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/09 20:27:16 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/10 07:41:41 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int	main(void)
 	add_obj_to_scene(data->world, (void*)sphere5, 0);
 
 
-	// t_cylinder *cyl1 = new_cylinder(vctor(-0.5, 0, 1), vctor(1, 0, 0), 0.5, 3, vctor(1, 0.1, 1));
-	// add_obj_to_scene(data->world, (void*)cyl1, 2);
+	t_cylinder *cyl1 = new_cylinder(vctor(-2, 0, -2), vctor(1, 1, 1), 1, 2, vctor(1, 0.1, 1));
+	add_obj_to_scene(data->world, (void*)cyl1, 2);
 
 	t_plane *pl = new_plane(vctor(0, -1, 0), vctor(0, 1, 0), vctor(0, 0.51, 0.41));
 	add_obj_to_scene(data->world, (void*)pl, 1);

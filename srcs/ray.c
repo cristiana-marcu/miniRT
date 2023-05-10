@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/09 20:36:39 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/10 07:34:50 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,42 +30,23 @@ t_ray	rctor(t_vec3 origin, t_vec3 direction)
 	return (r);
 }
 
-t_vec3	ray_at(t_ray *r, double pointOnRay)
+t_vec3	ray_at(t_ray *r, double point_on_ray)
 {
 	t_vec3	ray_at;
 
-	ray_at = vec3_add(r->origin, vec3_mult(r->direction, pointOnRay));
+	ray_at = vec3_add(r->origin, vec3_mult(r->direction, point_on_ray));
 	return (ray_at);
 }
 
 bool	hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec)
 {
 	if (obj->type == SPHERE && hit_sphere(obj, r, rec))
-	{
 		return (true);
-	}
 	else if (obj->type == CYLINDER && hit_cylinder(obj, r, rec))
-	{
 		return (true);
-	}
 	else if (obj->type == PLANE && hit_plane(obj, r, rec))
-	{
 		return (true);
-	}
 	return (false);
-}
-
-t_vec3	ambient_light_on_obj(t_world *world)
-{
-	t_vec3	amb_and_obj;
-	t_ambientLight al;
-
-	al = *world->amb_light;
-	amb_and_obj = vctor(al.range * (al.color.x) * (world->rec->color.x),
-			al.range * (al.color.y) * (world->rec->color.y),
-			al.range * (al.color.z) * (world->rec->color.z));
-
-	return (amb_and_obj);
 }
 
 t_vec3	calculate_pixel_color(t_world *world)
@@ -81,25 +62,10 @@ t_vec3	calculate_pixel_color(t_world *world)
 	while (obj)
 	{
 		if (hit_object(obj, &shadow_ray, &shadow_rec))
-		{
 			return (ambient_light_on_obj(world));
-		}
 		obj = obj->next;
 	}
-	//calcular color de objeto + luz;
-	t_vec3 diffuse;
-	double dot_NL;
-
-	// Calcula el producto escalar entre N y L
-	dot_NL = vec3_dot(vec3_norm(world->rec->N), vec3_norm(shadow_ray.direction));
-	if (dot_NL < 0)
-		dot_NL = 0;
-
-	// Calcula el componente de iluminación difusa
-	diffuse.x = world->light->brightness * world->rec->color.x * dot_NL;
-	diffuse.y = world->light->brightness * world->rec->color.y * dot_NL;
-	diffuse.z = world->light->brightness * world->rec->color.z * dot_NL;
-	return (clamp_color(vec3_add(ambient_light_on_obj(world), diffuse))); //vec3_magn(vec3_mult(world->light->color, intensity * 0.2)))
+	return (clamp_color(vec3_add(ambient_light_on_obj(world), diffuse_light_on_obj(world, shadow_ray))));
 }
 
 t_vec3	ray_color(t_ray *r, t_world *world)
@@ -126,8 +92,7 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 	}
 	if (hit_anything)
 		return (calculate_pixel_color(world));
-	hit_anything = 0.5 * (vec3_norm(r->direction).y + 1.0);
-	return (vec3_add(vec3_mult(vctor(1.0, 1.0, 1.0), (1.0 - hit_anything)), vec3_mult(vctor(0.5, 0.7, 1.0), hit_anything)));
+	return (vctor(0, 0, 0));
 }
 
 void	shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)

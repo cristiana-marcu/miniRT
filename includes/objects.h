@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:02:03 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/08 20:01:09 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/10 07:26:40 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,9 @@ bool hit_plane(t_object_list *obj, t_ray *ray,t_hit_record *rec);
 t_ambientLight	*new_ambient_light(double range, t_vec3 color);
 t_light *new_light(t_vec3 pos, double brightness, t_vec3 color);
 t_vec3 calculate_pixel_color(t_world *world);
+
+t_vec3	ambient_light_on_obj(t_world *world);
+t_vec3	diffuse_light_on_obj(t_world *world, t_ray shadow_ray);
 
 t_camera init_camera(t_data *data);
 void render(t_data *data);
