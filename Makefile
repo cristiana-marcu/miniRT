@@ -20,7 +20,11 @@ LIBFT := libft/libft.a
 BUILD_DIR := .build/
 SRC_DIR := srcs/
 SRC := \
-canvas/canvas.c \
+parser/error.c \
+parser/load_scene.c \
+parser/parser.c
+
+#canvas/canvas.c \
 main.c \
 vectors.c \
 ray.c \

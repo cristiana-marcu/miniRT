@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/10 20:48:55 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:57:09 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ bool	is_valid_char(char c)
 		return (true);
 	else if (c == 's' || c == 'p' || c == 'l' || c == 'c' || c == 'y')
 		return (true);
-	else if (c == '-' || c == ',' || c == '.') 
+	else if (c == '-' || c == ',' || c == '.')
 		return (true);
 	else if (c == '\n' || c == ' ')
 		return (true);
-	else if (ft_isdigit(c)) 
+	else if (ft_isdigit(c))
 		return (true);
 	else
 		return (false);
@@ -32,15 +32,16 @@ bool	is_valid_char(char c)
 bool	no_forb_char(int fd)
 {
 	char	c;
-	int		size = 0;
+	int		no_empty;
 
-	size = read(fd, &c, 1);
-	while (is_valid_char(c))
-		size += read(fd, &c, 1);
+	c = 0;
+	no_empty = read(fd, &c, 1);
+	while (is_valid_char(c) && read(fd, &c, 1) > 0)
+		continue;
 	close (fd);
-	if (c != 0)
+	if (!is_valid_char(c) && c != 0)
 		print_err(E_CHAR);
-	else if (c == 0 && size <= 0)
+	else if (c == 0 && no_empty < 1)
 		print_err(E_EMPTY);
 	else
 		return (true);

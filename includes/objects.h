@@ -93,8 +93,8 @@ typedef struct s_hit_record
 typedef struct s_world
 {
 	t_object_list	*objs;
-	t_light			*light;
-	t_ambientLight	*amb_light;
+	t_light			light;
+	t_ambientLight	amb_light;
 	t_camera		camera;
 	t_hit_record	*rec;
 }	t_world;

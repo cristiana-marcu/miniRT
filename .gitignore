@@ -56,7 +56,6 @@ dkms.conf
 .vscode/*
 .gitignore
 .*
-*_bk
 bin/
 compile_commands.json
 es.*

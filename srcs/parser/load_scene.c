@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/11 19:14:39 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:20:04 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,25 @@
 void	rm_spaces(char**line)
 {
 	char *trim_line;
+	char *aux;
 
-	trim_line = ft_strtrim(*line, " ");
+	aux = ft_strtrim(*line, " ");
+	trim_line = ft_strtrim(aux, "\n");
+	free(*line);
+	if (aux)
+		free(aux);
 	if (!trim_line)
 		print_err(E_MEM | E_EXIT);
-	free(*line);
 	*line = trim_line;
 }
 
 bool	check_range_cols(t_vec3 cols)
 {
-	if (cols.x > 255 || cols.x < 0) 
+	if (cols.x > 255 || cols.x < 0)
 		return (false);
-	if (cols.y > 255 || cols.y < 0) 
+	if (cols.y > 255 || cols.y < 0)
 		return (false);
-	if (cols.z > 255 || cols.z < 0) 
+	if (cols.z > 255 || cols.z < 0)
 		return (false);
 	else
 	 	return (true);
@@ -93,7 +97,7 @@ double	get_bright(char *str)
 
 	if (ft_strlen(str) != 3 || (str[0] != '0' && str[0] != '1'))
 		return (-1);
-	else if (str[1] != '.')
+	else if (str[1] != '.' || str[3] != '\0')
 		return (-1);
 	else if (str[2] < '0' || str[2] > '9')
 		return (-1);
@@ -101,15 +105,15 @@ double	get_bright(char *str)
 	 	bright = ft_atof(str);
 	if (bright > 1 || bright < 0)
 		return (-1);
-	else if (bright == 0 && (str[0] != 0 || str[2] != 0))
+	else if (bright == 0 && (str[0] != '0' || str[2] != '0'))
 		return (-1);
-	return (bright);	
+	return (bright);
 }
 
 void	load_amb(t_pars *pars, char **tokens)
 {
 	t_ambientLight amb;
-	
+
 	amb = (t_ambientLight){};
 	if (tokens == NULL)
 		print_err(E_MEM | E_EXIT);
@@ -123,7 +127,7 @@ void	load_amb(t_pars *pars, char **tokens)
 		amb.range = get_bright(tokens[1]);
 		amb.color = get_colours(tokens[2]);
 		if (check_amb(amb))
-			pars->world.AL = amb;
+			pars->world.amb_light = amb;
 		else
 			pars->errors |= E_AMB;
 	}
@@ -166,6 +170,9 @@ void	load_scene(char *scene)
 	while (pars.line != NULL)
 	{
 		load_objs(&pars);
+		free(pars.line);
 		pars.line = get_next_line(pars.fd);
  	}
+	if (pars.errors != 0)
+		print_err(pars.errors);
 }
