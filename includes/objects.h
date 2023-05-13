@@ -14,7 +14,6 @@
 # define OBJECTS_H
 
 # include "vectors.h"
-# include "ray.h"
 # include <math.h>
 # include <stdlib.h>
 # include <mlx.h>

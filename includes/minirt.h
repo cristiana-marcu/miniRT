@@ -28,47 +28,42 @@
 # include <unistd.h>
 # include <mlx.h>
 # include "errors.h"
+# include "objects.h"
 
 /* ************************************************************************** */
 /*                                  DEFINES                                   */
 /* ************************************************************************** */
 
-# define TRUE 1
-# define FALSE 0
 
 /* ************************************************************************** */
 /*                                  STRUCTS                                   */
 /* ************************************************************************** */
 
-/*
-typedef struct s_vars
+typedef struct s_pars
 {
+	u_int16_t	errors;
+	int			fd;
+	bool		dup[3];
+	char		*line;
+	t_world		world;
 
-}			t_vars;
-*/
+}			t_pars;
+
 
 /* ************************************************************************** */
 /*                                   ENUMS                                    */
 /* ************************************************************************** */
-
-typedef enum e_err
+typedef enum e_may
 {
-	MEM,
-	SYN,
-	QU,
-	FD,
-}			t_err;
-
-typedef enum e_flag
-{
-	HER,
-	APP,
-}			t_flag;
-
+	AMB,
+	CAM,
+	LIT,
+}			t_may;
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
 bool	check_scene(int argc, char **argv);
-void print_err(uint16_t err);
+void 	print_err(uint16_t err);
+void	load_scene(char *scene);
 
 #endif

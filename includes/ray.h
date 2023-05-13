@@ -13,10 +13,8 @@
 #ifndef RAYS_H
 # define RAYS_H
 
-#include <math.h>
-#include "canvas.h"
-#include "vectors.h"
-#include "objects.h"
+# include <math.h>
+# include "minirt.h"
 
 t_ray	rctor(t_vec3 origin, t_vec3 direction);
 t_vec3	ray_color(t_ray *r, t_world *world);

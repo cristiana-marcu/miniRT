@@ -14,7 +14,17 @@
 # define E_BAD_ARG 0x01
 # define E_EXTEN (0x01 << 1)
 # define E_OPEN (0x01 << 2)
-# define E_EXIT (0x01 << 3)
+# define E_CHAR (0x01 << 3)
+# define E_EMPTY (0x01 << 4)
+# define E_MEM (0x01 << 5)
+# define E_ID (0x01 << 6)
+# define E_DUP_AMB (0x01 << 7)
+# define E_DUP_CAM (0x01 << 8)
+# define E_DUP_LIT (0x01 << 9)
+# define E_AMB (0x01 << 10)
+# define E_CAM (0x01 << 11)
+# define E_LIT (0x01 << 12)
+# define E_EXIT (0x01 << 13)
 
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */

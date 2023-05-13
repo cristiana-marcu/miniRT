@@ -108,5 +108,6 @@ int		ft_len_matrix(char **matrix);
 int		ft_isspace(int c);
 void	ft_lstswap(t_list *a, t_list *b);
 t_list	*ft_lstpenult(t_list *lst);
+double	ft_atof(const char *str);
 
 #endif

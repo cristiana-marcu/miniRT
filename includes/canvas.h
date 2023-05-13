@@ -13,12 +13,8 @@
 #ifndef CANVAS_H
 # define CANVAS_H
 
-# include <math.h>
-# include <stdlib.h>
-# include <mlx.h>
-# include "vectors.h"
-# include "ray.h"
-# include "objects.h"
+
+# include "minirt.h"
 
 # define K_ESC 53
 
