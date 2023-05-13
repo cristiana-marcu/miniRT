@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:35:29 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 13:53:20 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/09 20:25:03 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ t_camera	init_camera(t_data *data)
 	double		field_width;
 
 	/*TODO que venga del parser todo lo hardcodeado*/
-	camera.from = vctor(-1, -2, 0);
-	camera.HFOV = 110.0;
-	camera.lookAt = vctor(-0.5, 0, 1);
-	/*_____________________________________________*/	
+	camera.from = vctor(0, 0.5, 2);
+	camera.HFOV = 80.0;
+	camera.lookAt = vctor(0, 0, -1);
+	/*_____________________________________________*/
 	theta = degree_to_radian(camera.HFOV);
 	field_width = 2 * tan(theta / 2);
 	camera.viewport_width = field_width;

@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:00:37 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 13:50:11 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/09 20:11:30 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ t_vec3	vec3_norm(t_vec3 a);
 double	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 int		vec3_to_rgb(t_vec3 v);
+t_vec3	clamp_color(t_vec3 color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 14:07:48 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/09 20:15:45 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ t_object_list	*obj_lstnew(void *obj, int type)
 	return (result);
 }
 
-void	obj_lstadd_back(t_object_list **lst, t_object_list *new)
+void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj)
 {
 	t_object_list	*last;
 
 	if (!(*lst)->obj) //En la primera vuelta tendria que entrar por aqui
 	{
-		*lst = new;
-		new->next = NULL;
+		*lst = new_obj;
+		new_obj->next = NULL;
 		return ;
 	}
 	last = *lst;
 	while (last->next)
 		last = last->next;
-	last->next = new;
-	new->next = NULL;
+	last->next = new_obj;
+	new_obj->next = NULL;
 	return ;
 }
 
@@ -77,9 +77,8 @@ void	render(t_data *data)
 		aux.x = 0;
 		while (aux.x < data->view.width)
 		{
-			pixel_color = vctor(0, 0, 0);
 			shoot_ray(data, &ray, &aux);
-			pixel_color = vec3_add(ray_color(&ray, data->world), pixel_color);
+			pixel_color = ray_color(&ray, data->world);
 			my_mlx_pixel_put(data, aux.x, aux.y, vec3_to_rgb(pixel_color));
 			aux.x++;
 		}

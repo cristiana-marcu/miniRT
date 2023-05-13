@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 13:50:20 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/09 20:11:16 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,15 @@ int	vec3_to_rgb(t_vec3 v)
 	v.z *= scale;
 	*_____________________________________*/
 	return ((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z * 255.999)); //Con esta solución aparece la línea blanca rara en las esferas al sombrear
-}	
+}
+
+t_vec3	clamp_color(t_vec3 color)
+{
+	t_vec3 clamped_color;
+
+	clamped_color.x = fmin(fmax(color.x, 0.0), 1);
+	clamped_color.y = fmin(fmax(color.y, 0.0), 1);
+	clamped_color.z = fmin(fmax(color.z, 0.0), 1);
+
+	return (clamped_color);
+}

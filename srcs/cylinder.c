@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:51:40 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 14:04:27 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/08 19:56:27 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include "objects.h"
 #include "canvas.h"
 
-t_cylinder  *new_cylinder(t_vec3 pos, t_vec3 N, double r, double H, t_vec3 color)
+t_cylinder	*new_cylinder(t_vec3 pos, t_vec3 N, double r, double H, t_vec3 color)
 {
-	t_cylinder  *cylinder;
+	t_cylinder	*cylinder;
 
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
@@ -26,7 +26,7 @@ t_cylinder  *new_cylinder(t_vec3 pos, t_vec3 N, double r, double H, t_vec3 color
 	cylinder->pos = pos;
 	cylinder->N = vec3_norm(N);
 	cylinder->r = r;
-    cylinder->H = H;
+	cylinder->H = H;
 	cylinder->color  = color;
 	return (cylinder);
 }
@@ -116,6 +116,6 @@ bool hit_cylinder(t_object_list *obj, t_ray *ray, t_hit_record *rec)
     rec->N = vec3_norm(vec3_subs(rec->hit_point, vec3_add(cyl->pos, vec3_mult(cyl->N, vec3_dot(vec3_subs(rec->hit_point, cyl->pos), cyl->N)))));
     set_face_normal(ray, rec);
     rec->t_max = rec->t;
-
+	rec->color = cyl->color;
     return (true);
 }

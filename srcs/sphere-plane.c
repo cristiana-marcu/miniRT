@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:40:48 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/03 14:14:46 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/08 19:55:39 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ bool	hit_sphere(t_object_list *obj, t_ray *ray, t_hit_record *rec)
 	rec->N = vec3_div(vec3_subs(rec->hit_point, sphere->center), sphere->r);
 	set_face_normal(ray, rec);
 	rec->t_max = rec->t;
+	rec->color = sphere->color;
 	return (true);
 }
 
@@ -91,5 +92,6 @@ bool	hit_plane(t_object_list *obj, t_ray *ray, t_hit_record *rec)
 	rec->N = plane->N;
 	set_face_normal(ray, rec);
 	rec->t_max = t;
+	rec->color = plane->color;
 	return (true);
 }

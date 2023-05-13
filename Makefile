@@ -27,7 +27,8 @@ ray.c \
 camera.c \
 render.c \
 sphere-plane.c \
-cylinder.c 
+cylinder.c \
+lights.c
 SRC := $(SRC:%=$(SRC_DIR)%)
 INC := \
 includes/ \
@@ -40,9 +41,9 @@ DEPS := $(OBJS:.o=.d)
 CC = gcc
 CFLAGS = -Wall -Wextra #-Werror
 CPPFLAGS := -MMD -MP
-DEBUGFLAGS = -g3 -fsanitize=address
-INCFLAGS = $(addprefix -I, $(INC)) 
-LINK_FLAGS = $(LIBFT) $(MLX_LINK) 
+DEBUGFLAGS = -g3 #-fsanitize=address
+INCFLAGS = $(addprefix -I, $(INC))
+LINK_FLAGS = $(LIBFT) $(MLX_LINK)
 
 ################################### COLORS ####################################
 
@@ -61,7 +62,7 @@ $(NAME): $(OBJS) $(LIBFT)
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c
 	@if [ ! -d "$@" ]; then $(MK_DIR); fi
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEBUGFLAGS) $(INCFLAGS) -c $< -o $@ 
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEBUGFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(LIBFT):
 	make -C $(dir $(LIBFT))
