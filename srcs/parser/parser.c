@@ -11,42 +11,11 @@
 /* ************************************************************************** */
 
 
-# include "minirt.h"
+# include "parser.h"
 
-bool	is_valid_char(char c)
-{
-	if (c == 'A' || c == 'C' || c == 'L')
-		return (true);
-	else if (c == 's' || c == 'p' || c == 'l' || c == 'c' || c == 'y')
-		return (true);
-	else if (c == '-' || c == ',' || c == '.')
-		return (true);
-	else if (c == '\n' || c == ' ')
-		return (true);
-	else if (ft_isdigit(c))
-		return (true);
-	else
-		return (false);
-}
+static bool	is_valid_char(char c);
+static bool	no_forb_char(int fd);
 
-bool	no_forb_char(int fd)
-{
-	char	c;
-	int		no_empty;
-
-	c = 0;
-	no_empty = read(fd, &c, 1);
-	while (is_valid_char(c) && read(fd, &c, 1) > 0)
-		continue;
-	close (fd);
-	if (!is_valid_char(c) && c != 0)
-		print_err(E_CHAR);
-	else if (c == 0 && no_empty < 1)
-		print_err(E_EMPTY);
-	else
-		return (true);
-	return (false);
-}
 
 bool	check_scene(int argc, char **argv)
 {
@@ -67,6 +36,43 @@ bool	check_scene(int argc, char **argv)
 	}
 	return (false);
 }
+
+static bool	is_valid_char(char c)
+{
+	if (c == 'A' || c == 'C' || c == 'L')
+		return (true);
+	else if (c == 's' || c == 'p' || c == 'l' || c == 'c' || c == 'y')
+		return (true);
+	else if (c == '-' || c == ',' || c == '.')
+		return (true);
+	else if (c == '\n' || c == ' ')
+		return (true);
+	else if (ft_isdigit(c))
+		return (true);
+	else
+		return (false);
+}
+
+static bool	no_forb_char(int fd)
+{
+	char	c;
+	int		no_empty;
+
+	c = 0;
+	no_empty = read(fd, &c, 1);
+	while (is_valid_char(c) && read(fd, &c, 1) > 0)
+		continue;
+	close (fd);
+	if (!is_valid_char(c) && c != 0)
+		print_err(E_CHAR);
+	else if (c == 0 && no_empty < 1)
+		print_err(E_EMPTY);
+	else
+		return (true);
+	return (false);
+}
+
+
 
 int main(int argc, char **argv)
 {

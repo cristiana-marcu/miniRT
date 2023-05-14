@@ -20,9 +20,12 @@ LIBFT := libft/libft.a
 BUILD_DIR := .build/
 SRC_DIR := srcs/
 SRC := \
-parser/error.c \
+parser/errors.c \
 parser/load_scene.c \
-parser/parser.c
+parser/parser.c \
+parser/ambient.c \
+parser/get_params/get_colours.c \
+parser/get_params/get_bright.c 
 
 #canvas/canvas.c \
 main.c \
@@ -36,7 +39,8 @@ lights.c
 SRC := $(SRC:%=$(SRC_DIR)%)
 INC := \
 includes/ \
-libft/inc/
+libft/inc/ \
+srcs/parser/inc/
 OBJS := $(SRC:$(SRC_DIR)%.c=$(BUILD_DIR)%.o)
 DEPS := $(OBJS:.o=.d)
 

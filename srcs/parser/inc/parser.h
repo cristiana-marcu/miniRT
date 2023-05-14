@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef PARSER_H
+# define PARSER_H
 
 /* ************************************************************************** */
 /*                                 INCLUDES                                   */
 /* ************************************************************************** */
 
-# include "../libft/inc/libft.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
@@ -27,6 +26,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <mlx.h>
+# include "libft.h"
 # include "errors.h"
 # include "objects.h"
 
@@ -65,5 +65,8 @@ typedef enum e_may
 bool	check_scene(int argc, char **argv);
 void 	print_err(uint16_t err);
 void	load_scene(char *scene);
+void	load_amb(t_pars *pars, char **tokens);
+double	get_bright(char *str);
+t_vec3 get_colours(char *str);
 
 #endif
