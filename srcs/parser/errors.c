@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "parser.h"
+#include "parser.h"
 
-void print_err(uint16_t err)
+void	print_err(uint16_t err)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	if (err & E_BAD_ARG)
@@ -30,7 +30,8 @@ void print_err(uint16_t err)
 	if (err & E_ID)
 		ft_putstr_fd("\t- Wrong identifier detected\n", STDERR_FILENO);
 	if (err & E_DUP_AMB)
-		ft_putstr_fd("\t- Ambient light must be declared just once\n", STDERR_FILENO);
+		ft_putstr_fd("\t- Ambient light must be declared just once\n",
+			STDERR_FILENO);
 	if (err & E_DUP_CAM)
 		ft_putstr_fd("\t- Camera must be declared just once\n", STDERR_FILENO);
 	if (err & E_DUP_LIT)

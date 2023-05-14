@@ -10,16 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-# include "parser.h"
+#include "parser.h"
 
 static bool	is_valid_char(char c);
 static bool	no_forb_char(int fd);
 
-
 bool	check_scene(int argc, char **argv)
 {
-	int fd;
+	int	fd;
 
 	fd = 0;
 	if (argc != 2)
@@ -61,8 +59,8 @@ static bool	no_forb_char(int fd)
 	c = 0;
 	no_empty = read(fd, &c, 1);
 	while (is_valid_char(c) && read(fd, &c, 1) > 0)
-		continue;
-	close (fd);
+		continue ;
+	close(fd);
 	if (!is_valid_char(c) && c != 0)
 		print_err(E_CHAR);
 	else if (c == 0 && no_empty < 1)
@@ -72,9 +70,7 @@ static bool	no_forb_char(int fd)
 	return (false);
 }
 
-
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	if (check_scene(argc, argv))
 		load_scene(argv[1]);

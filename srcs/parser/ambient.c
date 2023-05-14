@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-# include "parser.h"
+#include "parser.h"
 
 static bool	check_amb(t_ambientLight amb);
 
 void	load_amb(t_pars *pars, char **tokens)
 {
-	t_ambientLight amb;
+	t_ambientLight	amb;
 
 	amb = (t_ambientLight){};
 	if (tokens == NULL)
 		print_err(E_MEM | E_EXIT);
 	else if (pars->dup[AMB])
 		pars->errors |= E_DUP_AMB;
-	else if(ft_len_matrix(tokens) != 3)
+	else if (ft_len_matrix(tokens) != 3)
 		pars->errors |= E_AMB;
 	else
 	{
@@ -48,5 +47,3 @@ static bool	check_amb(t_ambientLight amb)
 	else
 		return (true);
 }
-
-

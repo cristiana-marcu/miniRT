@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-# include "parser.h"
+#include "parser.h"
 
 static bool	check_range_cols(t_vec3 cols);
-double get_col(char *col);
+double		get_col(char *col);
 
-t_vec3 get_colours(char *str)
+t_vec3	get_colours(char *str)
 {
 	t_vec3	cols;
 	char	**rgb;
@@ -48,12 +47,12 @@ static bool	check_range_cols(t_vec3 cols)
 	if (cols.z > 255 || cols.z < 0)
 		return (false);
 	else
-	 	return (true);
+		return (true);
 }
 
-double get_col(char *col)
+double	get_col(char *col)
 {
-	char *aux;
+	char	*aux;
 
 	aux = col;
 	if (ft_strlen(col) < 1 || ft_strlen(col) > 3)
@@ -67,4 +66,3 @@ double get_col(char *col)
 	}
 	return ((double)ft_atoi(col));
 }
-
