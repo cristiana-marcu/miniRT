@@ -44,7 +44,7 @@ static void	load_objs(t_pars *pars)
 		load_amb(pars, ft_split(pars->line, ' '));
 	/*
 	else if (ft_strncmp(pars->line, "C ", 2) == 0)
-			load_cam(pars);
+		load_cam(pars, ft_split(pars->line, ' '));
 	else if (ft_strncmp(pars->line, "L ", 2) == 0)
 			load_light(pars);
 	else if (ft_strncmp(pars->line, "sp ", 3) == 0)

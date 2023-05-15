@@ -23,9 +23,10 @@ SRC := \
 parser/errors.c \
 parser/load_scene.c \
 parser/parser.c \
-parser/ambient.c \
+parser/load_ambient.c \
 parser/get_params/get_colours.c \
 parser/get_params/get_bright.c 
+#parser/load_camera.c \
 
 #canvas/canvas.c \
 main.c \
