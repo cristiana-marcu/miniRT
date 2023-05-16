@@ -76,4 +76,5 @@ int	main(int argc, char **argv)
 		load_scene(argv[1]);
 	else
 		printf("NO HECHO\n");
+
 }

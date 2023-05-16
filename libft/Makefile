@@ -59,7 +59,8 @@ ft_len_matrix.c			\
 ft_isspace.c			\
 ft_lstswap.c			\
 ft_lstpenult.c			\
-ft_atof.c
+ft_atof.c				\
+ft_strtod.c				
 
 GNL_SRC := \
 get_next_line.c \
