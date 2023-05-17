@@ -30,7 +30,6 @@
 # include <string.h>
 # include <unistd.h>
 
-
 /* ************************************************************************** */
 /*                                  DEFINES                                   */
 /* ************************************************************************** */
@@ -58,6 +57,13 @@ typedef enum e_may
 	CAM,
 	LIT,
 }				t_may;
+
+typedef enum e_range
+{
+	VIEW,
+	NVEC,
+	HFOV,
+}				t_range;
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
@@ -65,7 +71,10 @@ bool			check_scene(int argc, char **argv);
 void			print_err(uint16_t err);
 void			load_scene(char *scene);
 void			load_amb(t_pars *pars, char **tokens);
+void			load_cam(t_pars *pars, char **tokens);
 double			get_bright(char *str);
 t_vec3			get_colours(char *str);
+double			get_fov(char *str, bool *is_right, t_range HFOV);
+t_vec3			get_view(char *str, bool *is_right, t_range r);
 
 #endif

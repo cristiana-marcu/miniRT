@@ -20,13 +20,14 @@ LIBFT := libft/libft.a
 BUILD_DIR := .build/
 SRC_DIR := srcs/
 SRC := \
-parser/errors.c \
-parser/load_scene.c \
 parser/parser.c \
-parser/load_ambient.c \
+parser/errors.c \
+parser/load_elements/load_scene.c \
+parser/load_elements/load_ambient.c \
+parser/load_elements/load_camera.c \
 parser/get_params/get_colours.c \
-parser/get_params/get_bright.c 
-#parser/load_camera.c \
+parser/get_params/get_bright.c  \
+parser/get_params/get_camera.c \
 
 #canvas/canvas.c \
 main.c \

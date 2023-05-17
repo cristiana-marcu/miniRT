@@ -37,11 +37,11 @@ void	print_err(uint16_t err)
 	if (err & E_DUP_LIT)
 		ft_putstr_fd("\t- Light must be declared just once\n", STDERR_FILENO);
 	if (err & E_AMB)
-		ft_putstr_fd("\t- Ambient data syntax incorrect\n", STDERR_FILENO);
-	if (err & E_DUP_CAM)
-		ft_putstr_fd("\t- Camera data syntax incorrect\n", STDERR_FILENO);
-	if (err & E_DUP_LIT)
-		ft_putstr_fd("\t- Light data syntax incorrect\n", STDERR_FILENO);
+		ft_putstr_fd("\t- Ambient: range incorrect\n", STDERR_FILENO);
+	if (err & E_CAM)
+		ft_putstr_fd("\t- Camera: range incorrect\n", STDERR_FILENO);
+	if (err & E_LIT)
+		ft_putstr_fd("\t- Light: range incorrect\n", STDERR_FILENO);
 	if (err & E_EXIT)
 	{
 		ft_putstr_fd("Exit\n", STDERR_FILENO);

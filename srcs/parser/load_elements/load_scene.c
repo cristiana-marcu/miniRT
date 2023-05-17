@@ -42,11 +42,11 @@ static void	load_objs(t_pars *pars)
 		return ;
 	if (ft_strncmp(pars->line, "A ", 2) == 0)
 		load_amb(pars, ft_split(pars->line, ' '));
-	/*
 	else if (ft_strncmp(pars->line, "C ", 2) == 0)
 		load_cam(pars, ft_split(pars->line, ' '));
+/*
 	else if (ft_strncmp(pars->line, "L ", 2) == 0)
-			load_light(pars);
+			load_light(pars, ft_split(pars->line, ' '));
 	else if (ft_strncmp(pars->line, "sp ", 3) == 0)
 			load_sp(pars);
 	else if (ft_strncmp(pars->line, "pl ", 3) == 0)

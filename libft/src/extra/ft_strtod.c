@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtod.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 18:33:49 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/16 11:50:48 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:41:33 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static double	get_decimal(long double result, const char *str, int *index)
 			i++;
 		}
 	}
-	if (result > DBL_MAX || result < DBL_MIN)
+	if (result != 0 && (result > DBL_MAX || result < DBL_MIN))
 	{
 		*index = 0;
 		return (0);
