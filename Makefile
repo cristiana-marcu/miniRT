@@ -21,16 +21,17 @@ BUILD_DIR := .build/
 SRC_DIR := srcs/
 SRC := \
 parser/parser.c \
-parser/errors.c \
+parser/init_mlx.c \
+parser/utils/check_range.c \
+parser/utils/errors.c \
+parser/utils/free_objs.c \
+parser/utils/utils.c \
 parser/load_elements/load_scene.c \
 parser/load_elements/load_ambient.c \
 parser/load_elements/load_camera.c \
-parser/get_params/get_colours.c \
-parser/get_params/get_bright.c  \
-parser/get_params/get_camera.c \
-
-#canvas/canvas.c \
-main.c \
+parser/load_elements/load_light.c \
+parser/load_elements/load_sp.c \
+canvas/canvas.c \
 vectors.c \
 ray.c \
 camera.c \
@@ -38,6 +39,8 @@ render.c \
 sphere-plane.c \
 cylinder.c \
 lights.c
+#main.c \
+
 SRC := $(SRC:%=$(SRC_DIR)%)
 INC := \
 includes/ \

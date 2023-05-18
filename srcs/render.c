@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/09 20:15:45 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:28:35 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj)
 {
 	t_object_list	*last;
 
-	if (!(*lst)->obj) //En la primera vuelta tendria que entrar por aqui
+	if (!(*lst)) //En la primera vuelta tendria que entrar por aqui
 	{
 		*lst = new_obj;
 		new_obj->next = NULL;

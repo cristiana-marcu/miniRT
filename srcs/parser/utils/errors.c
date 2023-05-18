@@ -42,6 +42,8 @@ void	print_err(uint16_t err)
 		ft_putstr_fd("\t- Camera: range incorrect\n", STDERR_FILENO);
 	if (err & E_LIT)
 		ft_putstr_fd("\t- Light: range incorrect\n", STDERR_FILENO);
+	if (err & E_SP)
+		ft_putstr_fd("\t- Sphere: range incorrect\n", STDERR_FILENO);
 	if (err & E_EXIT)
 	{
 		ft_putstr_fd("Exit\n", STDERR_FILENO);

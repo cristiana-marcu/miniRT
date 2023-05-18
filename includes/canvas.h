@@ -13,8 +13,7 @@
 #ifndef CANVAS_H
 # define CANVAS_H
 
-
-# include "minirt.h"
+# include "objects.h"
 
 # define K_ESC 53
 

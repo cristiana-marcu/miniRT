@@ -14,8 +14,10 @@
 
 static void	load_objs(t_pars *pars);
 static void	rm_spaces(char **line);
+static t_world *p_world(t_world old_world);
 
-void	load_scene(char *scene)
+
+t_world	*load_scene(char *scene)
 {
 	t_pars	pars;
 
@@ -31,7 +33,11 @@ void	load_scene(char *scene)
 		pars.line = get_next_line(pars.fd);
 	}
 	if (pars.errors != 0)
-		print_err(pars.errors);
+	{
+		free_objs(&(pars.world.objs), free);
+		print_err(pars.errors | E_EXIT);
+	}
+	return (p_world(pars.world));
 }
 
 static void	load_objs(t_pars *pars)
@@ -44,11 +50,11 @@ static void	load_objs(t_pars *pars)
 		load_amb(pars, ft_split(pars->line, ' '));
 	else if (ft_strncmp(pars->line, "C ", 2) == 0)
 		load_cam(pars, ft_split(pars->line, ' '));
-/*
 	else if (ft_strncmp(pars->line, "L ", 2) == 0)
-			load_light(pars, ft_split(pars->line, ' '));
+		load_light(pars, ft_split(pars->line, ' '));
 	else if (ft_strncmp(pars->line, "sp ", 3) == 0)
-			load_sp(pars);
+		load_sp(pars, ft_split(pars->line, ' '));
+/*
 	else if (ft_strncmp(pars->line, "pl ", 3) == 0)
 			load_pl(pars);
 	else if (ft_strncmp(pars->line, "cy ", 3) == 0)
@@ -71,4 +77,16 @@ static void	rm_spaces(char **line)
 	if (!trim_line)
 		print_err(E_MEM | E_EXIT);
 	*line = trim_line;
+}
+
+static t_world *p_world(t_world old_world)
+{
+	t_world	*world;
+
+	world = malloc(sizeof(t_world));
+	if (!world)
+		print_err(E_MEM | E_EXIT);
+	*world = old_world;
+	world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
+	return (world);
 }

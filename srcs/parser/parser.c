@@ -72,8 +72,19 @@ static bool	no_forb_char(int fd)
 
 int	main(int argc, char **argv)
 {
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
 	if (check_scene(argc, argv))
-		load_scene(argv[1]);
+		data->world = load_scene(argv[1]);
 	else
+	{
 		printf("NO HECHO\n");
+		return (1);
+	}
+	init_mlx(data);
+	render(data);
+	start_rt(data);
+	free_objs(&data->world->objs, free);
+	free(data);
 }

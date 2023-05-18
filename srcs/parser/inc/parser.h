@@ -60,21 +60,32 @@ typedef enum e_may
 
 typedef enum e_range
 {
-	VIEW,
+	POINT,
 	NVEC,
 	HFOV,
+	BRIGHT,
+	COLRS,
+	SEGM,
 }				t_range;
+
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
 bool			check_scene(int argc, char **argv);
-void			print_err(uint16_t err);
-void			load_scene(char *scene);
+t_world			*load_scene(char *scene);
 void			load_amb(t_pars *pars, char **tokens);
 void			load_cam(t_pars *pars, char **tokens);
-double			get_bright(char *str);
-t_vec3			get_colours(char *str);
-double			get_fov(char *str, bool *is_right, t_range HFOV);
-t_vec3			get_view(char *str, bool *is_right, t_range r);
+void			load_light(t_pars *pars, char **tokens);
+void			load_sp(t_pars *pars, char **tokens);
+double			get_dob(char *str, bool *is_right, t_range r);
+t_vec3			get_vector(char *str, bool *is_right, t_range r);
+bool			check_right(bool *is_right, int size);
+bool			check_rg(void *data, t_range r);
+void			free_objs(t_object_list **lst, void (*del)(void*));
+void init_mlx(t_data	*data);
+void	start_rt(t_data *data);
+
+//double			get_bright(char *str);
+//t_vec3			get_colours(char *str);
 
 #endif

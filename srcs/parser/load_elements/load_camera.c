@@ -12,16 +12,6 @@
 
 #include "parser.h"
 
-bool	check_right(bool *is_right, int size)
-{
-	while (size-- > 0)
-	{
-		if (!is_right[size])
-			return (false);
-	}
-	return (true);
-}
-
 void	load_cam(t_pars *pars, char **tokens)
 {
 	t_camera	cam;
@@ -38,9 +28,9 @@ void	load_cam(t_pars *pars, char **tokens)
 	else
 	{
 		pars->dup[CAM] = true;
-		cam.from = get_view(tokens[1], &is_right[0], VIEW);
-		cam.lookAt = get_view(tokens[2], &is_right[1], NVEC);
-		cam.HFOV = get_fov(tokens[3], &is_right[2], HFOV);
+		cam.from = get_vector(tokens[1], &is_right[0], POINT);
+		cam.lookAt = get_vector(tokens[2], &is_right[1], NVEC);
+		cam.HFOV = get_dob(tokens[3], &is_right[2], HFOV);
 		if (check_right(is_right, 3))
 			pars->world.camera = cam;
 		else

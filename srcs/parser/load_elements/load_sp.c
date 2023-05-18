@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_ambient.c                                     :+:      :+:    :+:   */
+/*   load_sp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/15 17:18:53 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:13:15 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	load_amb(t_pars *pars, char **tokens)
+void	load_sp(t_pars *pars, char **tokens)
 {
-	t_ambientLight	amb;
-	bool		is_right[2];
+	t_sphere	*sp;
+	bool		is_right[3];
 
-	amb = (t_ambientLight){};
+	sp = malloc(sizeof(t_sphere));
+	bzero(is_right, sizeof(is_right));
 	if (tokens == NULL)
 		print_err(E_MEM | E_EXIT);
-	else if (pars->dup[AMB])
-		pars->errors |= E_DUP_AMB;
-	else if (ft_len_matrix(tokens) != 3)
-		pars->errors |= E_AMB;
+	else if (ft_len_matrix(tokens) != 4)
+		pars->errors |= E_SP;
 	else
 	{
-		pars->dup[AMB] = true;
-		amb.range = get_dob(tokens[1], &is_right[0], BRIGHT);
-		amb.color = get_vector(tokens[2], &is_right[1], COLRS);
-		if (check_right(is_right, 2))
-			pars->world.amb_light = amb;
-		else
-			pars->errors |= E_AMB;
+		sp->center = get_vector(tokens[1], &is_right[0], POINT);
+		sp->r = get_dob(tokens[2], &is_right[1], SEGM);
+		sp->color = get_vector(tokens[3], &is_right[2], COLRS);
+		if (!check_right(is_right, 3))
+			pars->errors |= E_SP;
+		else if (add_obj_to_scene(&(pars->world), sp, SPHERE) == NULL)
+			print_err(E_MEM | E_EXIT);
 	}
 	ft_free_matrix(tokens);
 }
-
