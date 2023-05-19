@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <mlx.h>
 #include "canvas.h"
 #include "objects.h"
+#include "parser.h"
+
+static void	finish_rt(t_data *mlx);
 
 int	hook_keydown(int key, t_data *mlx)
 {
 	if (key == K_ESC)
 	{
-		mlx_destroy_image(mlx->mlx, mlx->img);
+		finish_rt(mlx);
 		exit(EXIT_SUCCESS);
 	}
 	return (0);
@@ -27,8 +29,8 @@ int	hook_keydown(int key, t_data *mlx)
 
 int	close_win(t_data *mlx)
 {
-	mlx_destroy_image(mlx->mlx, mlx->img);
-	exit(0);
+	finish_rt(mlx);
+	exit(EXIT_SUCCESS);
 }
 
 void init_mlx(t_data	*data)
@@ -49,4 +51,12 @@ void	start_rt(t_data *data)
 	mlx_key_hook(data->win, hook_keydown, &data->mlx);
 	mlx_hook(data->win, 17, 0, close_win, data);
 	mlx_loop(data->mlx);
+}
+
+static void	finish_rt(t_data *mlx)
+{
+	mlx_destroy_image(mlx->mlx, mlx->img);
+	free_objs(&mlx->world->objs, free);
+	free(mlx->world->rec);
+	free(mlx->world);
 }
