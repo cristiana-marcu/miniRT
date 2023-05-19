@@ -83,6 +83,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_mlx(data);
+	data->world->camera = init_camera(data);
 	render(data);
 	start_rt(data);
 	free_objs(&data->world->objs, free);

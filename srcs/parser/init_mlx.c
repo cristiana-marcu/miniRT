@@ -45,6 +45,7 @@ void init_mlx(t_data	*data)
 
 void	start_rt(t_data *data)
 {
+	mlx_put_image_to_window(data->mlx,data->win, data->img, 0, 0);
 	mlx_key_hook(data->win, hook_keydown, &data->mlx);
 	mlx_hook(data->win, 17, 0, close_win, data);
 	mlx_loop(data->mlx);

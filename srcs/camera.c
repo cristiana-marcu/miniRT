@@ -28,9 +28,14 @@ t_camera	init_camera(t_data *data)
 	double		field_width;
 
 	/*TODO que venga del parser todo lo hardcodeado*/
-	camera.from = vctor(0, 0.5, 2);
-	camera.HFOV = 80.0;
-	camera.lookAt = vctor(0, 0, -1);
+
+	camera.from = data->world->camera.from ;
+	camera.HFOV = data->world->camera.HFOV;
+	camera.lookAt = data->world->camera.lookAt;
+//	camera.from = vctor(0, 0.5, 2);
+//	camera.HFOV = 80.0;
+//	camera.lookAt = vctor(0, 0, -1);
+
 	/*_____________________________________________*/
 	theta = degree_to_radian(camera.HFOV);
 	field_width = 2 * tan(theta / 2);

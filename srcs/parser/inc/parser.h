@@ -82,8 +82,8 @@ t_vec3			get_vector(char *str, bool *is_right, t_range r);
 bool			check_right(bool *is_right, int size);
 bool			check_rg(void *data, t_range r);
 void			free_objs(t_object_list **lst, void (*del)(void*));
-void init_mlx(t_data	*data);
-void	start_rt(t_data *data);
+void 			init_mlx(t_data	*data);
+void			start_rt(t_data *data);
 
 //double			get_bright(char *str);
 //t_vec3			get_colours(char *str);
