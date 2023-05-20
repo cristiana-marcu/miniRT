@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_light.c                                       :+:      :+:    :+:   */
+/*   load_cy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/17 11:34:08 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:50:43 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	load_light(t_pars *pars, char **tokens)
+void	load_cy(t_pars *pars, char **tokens)
 {
-	t_light		light;
-	bool		is_right[3];
+	t_cylinder	*cy;
+	bool		is_right[5];
 
-	light = (t_light){};
+	cy = malloc(sizeof(t_cylinder));
 	bzero(is_right, sizeof(is_right));
 	if (tokens == NULL)
 		print_err(E_MEM | E_EXIT);
-	else if (pars->dup[LIT])
-		pars->errors |= E_DUP_LIT;
-	else if (ft_len_matrix(tokens) != 4)
-		pars->errors |= E_LIT;
+	else if (ft_len_matrix(tokens) != 6)
+		pars->errors |= E_CY;
 	else
 	{
-		pars->dup[LIT] = true;
-		light.pos = get_vector(tokens[1], &is_right[0], POINT);
-		light.brightness = get_dob(tokens[2], &is_right[1], BRIGHT);
-		light.color = get_vector(tokens[3], &is_right[2], COLRS);
-		if (check_right(is_right, 3))
-			pars->world.light = light;
-		else
-			pars->errors |= E_LIT;
+		cy->pos = get_vector(tokens[1], &is_right[0], POINT);
+		cy->N = get_vector(tokens[2], &is_right[1], NVEC);
+		cy->r = get_dob(tokens[3], &is_right[2], SEGM);
+		cy->H = get_dob(tokens[4], &is_right[3], SEGM);
+		cy->color = get_vector(tokens[5], &is_right[4], COLRS);
+		if (!check_right(is_right, 5))
+			pars->errors |= E_CY;
+		else if (add_obj_to_scene(&(pars->world), cy, CYLINDER) == NULL)
+			print_err(E_MEM | E_EXIT);
 	}
 }

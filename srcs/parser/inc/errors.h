@@ -37,11 +37,13 @@
 # define E_CAM (0x01 << 11)
 # define E_LIT (0x01 << 12)
 # define E_SP (0x01 << 13)
-# define E_EXIT (0x01 << 14)
+# define E_PL (0x01 << 14)
+# define E_CY (0x01 << 15)
+# define E_EXIT (0x01 << 16)
 
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
-void			print_err(uint16_t err);
+void			print_err(uint32_t  err);
 
 #endif

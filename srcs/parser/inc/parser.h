@@ -77,6 +77,8 @@ void			load_amb(t_pars *pars, char **tokens);
 void			load_cam(t_pars *pars, char **tokens);
 void			load_light(t_pars *pars, char **tokens);
 void			load_sp(t_pars *pars, char **tokens);
+void			load_pl(t_pars *pars, char **tokens);
+void			load_cy(t_pars *pars, char **tokens);
 double			get_dob(char *str, bool *is_right, t_range r);
 t_vec3			get_vector(char *str, bool *is_right, t_range r);
 bool			check_right(bool *is_right, int size);
@@ -84,6 +86,7 @@ bool			check_rg(void *data, t_range r);
 void			free_objs(t_object_list **lst, void (*del)(void*));
 void 			init_mlx(t_data	*data);
 void			start_rt(t_data *data);
+char			**smart_split(char *s);
 
 //double			get_bright(char *str);
 //t_vec3			get_colours(char *str);

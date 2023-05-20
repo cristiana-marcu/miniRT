@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-void	print_err(uint16_t err)
+void	print_err(uint32_t  err)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	if (err & E_BAD_ARG)
@@ -44,6 +44,10 @@ void	print_err(uint16_t err)
 		ft_putstr_fd("\t- Light: range incorrect\n", STDERR_FILENO);
 	if (err & E_SP)
 		ft_putstr_fd("\t- Sphere: range incorrect\n", STDERR_FILENO);
+	if (err & E_PL)
+		ft_putstr_fd("\t- Plane: range incorrect\n", STDERR_FILENO);
+	if (err & E_CY)
+		ft_putstr_fd("\t- Cylinder: range incorrect\n", STDERR_FILENO);
 	if (err & E_EXIT)
 	{
 		ft_putstr_fd("Exit\n", STDERR_FILENO);

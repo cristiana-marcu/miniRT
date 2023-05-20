@@ -36,5 +36,4 @@ void	load_cam(t_pars *pars, char **tokens)
 		else
 			pars->errors |= E_CAM;
 	}
-	ft_free_matrix(tokens);
 }

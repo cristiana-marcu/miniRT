@@ -34,6 +34,5 @@ void	load_amb(t_pars *pars, char **tokens)
 		else
 			pars->errors |= E_AMB;
 	}
-	ft_free_matrix(tokens);
 }
 

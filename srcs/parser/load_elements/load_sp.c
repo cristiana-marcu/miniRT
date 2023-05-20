@@ -33,5 +33,4 @@ void	load_sp(t_pars *pars, char **tokens)
 		else if (add_obj_to_scene(&(pars->world), sp, SPHERE) == NULL)
 			print_err(E_MEM | E_EXIT);
 	}
-	ft_free_matrix(tokens);
 }

@@ -13,7 +13,7 @@
 #include "parser.h"
 
 static void	load_objs(t_pars *pars);
-static void	rm_spaces(char **line);
+static char	**tokenizator(char *line);
 static t_world *p_world(t_world old_world);
 
 
@@ -42,41 +42,44 @@ t_world	*load_scene(char *scene)
 
 static void	load_objs(t_pars *pars)
 {
-	rm_spaces(&pars->line);
+	char **tokens;
+	int	len;
+
 	if (ft_strlen(pars->line) == 0 ||
 		(ft_strlen(pars->line) == 1 && *pars->line == '\n'))
 		return ;
-	if (ft_strncmp(pars->line, "A ", 2) == 0)
-		load_amb(pars, ft_split(pars->line, ' '));
-	else if (ft_strncmp(pars->line, "C ", 2) == 0)
-		load_cam(pars, ft_split(pars->line, ' '));
-	else if (ft_strncmp(pars->line, "L ", 2) == 0)
-		load_light(pars, ft_split(pars->line, ' '));
-	else if (ft_strncmp(pars->line, "sp ", 3) == 0)
-		load_sp(pars, ft_split(pars->line, ' '));
-/*
-	else if (ft_strncmp(pars->line, "pl ", 3) == 0)
-			load_pl(pars);
-	else if (ft_strncmp(pars->line, "cy ", 3) == 0)
-			load_cy(pars);
-*/
+	tokens = tokenizator(pars->line);
+	len = ft_strlen(tokens[0]);
+	if (ft_strncmp(tokens[0], "A", len) == 0)
+		load_amb(pars, tokens);
+	else if (ft_strncmp(tokens[0], "C", len) == 0)
+		load_cam(pars, tokens);
+	else if (ft_strncmp(tokens[0], "L", len) == 0)
+		load_light(pars, tokens);
+	else if (ft_strncmp(tokens[0], "sp", len) == 0)
+		load_sp(pars, tokens);
+	else if (ft_strncmp(tokens[0], "pl", len) == 0)
+		load_pl(pars, tokens);
+	else if (ft_strncmp(tokens[0], "cy", len) == 0)
+		load_cy(pars, tokens);
 	else
 		pars->errors |= E_ID;
+	ft_free_matrix(tokens);
 }
 
-static void	rm_spaces(char **line)
+static char	**tokenizator(char *line)
 {
 	char	*trim_line;
-	char	*aux;
+	char	**tokens;
 
-	aux = ft_strtrim(*line, " ");
-	trim_line = ft_strtrim(aux, "\n");
-	free(*line);
-	if (aux)
-		free(aux);
+	trim_line = ft_strtrim(line, "\n");
 	if (!trim_line)
 		print_err(E_MEM | E_EXIT);
-	*line = trim_line;
+	tokens = smart_split(trim_line);
+	free(trim_line);
+	if (!tokens)
+		print_err(E_MEM | E_EXIT);
+	return (tokens);
 }
 
 static t_world *p_world(t_world old_world)
