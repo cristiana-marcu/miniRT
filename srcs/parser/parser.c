@@ -70,20 +70,3 @@ static bool	no_forb_char(int fd)
 	return (false);
 }
 
-int	main(int argc, char **argv)
-{
-	t_data	data;
-
-	data = (t_data){};
-	if (check_scene(argc, argv))
-		data.world = load_scene(argv[1]);
-	else
-	{
-		printf("NO HECHO\n");
-		return (1);
-	}
-	init_mlx(&data);
-	data.world->camera = init_camera(&data);
-	render(&data);
-	start_rt(&data);
-}

@@ -73,8 +73,8 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 	bool			hit_anything;
 	double			closest_so_far;
 	t_object_list	*obj;
-	t_vec3			color;
 
+	hit_anything = false;
 	world->rec->t_min = EPSILON;
 	world->rec->t_max = INFINITY;
 	obj = world->objs;
@@ -86,7 +86,6 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 			hit_anything = true;
 			if (world->rec->t_max < closest_so_far)
 				closest_so_far = world->rec->t;
-			color = world->rec->color;
 		}
 		obj = obj->next;
 	}

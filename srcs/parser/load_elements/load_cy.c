@@ -29,7 +29,7 @@ void	load_cy(t_pars *pars, char **tokens)
 		cy->N = get_vector(tokens[2], &is_right[1], NVEC);
 		cy->r = get_dob(tokens[3], &is_right[2], SEGM);
 		cy->H = get_dob(tokens[4], &is_right[3], SEGM);
-		cy->color = get_vector(tokens[5], &is_right[4], COLRS);
+		cy->color = normalize_color(get_vector(tokens[5], &is_right[4], COLRS));
 		if (!check_right(is_right, 5))
 			pars->errors |= E_CY;
 		else if (add_obj_to_scene(&(pars->world), cy, CYLINDER) == NULL)

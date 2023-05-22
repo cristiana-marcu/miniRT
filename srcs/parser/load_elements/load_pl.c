@@ -27,7 +27,7 @@ void	load_pl(t_pars *pars, char **tokens)
 	{
 		pl->pos = get_vector(tokens[1], &is_right[0], POINT);
 		pl->N = get_vector(tokens[2], &is_right[1], NVEC);
-		pl->color = get_vector(tokens[3], &is_right[2], COLRS);
+		pl->color = normalize_color(get_vector(tokens[3], &is_right[2], COLRS));
 		if (!check_right(is_right, 3))
 			pars->errors |= E_PL;
 		else if (add_obj_to_scene(&(pars->world), pl, PLANE) == NULL)

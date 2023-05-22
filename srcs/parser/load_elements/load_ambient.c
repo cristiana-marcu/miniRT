@@ -30,7 +30,10 @@ void	load_amb(t_pars *pars, char **tokens)
 		amb.range = get_dob(tokens[1], &is_right[0], BRIGHT);
 		amb.color = get_vector(tokens[2], &is_right[1], COLRS);
 		if (check_right(is_right, 2))
+		{
+			amb.color = normalize_color(amb.color);
 			pars->world.amb_light = amb;
+		}
 		else
 			pars->errors |= E_AMB;
 	}

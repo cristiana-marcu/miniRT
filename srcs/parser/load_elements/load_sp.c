@@ -27,7 +27,7 @@ void	load_sp(t_pars *pars, char **tokens)
 	{
 		sp->center = get_vector(tokens[1], &is_right[0], POINT);
 		sp->r = get_dob(tokens[2], &is_right[1], SEGM);
-		sp->color = get_vector(tokens[3], &is_right[2], COLRS);
+		sp->color = normalize_color(get_vector(tokens[3], &is_right[2], COLRS));
 		if (!check_right(is_right, 3))
 			pars->errors |= E_SP;
 		else if (add_obj_to_scene(&(pars->world), sp, SPHERE) == NULL)

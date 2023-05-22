@@ -41,8 +41,8 @@ camera.c \
 render.c \
 sphere-plane.c \
 cylinder.c \
-lights.c
-#main.c \
+lights.c \
+main.c \
 
 SRC := $(SRC:%=$(SRC_DIR)%)
 INC := \

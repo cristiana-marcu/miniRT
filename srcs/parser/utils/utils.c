@@ -59,6 +59,16 @@ t_vec3	get_vector(char *str, bool *is_right, t_range r)
 	return (vec);
 }
 
+t_vec3  normalize_color(t_vec3 color)
+{
+    t_vec3 normalized_color;
+
+    normalized_color.x = color.x / 255;
+    normalized_color.y = color.y / 255;
+    normalized_color.z = color.z / 255;
+    return (normalized_color);
+}
+
 static bool	get_crd(char *crd, double *c)
 {
 	char	*p;
