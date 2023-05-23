@@ -31,6 +31,8 @@ void	load_cam(t_pars *pars, char **tokens)
 		cam.from = get_vector(tokens[1], &is_right[0], POINT);
 		cam.lookAt = get_vector(tokens[2], &is_right[1], NVEC);
 		cam.HFOV = get_dob(tokens[3], &is_right[2], HFOV);
+		if (cam.HFOV == 180)
+			cam.HFOV = 179.99;
 		if (check_right(is_right, 3))
 			pars->world.camera = cam;
 		else

@@ -43,7 +43,7 @@ static bool	is_valid_char(char c)
 		return (true);
 	else if (c == '-' || c == ',' || c == '.')
 		return (true);
-	else if (c == '\n' || c == ' ' || c == '\t')
+	else if (c == '\n' || c == ' ' || c == '\t' || c == '#')
 		return (true);
 	else if (ft_isdigit(c))
 		return (true);
