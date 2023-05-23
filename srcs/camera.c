@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:35:29 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/23 15:38:53 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/23 18:49:21 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_camera	init_camera(t_data *data)
 	field_width = 2 * tan(theta / 2);
 	camera.viewport_width = field_width;
 	camera.viewport_height = field_width / data->view.aspect_ratio;
-	camera.w = vec3_norm(vec3_subs(camera.from, camera.lookAt));
+	camera.w = camera.lookAt;
 	camera.u = vec3_norm(vec3_cross(vctor(0, 1, 0), camera.w));
 	camera.v = vec3_cross(camera.w, camera.u);
 	camera.horizontal = vec3_mult(camera.u, camera.viewport_width);

@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/23 15:25:34 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/23 18:58:19 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,5 @@ void	shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
 	u = ((double)aux->x) / (data->view.width - 1); //Antialiasing ((double)aux->x + random_double())
 	v = 1 - ((double)aux->y) / (data->view.height - 1);//Antialiasing ((double)aux->y + random_double())
 	ray->origin = data->world->camera.from;
-	ray->direction = vec3_add(vec3_add(data->world->camera.lower_left_corner, vec3_mult(data->world->camera.horizontal, u)), vec3_subs(vec3_mult(data->world->camera.vertical, v), data->world->camera.from));
+	ray->direction = vec3_norm(vec3_add(vec3_add(data->world->camera.lower_left_corner, vec3_mult(data->world->camera.horizontal, u)), vec3_subs(vec3_mult(data->world->camera.vertical, v), data->world->camera.from)));
 }
