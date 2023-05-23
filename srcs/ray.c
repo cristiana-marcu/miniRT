@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/23 18:58:19 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:17:17 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_vec3	calculate_pixel_color(t_world *world)
 	t_object_list	*obj;
 	t_hit_record	shadow_rec;
 
-	shadow_ray = rctor(vec3_add(world->rec->hit_point, vec3_mult(world->rec->N, 0.001)), vec3_subs(world->light.pos, world->rec->hit_point));
+	shadow_ray = rctor(vec3_add(world->rec->hit_point, vec3_mult(world->rec->N, 0.001)), vec3_norm(vec3_subs(world->light.pos, world->rec->hit_point)));
 	obj = world->objs;
 	shadow_rec.t_min = EPSILON;
 	shadow_rec.t_max = vec3_magn(vec3_subs(world->light.pos, world->rec->hit_point));
