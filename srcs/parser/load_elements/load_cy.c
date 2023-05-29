@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_cy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/20 16:50:43 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:33:51 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	load_cy(t_pars *pars, char **tokens)
 	{
 		cy->pos = get_vector(tokens[1], &is_right[0], POINT);
 		cy->N = get_vector(tokens[2], &is_right[1], NVEC);
-		cy->r = get_dob(tokens[3], &is_right[2], SEGM);
+		cy->r = get_dob(tokens[3], &is_right[2], SEGM) / 2;
 		cy->H = get_dob(tokens[4], &is_right[3], SEGM);
 		cy->color = normalize_color(get_vector(tokens[5], &is_right[4], COLRS));
 		if (!check_right(is_right, 5))

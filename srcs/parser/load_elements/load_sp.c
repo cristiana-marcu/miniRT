@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_sp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/17 12:13:15 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:33:20 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	load_sp(t_pars *pars, char **tokens)
 	else
 	{
 		sp->center = get_vector(tokens[1], &is_right[0], POINT);
-		sp->r = get_dob(tokens[2], &is_right[1], SEGM);
+		sp->r = get_dob(tokens[2], &is_right[1], SEGM) / 2;
 		sp->color = normalize_color(get_vector(tokens[3], &is_right[2], COLRS));
 		if (!check_right(is_right, 3))
 			pars->errors |= E_SP;

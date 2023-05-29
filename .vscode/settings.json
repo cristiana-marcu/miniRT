@@ -1,5 +1,9 @@
 {
 	"files.associations": {
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"bitset": "c",
+		"chrono": "c",
+		"memory_resource": "c",
+		"memory": "c"
 	}
 }

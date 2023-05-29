@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:40:48 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/08 19:55:39 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/29 20:35:19 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_sphere	*new_sphere(t_vec3 center, double r, t_vec3 color)
 	if (!sph)
 		return (NULL);
 	sph->center = center;
-	sph->r = r;
+	sph->r = r / 2;
 	sph->color = color;
 	return (sph);
 }
