@@ -6,7 +6,7 @@
 /*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:42:19 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/18 17:28:35 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:50:04 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@ void	*add_obj_to_scene(t_world *world, void *obj, int type)
 	obj_lstadd_back(&(world->objs), elem);
 	return (obj);
 }
+/**
+ * The function renders an image by shooting rays and calculating the color of
+ * each pixel.
+ *
+ * @param data a pointer to a struct that contains information about the scene
+ * and the image being rendered.
+ */
 
 void	render(t_data *data)
 {
