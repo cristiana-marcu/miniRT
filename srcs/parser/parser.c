@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/13 17:57:09 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:05:01 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,3 @@ static bool	no_forb_char(int fd)
 		return (true);
 	return (false);
 }
-

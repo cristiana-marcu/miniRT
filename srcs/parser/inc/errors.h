@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 19:31:00 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/14 19:31:07 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:14:10 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,26 @@
 /*                                  DEFINES                                   */
 /* ************************************************************************** */
 
-# define E_BAD_ARG 0x01
-# define E_EXTEN 0x01 << 1
-# define E_OPEN (0x01 << 2)
-# define E_CHAR (0x01 << 3)
-# define E_EMPTY (0x01 << 4)
-# define E_MEM (0x01 << 5)
-# define E_ID (0x01 << 6)
-# define E_DUP_AMB (0x01 << 7)
-# define E_DUP_CAM (0x01 << 8)
-# define E_DUP_LIT (0x01 << 9)
-# define E_AMB (0x01 << 10)
-# define E_CAM (0x01 << 11)
-# define E_LIT (0x01 << 12)
-# define E_SP (0x01 << 13)
-# define E_PL (0x01 << 14)
-# define E_CY (0x01 << 15)
-# define E_EXIT (0x01 << 16)
-
+# define E_BAD_ARG 0x1
+# define E_EXTEN 0x2
+# define E_OPEN 0x4
+# define E_CHAR 0x8
+# define E_EMPTY 0x10
+# define E_MEM 0x20
+# define E_ID 0x40
+# define E_DUP_AMB 0x80
+# define E_DUP_CAM 0x100
+# define E_DUP_LIT 0x200
+# define E_AMB 0x400
+# define E_CAM 0x800
+# define E_LIT 0x1000
+# define E_SP 0x2000
+# define E_PL 0x4000
+# define E_CY 0x8000
+# define E_EXIT 0x10000
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
-void			print_err(uint32_t  err);
+void			print_err(uint32_t err);
 
 #endif

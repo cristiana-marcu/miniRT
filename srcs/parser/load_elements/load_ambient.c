@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_ambient.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/15 17:18:53 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:16:27 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	load_amb(t_pars *pars, char **tokens)
 {
 	t_ambientLight	amb;
-	bool		is_right[2];
+	bool			is_right[2];
 
 	amb = (t_ambientLight){};
 	if (tokens == NULL)
@@ -38,4 +38,3 @@ void	load_amb(t_pars *pars, char **tokens)
 			pars->errors |= E_AMB;
 	}
 }
-

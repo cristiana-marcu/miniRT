@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   load_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/13 18:20:04 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:17:50 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void	load_objs(t_pars *pars);
-static char	**tokenizator(char *line);
-static t_world *p_world(t_world old_world);
-
+static void		load_objs(t_pars *pars);
+static char		**tokenizator(char *line);
+static t_world	*p_world(t_world old_world);
 
 t_world	*load_scene(char *scene)
 {
@@ -42,11 +41,11 @@ t_world	*load_scene(char *scene)
 
 static void	load_objs(t_pars *pars)
 {
-	char **tokens;
-	int	len;
+	char	**tokens;
+	int		len;
 
-	if (ft_strlen(pars->line) == 0 || *pars->line == '#' ||
-		(ft_strlen(pars->line) == 1 && *pars->line == '\n'))
+	if (ft_strlen(pars->line) == 0 || *pars->line == '#' \
+		|| (ft_strlen(pars->line) == 1 && *pars->line == '\n'))
 		return ;
 	tokens = tokenizator(pars->line);
 	len = ft_strlen(tokens[0]);
@@ -82,7 +81,7 @@ static char	**tokenizator(char *line)
 	return (tokens);
 }
 
-static t_world *p_world(t_world old_world)
+static t_world	*p_world(t_world old_world)
 {
 	t_world	*world;
 
@@ -90,6 +89,6 @@ static t_world *p_world(t_world old_world)
 	if (!world)
 		print_err(E_MEM | E_EXIT);
 	*world = old_world;
-	world->rec = (t_hit_record*)malloc(sizeof(t_hit_record));
+	world->rec = (t_hit_record *)malloc(sizeof(t_hit_record));
 	return (world);
 }
