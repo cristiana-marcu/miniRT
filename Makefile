@@ -21,7 +21,7 @@ BUILD_DIR := .build/
 SRC_DIR := srcs/
 SRC := \
 parser/parser.c \
-parser/init_mlx.c \
+parser/utils/init_mlx.c \
 parser/utils/check_range.c \
 parser/utils/errors.c \
 parser/utils/free_objs.c \

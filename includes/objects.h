@@ -14,9 +14,9 @@
 # define OBJECTS_H
 
 # include "vectors.h"
+# include "mlx.h"
 # include <math.h>
 # include <stdlib.h>
-# include <mlx.h>
 
 typedef struct s_object_list	t_object_list;
 

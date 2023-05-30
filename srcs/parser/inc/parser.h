@@ -17,12 +17,12 @@
 /*                                 INCLUDES                                   */
 /* ************************************************************************** */
 
+# include "mlx.h"
 # include "errors.h"
 # include "libft.h"
 # include "objects.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <mlx.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>

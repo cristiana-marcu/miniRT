@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include "canvas.h"
 #include "objects.h"
 #include "parser.h"
