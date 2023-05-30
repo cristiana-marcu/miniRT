@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/23 19:10:53 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/30 19:45:02 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	close_win(t_data *mlx)
 void init_mlx(t_data	*data)
 {
 	data->view.aspect_ratio = 16.0 / 9.0;
-	data->view.width = 1080;
+	data->view.width = 1920;
 	data->view.height = (int)(data->view.width / data->view.aspect_ratio);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->view.width, data->view.height, "miniRT");
