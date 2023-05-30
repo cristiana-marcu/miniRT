@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/17 11:40:27 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:23:31 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ t_vec3	get_vector(char *str, bool *is_right, t_range r)
 	return (vec);
 }
 
-t_vec3  normalize_color(t_vec3 color)
+t_vec3	normalize_color(t_vec3 color)
 {
-    t_vec3 normalized_color;
+	t_vec3	normalized_color;
 
-    normalized_color.x = color.x / 255;
-    normalized_color.y = color.y / 255;
-    normalized_color.z = color.z / 255;
-    return (normalized_color);
+	normalized_color.x = color.x / 255;
+	normalized_color.y = color.y / 255;
+	normalized_color.z = color.z / 255;
+	return (normalized_color);
 }
 
 static bool	get_crd(char *crd, double *c)
@@ -74,10 +74,10 @@ static bool	get_crd(char *crd, double *c)
 	char	*p;
 
 	p = crd;
-	if (ft_strlen(crd) < 1 || ft_strlen(crd) > 1000) //TODO
+	if (ft_strlen(crd) < 1 || ft_strlen(crd) > 1000)
 		return (false);
 	*c = ft_strtod(crd, &p);
-	if (*p != '\0') // TODO
+	if (*p != '\0')
 		return (false);
 	else
 		return (true);

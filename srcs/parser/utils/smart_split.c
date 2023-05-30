@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   smart_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:14:31 by drontome          #+#    #+#             */
-/*   Updated: 2023/03/15 19:02:38 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:22:36 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static char	*get_end_str(char *s, size_t *len)
 	int	i;
 
 	i = 0;
-	while ((s[i] && !ft_isspace(s[i])) || (i > 0 && s[i] == ' ' && (s[i - 1]) == ','))
+	while ((s[i] && !ft_isspace(s[i])) || (i > 0 && s[i] == ' ' \
+		&& (s[i - 1]) == ','))
 	{
 		i++;
 		*len = *len + 1;

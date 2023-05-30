@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:15:05 by cristianama       #+#    #+#             */
-/*   Updated: 2023/05/23 19:17:17 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/26 18:50:00 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,16 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 		return (calculate_pixel_color(world));
 	return (vctor(0, 0, 0));
 }
+/**
+ * The function shoots a ray from the camera's position through a specific pixel on the screen.
+ *
+ * @param data A pointer to a struct that contains information about the scene and camera settings.
+ * @param ray A pointer to a t_ray struct, which represents a ray in 3D space with an origin and
+ * direction.
+ * @param aux The `aux` parameter is a pointer to a `t_vec3` struct that represents the pixel
+ * coordinates on the screen. It is used to calculate the u and v values for the ray direction
+ * calculation.
+ */
 
 void	shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
 {

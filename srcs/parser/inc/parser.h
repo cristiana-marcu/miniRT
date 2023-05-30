@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:21:03 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/08 18:31:46 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:14:33 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ double			get_dob(char *str, bool *is_right, t_range r);
 t_vec3			get_vector(char *str, bool *is_right, t_range r);
 bool			check_right(bool *is_right, int size);
 bool			check_rg(void *data, t_range r);
-t_vec3  		normalize_color(t_vec3 color);
+t_vec3			normalize_color(t_vec3 color);
 void			free_objs(t_object_list **lst, void (*del)(void*));
-void 			init_mlx(t_data	*data);
+void			init_mlx(t_data	*data);
 void			start_rt(t_data *data);
 char			**smart_split(char *s);
 

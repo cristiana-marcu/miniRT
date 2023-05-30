@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:35:29 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/29 20:03:36 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/05/30 11:41:07 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ double	degree_to_radian(double degree)
 {
 	return (degree * M_PI / 180);
 }
+
+/**
+ * The function initializes a camera struct with given parameters and calculates its properties.
+ *
+ * @param data It is a pointer to a struct that contains information about the scene being rendered,
+ * such as the world, the view, and the image.
+ *
+ * @return The function `init_camera` is returning a `t_camera` structure.
+*/
 
 t_camera	init_camera(t_data *data)
 {

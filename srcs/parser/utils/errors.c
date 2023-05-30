@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:11:09 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/08 18:21:29 by drontome         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:22:02 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	print_err(uint32_t  err)
+static void	print_err2(uint32_t err);
+
+void	print_err(uint32_t err)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	if (err & E_BAD_ARG)
@@ -34,6 +36,11 @@ void	print_err(uint32_t  err)
 			STDERR_FILENO);
 	if (err & E_DUP_CAM)
 		ft_putstr_fd("\t- Camera must be declared just once\n", STDERR_FILENO);
+	print_err2(err);
+}
+
+static void	print_err2(uint32_t err)
+{
 	if (err & E_DUP_LIT)
 		ft_putstr_fd("\t- Light must be declared just once\n", STDERR_FILENO);
 	if (err & E_AMB)
