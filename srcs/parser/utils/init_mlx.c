@@ -6,7 +6,11 @@
 /*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
+<<<<<<< HEAD:srcs/parser/utils/init_mlx.c
 /*   Updated: 2023/05/29 20:15:51 by drontome         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/30 19:45:02 by cmarcu           ###   ########.fr       */
+>>>>>>> parser:srcs/parser/init_mlx.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +39,7 @@ int	close_win(t_data *mlx)
 void	init_mlx(t_data	*data)
 {
 	data->view.aspect_ratio = 16.0 / 9.0;
-	data->view.width = 1080;
+	data->view.width = 1920;
 	data->view.height = (int)(data->view.width / data->view.aspect_ratio);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->view.width, \
