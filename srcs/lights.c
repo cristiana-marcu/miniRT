@@ -58,7 +58,7 @@ t_vec3	diffuse_light_on_obj(t_world *world, t_ray shadow_ray)
 	t_vec3	diffuse;
 	double	dot_NL;
 
-	dot_NL = vec3_dot(vec3_norm(world->rec->N), vec3_norm(shadow_ray.direction));
+	dot_NL = vec3_dot(vec3_norm(world->rec->n), vec3_norm(shadow_ray.direction));
 	if (dot_NL < 0)
 		dot_NL = 0;
 	diffuse.x = world->light.brightness * world->rec->color.x * dot_NL;

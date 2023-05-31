@@ -39,18 +39,18 @@ t_camera	init_camera(t_data *data)
 	/*TODO que venga del parser todo lo hardcodeado*/
 
 	camera.from = data->world->camera.from ;
-	camera.HFOV = data->world->camera.HFOV;
-	camera.lookAt = data->world->camera.lookAt;
+	camera.hfov = data->world->camera.hfov;
+	camera.lookat = data->world->camera.lookat;
 //	camera.from = vctor(0, 0.5, 2);
 //	camera.HFOV = 80.0;
 //	camera.lookAt = vctor(0, 0, -1);
 
 	/*_____________________________________________*/
-	theta = degree_to_radian(camera.HFOV);
+	theta = degree_to_radian(camera.hfov);
 	field_width = 2 * tan(theta / 2);
 	camera.viewport_width = field_width;
 	camera.viewport_height = field_width / data->view.aspect_ratio;
-	camera.w = vec3_negate(camera.lookAt);
+	camera.w = vec3_negate(camera.lookat);
 	camera.u = vec3_norm(vec3_cross(vctor(0, 1, 0), camera.w));
 	camera.v = vec3_cross(camera.w, camera.u);
 	camera.horizontal = vec3_mult(camera.u, camera.viewport_width);

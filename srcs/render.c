@@ -18,9 +18,9 @@
 
 void	set_face_normal(t_ray *ray, t_hit_record *rec)
 {
-	rec->front_face = vec3_dot(ray->direction, rec->N) < 0;
+	rec->front_face = vec3_dot(ray->direction, rec->n) < 0;
 	if (rec->front_face == false)
-		rec->N = vec3_negate(rec->N);
+		rec->n = vec3_negate(rec->n);
 }
 
 t_object_list	*obj_lstnew(void *obj, int type)

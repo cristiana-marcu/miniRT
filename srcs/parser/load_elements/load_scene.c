@@ -44,7 +44,7 @@ static void	load_objs(t_pars *pars)
 	char	**tokens;
 	int		len;
 
-	if (ft_strlen(pars->line) == 0 || *pars->line == '#' \
+	if (ft_strlen(pars->line) == 0 || *pars->line == '#'
 		|| (ft_strlen(pars->line) == 1 && *pars->line == '\n'))
 		return ;
 	tokens = tokenizator(pars->line);

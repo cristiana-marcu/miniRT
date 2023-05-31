@@ -25,10 +25,11 @@ void	load_cy(t_pars *pars, char **tokens)
 		pars->errors |= E_CY;
 	else
 	{
-		cy->N = vec3_norm(get_vector(tokens[2], &is_right[1], NVEC));
+		cy->n = vec3_norm(get_vector(tokens[2], &is_right[1], NVEC));
 		cy->r = get_dob(tokens[3], &is_right[2], SEGM) / 2;
-		cy->H = get_dob(tokens[4], &is_right[3], SEGM);
-		cy->pos = vec3_subs(get_vector(tokens[1], &is_right[0], POINT), vec3_mult(cy->N, cy->H/2));
+		cy->h = get_dob(tokens[4], &is_right[3], SEGM);
+		cy->pos = vec3_subs(get_vector(tokens[1], &is_right[0], POINT), \
+			vec3_mult(cy->n, cy->h / 2));
 		cy->color = normalize_color(get_vector(tokens[5], &is_right[4], COLRS));
 		if (!check_right(is_right, 5))
 			pars->errors |= E_CY;

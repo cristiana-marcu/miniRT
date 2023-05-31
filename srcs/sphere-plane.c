@@ -51,7 +51,7 @@ bool	hit_sphere(t_object_list *obj, t_ray *ray, t_hit_record *rec)
 	}
 	rec->t = root;
 	rec->hit_point = ray_at(ray, rec->t);
-	rec->N = vec3_div(vec3_subs(rec->hit_point, sphere->center), sphere->r);
+	rec->n = vec3_div(vec3_subs(rec->hit_point, sphere->center), sphere->r);
 	set_face_normal(ray, rec);
 	rec->t_max = rec->t;
 	rec->color = sphere->color;
@@ -66,7 +66,7 @@ t_plane	*new_plane(t_vec3 pos, t_vec3 N, t_vec3 color)
 	if (!pl)
 		return (NULL);
 	pl->pos = pos;
-	pl->N = N;
+	pl->n = N;
 	pl->color = color;
 	return (pl);
 }
@@ -81,15 +81,15 @@ bool	hit_plane(t_object_list *obj, t_ray *ray, t_hit_record *rec)
 	double	t;
 
 	plane = (t_plane *)obj->obj;
-	denominator = vec3_dot(plane->N, ray->direction);
+	denominator = vec3_dot(plane->n, ray->direction);
 	if (fabs(denominator) < EPSILON)
 		return (false);
-	t = vec3_dot(vec3_subs(plane->pos, ray->origin), plane->N) / denominator;
+	t = vec3_dot(vec3_subs(plane->pos, ray->origin), plane->n) / denominator;
 	if (t < rec->t_min || t > rec->t_max)
 		return (false);
 	rec->t = t;
 	rec->hit_point = ray_at(ray, t);
-	rec->N = plane->N;
+	rec->n = plane->n;
 	set_face_normal(ray, rec);
 	rec->t_max = t;
 	rec->color = plane->color;

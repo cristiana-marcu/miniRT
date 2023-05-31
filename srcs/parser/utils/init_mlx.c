@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-<<<<<<< HEAD:srcs/parser/utils/init_mlx.c
-/*   Updated: 2023/05/29 20:15:51 by drontome         ###   ########.fr       */
-=======
-/*   Updated: 2023/05/30 19:45:02 by cmarcu           ###   ########.fr       */
->>>>>>> parser:srcs/parser/init_mlx.c
+/*   Updated: 2023/05/31 22:55:41 by drontome         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

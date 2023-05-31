@@ -14,8 +14,8 @@
 
 void	load_pl(t_pars *pars, char **tokens)
 {
-	t_plane		*pl;
-	bool		is_right[3];
+	t_plane	*pl;
+	bool	is_right[3];
 
 	pl = malloc(sizeof(t_plane));
 	bzero(is_right, sizeof(is_right));
@@ -26,7 +26,7 @@ void	load_pl(t_pars *pars, char **tokens)
 	else
 	{
 		pl->pos = get_vector(tokens[1], &is_right[0], POINT);
-		pl->N = get_vector(tokens[2], &is_right[1], NVEC);
+		pl->n = get_vector(tokens[2], &is_right[1], NVEC);
 		pl->color = normalize_color(get_vector(tokens[3], &is_right[2], COLRS));
 		if (!check_right(is_right, 3))
 			pars->errors |= E_PL;

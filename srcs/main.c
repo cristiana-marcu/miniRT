@@ -21,13 +21,11 @@ int	main(int argc, char **argv)
 	if (check_scene(argc, argv))
 		data.world = load_scene(argv[1]);
 	else
-	{
-		printf("NO HECHO\n");
 		return (1);
-	}
 	init_mlx(&data);
 	data.world->camera = init_camera(&data);
-	render(&data);
+	if (data.world->camera.hfov > 0)
+		render(&data);
 	start_rt(&data);
 }
 

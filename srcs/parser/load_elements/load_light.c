@@ -14,8 +14,8 @@
 
 void	load_light(t_pars *pars, char **tokens)
 {
-	t_light		light;
-	bool		is_right[3];
+	t_light	light;
+	bool	is_right[3];
 
 	light = (t_light){};
 	bzero(is_right, sizeof(is_right));
