@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "canvas.h"
 #include "objects.h"
 #include "ray.h"
 #include <stdbool.h>

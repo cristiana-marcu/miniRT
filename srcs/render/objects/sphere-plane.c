@@ -10,70 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "canvas.h"
 #include "objects.h"
 #include "ray.h"
-#include <stdbool.h>
-#include <stdio.h>
-
-t_sphere	*new_sphere(t_vec3 center, double r, t_vec3 color)
-{
-	t_sphere	*sph;
-
-	sph = malloc(sizeof(t_sphere));
-	if (!sph)
-		return (NULL);
-	sph->center = center;
-	sph->r = r / 2;
-	sph->color = color;
-	return (sph);
-}
 
 bool	hit_sphere(t_object_list *obj, t_ray *ray, t_hit_record *rec)
 {
 	t_sphere	*sphere;
-	t_vec3		oc;
-	double		a;
-	double		half_b;
-	double		c;
-	double		discriminant;
-	double		root;
+	t_sp_cal	cal;
 
 	sphere = (t_sphere *)obj->obj;
-	oc = vec3_subs(ray->origin, sphere->center);
-	a = vec3_dot(ray->direction, ray->direction);
-	half_b = vec3_dot(oc, ray->direction);
-	c = vec3_dot(oc, oc) - sphere->r * sphere->r;
-	discriminant = half_b * half_b - a * c;
-	if (discriminant < 0.0)
+	cal.oc = vec3_subs(ray->origin, sphere->center);
+	cal.a = vec3_dot(ray->direction, ray->direction);
+	cal.half_b = vec3_dot(cal.oc, ray->direction);
+	cal.c = vec3_dot(cal.oc, cal.oc) - sphere->r * sphere->r;
+	cal.discr = cal.half_b * cal.half_b - cal.a * cal.c;
+	if (cal.discr < 0.0)
 		return (false);
-	root = (-half_b - sqrt(discriminant)) / a;
-	if (root < rec->t_min || root > rec->t_max)
+	cal.root = (-cal.half_b - sqrt(cal.discr)) / cal.a;
+	if (cal.root < rec->t_min || cal.root > rec->t_max)
 	{
-		root = (-half_b + sqrt(discriminant)) / a;
-		if (root < rec->t_min || root > rec->t_max)
+		cal.root = (-cal.half_b + sqrt(cal.discr)) / cal.a;
+		if (cal.root < rec->t_min || cal.root > rec->t_max)
 			return (false);
 	}
-	rec->t = root;
+	rec->t = cal.root;
 	rec->hit_point = ray_at(ray, rec->t);
 	rec->n = vec3_div(vec3_subs(rec->hit_point, sphere->center), sphere->r);
 	set_face_normal(ray, rec);
 	rec->t_max = rec->t;
 	rec->color = sphere->color;
 	return (true);
-}
-
-t_plane	*new_plane(t_vec3 pos, t_vec3 N, t_vec3 color)
-{
-	t_plane	*pl;
-
-	pl = malloc(sizeof(t_plane));
-	if (!pl)
-		return (NULL);
-	pl->pos = pos;
-	pl->n = N;
-	pl->color = color;
-	return (pl);
 }
 
 /*Ray-plane intersection equation:

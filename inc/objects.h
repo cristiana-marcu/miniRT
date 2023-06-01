@@ -13,22 +13,38 @@
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
+/* ************************************************************************** */
+/*                                 INCLUDES                                   */
+/* ************************************************************************** */
 # include "mlx.h"
+# include "libft.h"
 # include "vectors.h"
-# include <math.h>
-# include <stdlib.h>
 
+/* ************************************************************************** */
+/*                                  DEFINES                                   */
+/* ************************************************************************** */
 # define K_ESC 53
 
-typedef struct s_object_list	t_object_list;
-
+/* ************************************************************************** */
+/*                                   ENUMS                                    */
+/* ************************************************************************** */
 typedef enum e_type
 {
 	SPHERE,
 	PLANE,
 	CYLINDER,
 	LIGHT
-}								t_type;
+}			t_type;
+
+/* ************************************************************************** */
+/*                                  STRUCTS                                   */
+/* ************************************************************************** */
+typedef struct s_object_list
+{
+	t_type						type;
+	void						*obj;
+	void						*next;
+}						t_object_list;
 
 typedef struct s_sphere
 {
@@ -107,16 +123,6 @@ typedef struct s_ray
 	t_vec3						direction;
 }								t_ray;
 
-typedef bool					(*t_intersection_function)(t_object_list *, \
-		t_ray *, t_hit_record *);
-
-struct							s_object_list
-{
-	t_type						type;
-	void						*obj;
-	void						*next;
-};
-
 typedef struct s_canvas
 {
 	unsigned short				width;
@@ -137,29 +143,39 @@ typedef struct s_data
 	t_world						*world;
 }								t_data;
 
-bool							hit_object(t_object_list *obj, t_ray *r,
-									t_hit_record *rec);
-bool							hit_sphere(t_object_list *obj, t_ray *r,
-									t_hit_record *rec);
+typedef struct s_sp_cal
+{
+	t_vec3						oc;
+	double						a;
+	double						half_b;
+	double						c;
+	double						discr;
+	double						root;
+}								t_sp_cal;
 
-bool							hit_cylinder(t_object_list *obj, t_ray *ray, \
-		t_hit_record *rec);
+typedef struct s_cy_cal
+{
+	t_vec3						oc;
+	double						a;
+	double						half_b;
+	double						c;
+	double						discr;
+	double						root;
+	double						height;
+}								t_cy_cal;
 
-t_plane							*new_plane(t_vec3 pos, t_vec3 N, t_vec3 color);
-bool							hit_plane(t_object_list *obj, t_ray *ray,
-									t_hit_record *rec);
+typedef bool	(*t_int_fn)(t_object_list *, t_ray *, t_hit_record *);
 
-t_ambientLight					*new_ambient_light(double range, t_vec3 color);
-t_light							*new_light(t_vec3 pos, double brightness,
-									t_vec3 color);
-t_vec3							calculate_pixel_color(t_world *world);
+/* ************************************************************************** */
+/*                                 PROTOTYPES                                 */
+/* ************************************************************************** */
+void			render(t_data *data);
+t_vec3			calculate_pixel_color(t_world *world);
+t_vec3			ambient_light_on_obj(t_world *world);
+t_vec3			diffuse_light_on_obj(t_world *world, t_ray shadow_ray);
+bool			hit_plane(t_object_list *obj, t_ray *ray, t_hit_record *rec);
+bool			hit_object(t_object_list *obj, t_ray *r, t_hit_record *rec);
+bool			hit_sphere(t_object_list *obj, t_ray *r, t_hit_record *rec);
+bool			hit_cylinder(t_object_list *obj, t_ray *ray, t_hit_record *rec);
 
-t_vec3							ambient_light_on_obj(t_world *world);
-t_vec3							diffuse_light_on_obj(t_world *world, \
-		t_ray shadow_ray);
-
-t_camera						init_camera(t_data *data);
-void							render(t_data *data);
-
-void							*ft_calloc(size_t count, size_t size);
 #endif

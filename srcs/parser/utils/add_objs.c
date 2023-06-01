@@ -13,7 +13,7 @@
 #include "parser.h"
 
 static t_object_list	*obj_lstnew(void *obj, int type);
-static void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj);
+static void				obj_addbk(t_object_list **lst, t_object_list *new_obj);
 
 void	*add_obj_to_scene(t_world *world, void *obj, int type)
 {
@@ -22,7 +22,7 @@ void	*add_obj_to_scene(t_world *world, void *obj, int type)
 	elem = obj_lstnew(obj, type);
 	if (!elem)
 		return (NULL);
-	obj_lstadd_back(&(world->objs), elem);
+	obj_addbk(&(world->objs), elem);
 	return (obj);
 }
 
@@ -39,7 +39,7 @@ static t_object_list	*obj_lstnew(void *obj, int type)
 	return (result);
 }
 
-static void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj)
+static void	obj_addbk(t_object_list **lst, t_object_list *new_obj)
 {
 	t_object_list	*last;
 
@@ -56,5 +56,3 @@ static void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj)
 	new_obj->next = NULL;
 	return ;
 }
-
-

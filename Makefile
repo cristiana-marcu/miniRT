@@ -22,6 +22,7 @@ SRC_DIR := srcs/
 SRC := \
 parser/parser.c \
 parser/utils/init_mlx.c \
+parser/utils/init_camera.c \
 parser/utils/check_range.c \
 parser/utils/errors.c \
 parser/utils/free_objs.c \
@@ -35,18 +36,17 @@ parser/load_elements/load_light.c \
 parser/load_elements/load_sp.c \
 parser/load_elements/load_pl.c \
 parser/load_elements/load_cy.c \
-vectors.c \
-ray.c \
-camera.c \
-render.c \
-sphere-plane.c \
-cylinder.c \
-lights.c \
+render/vectors.c \
+render/ray.c \
+render/render.c \
+render/objects/sphere-plane.c \
+render/objects/cylinder.c \
+render/lights.c \
 main.c \
 
 SRC := $(SRC:%=$(SRC_DIR)%)
 INC := \
-includes/ \
+inc/ \
 libft/inc/ \
 srcs/parser/inc/
 OBJS := $(SRC:$(SRC_DIR)%.c=$(BUILD_DIR)%.o)

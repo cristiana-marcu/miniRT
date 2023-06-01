@@ -10,36 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "canvas.h"
 #include "objects.h"
 #include "ray.h"
 #include <stdbool.h>
 #include <stdio.h>
-
-t_light	*new_light(t_vec3 pos, double brightness, t_vec3 color)
-{
-	t_light	*light;
-
-	light = malloc(sizeof(t_light));
-	if (!light)
-		return (NULL);
-	light->pos = pos;
-	light->brightness = brightness;
-	light->color = color;
-	return (light);
-}
-
-t_ambientLight	*new_ambient_light(double range, t_vec3 color)
-{
-	t_ambientLight	*al;
-
-	al = malloc(sizeof(t_ambientLight));
-	if (!al)
-		return (NULL);
-	al->range = range;
-	al->color = color;
-	return (al);
-}
 
 t_vec3	ambient_light_on_obj(t_world *world)
 {

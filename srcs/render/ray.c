@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "canvas.h"
 #include "objects.h"
 #include "ray.h"
 #include <stdbool.h>
@@ -97,21 +96,6 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 		return (calculate_pixel_color(world));
 	return (vctor(0, 0, 0));
 }
-/**
-
-	* The function shoots a ray from the camera's position through a specific pixel on the screen.
- *
-
-	* @param data A pointer to a struct that contains information about the scene and camera settings.
- * @param ray A pointer to a t_ray struct,
-	which represents a ray in 3D space with an origin and
- * direction.
-
-	* @param aux The `aux` parameter is a pointer to a `t_vec3` struct that represents the pixel
-
-	* coordinates on the screen. It is used to calculate the u and v values for the ray direction
- * calculation.
- */
 
 void	shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
 {

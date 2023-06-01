@@ -72,22 +72,23 @@ typedef enum e_range
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
 bool			check_scene(int argc, char **argv);
+bool			check_right(bool *is_right, int size);
+bool			check_rg(void *data, t_range r);
 t_world			*load_scene(char *scene);
+t_camera		init_camera(t_data *data);
+double			get_dob(char *str, bool *is_right, t_range r);
+t_vec3			get_vector(char *str, bool *is_right, t_range r);
+t_vec3			normalize_color(t_vec3 color);
 void			load_amb(t_pars *pars, char **tokens);
 void			load_cam(t_pars *pars, char **tokens);
 void			load_light(t_pars *pars, char **tokens);
 void			load_sp(t_pars *pars, char **tokens);
 void			load_pl(t_pars *pars, char **tokens);
 void			load_cy(t_pars *pars, char **tokens);
-double			get_dob(char *str, bool *is_right, t_range r);
-t_vec3			get_vector(char *str, bool *is_right, t_range r);
-bool			check_right(bool *is_right, int size);
-bool			check_rg(void *data, t_range r);
-t_vec3			normalize_color(t_vec3 color);
 void			free_objs(t_object_list **lst, void (*del)(void*));
 void			init_mlx(t_data	*data);
 void			start_rt(t_data *data);
+void			*add_obj_to_scene(t_world *world, void *obj, int type);
 char			**smart_split(char *s);
-void	*add_obj_to_scene(t_world *world, void *obj, int type);
 
 #endif
