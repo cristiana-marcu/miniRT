@@ -49,6 +49,7 @@ bool	hit_cylinder_caps(t_cylinder *cyl, t_ray *ray, t_hit_record *rec_caps)
 	}
 	return (hit);
 }
+
 static t_cy_cal init_var(t_ray *ray, t_cylinder *cyl)
 {
 	t_cy_cal		cal;
@@ -56,8 +57,8 @@ static t_cy_cal init_var(t_ray *ray, t_cylinder *cyl)
 	double			dot_oc_cy;
 
 	dot_ray_cy = vec3_dot(ray->direction, cyl->n);
-	dot_oc_cy = vec3_dot(cal.oc, cyl->n);
 	cal.oc = vec3_subs(ray->origin, cyl->pos);
+	dot_oc_cy = vec3_dot(cal.oc, cyl->n);
 	cal.a = vec3_sqrd_len(ray->direction) - (dot_ray_cy * dot_ray_cy);
 	cal.half_b = vec3_dot(ray->direction, cal.oc) - (dot_ray_cy * dot_oc_cy);
 	cal.c = vec3_sqrd_len(cal.oc) - (cyl->r * cyl->r) - (dot_oc_cy * dot_oc_cy);
