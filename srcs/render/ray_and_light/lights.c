@@ -21,23 +21,23 @@ t_vec3	ambient_light_on_obj(t_world *world)
 	t_ambientLight	al;
 
 	al = world->amb_light;
-	amb_and_obj = vctor(al.range * (al.color.x) * (world->rec->color.x),
-						al.range * (al.color.y) * (world->rec->color.y),
-						al.range * (al.color.z) * (world->rec->color.z));
+	amb_and_obj = vctor(al.range * (al.color.x) * (world->rec->color.x), \
+		al.range * (al.color.y) * (world->rec->color.y), \
+		al.range * (al.color.z) * (world->rec->color.z));
 	return (amb_and_obj);
 }
 
 t_vec3	diffuse_light_on_obj(t_world *world, t_ray shadow_ray)
 {
 	t_vec3	diffuse;
-	double	dot_NL;
+	double	dot_nl;
 
-	dot_NL = vec3_dot(vec3_norm(world->rec->n),
+	dot_nl = vec3_dot(vec3_norm(world->rec->n),
 			vec3_norm(shadow_ray.direction));
-	if (dot_NL < 0)
-		dot_NL = 0;
-	diffuse.x = world->light.brightness * world->rec->color.x * dot_NL;
-	diffuse.y = world->light.brightness * world->rec->color.y * dot_NL;
-	diffuse.z = world->light.brightness * world->rec->color.z * dot_NL;
+	if (dot_nl < 0)
+		dot_nl = 0;
+	diffuse.x = world->light.brightness * world->rec->color.x * dot_nl;
+	diffuse.y = world->light.brightness * world->rec->color.y * dot_nl;
+	diffuse.z = world->light.brightness * world->rec->color.z * dot_nl;
 	return (diffuse);
 }

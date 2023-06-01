@@ -36,12 +36,16 @@ parser/load_elements/load_light.c \
 parser/load_elements/load_sp.c \
 parser/load_elements/load_pl.c \
 parser/load_elements/load_cy.c \
-render/vectors.c \
-render/ray.c \
+render/vectors/vectors.c \
+render/vectors/vectors2.c \
+render/vectors/vectors3.c \
+render/ray_and_light/ray.c \
+render/ray_and_light/ray2.c \
+render/ray_and_light/lights.c \
 render/render.c \
 render/objects/sphere-plane.c \
 render/objects/cylinder.c \
-render/lights.c \
+render/objects/cylinder_caps.c \
 main.c \
 
 SRC := $(SRC:%=$(SRC_DIR)%)

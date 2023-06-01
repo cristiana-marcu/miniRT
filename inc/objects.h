@@ -162,6 +162,9 @@ typedef struct s_cy_cal
 	double						discr;
 	double						root;
 	double						height;
+	bool						hit_body;
+	bool						hit_caps;
+	t_vec3						hit_point;
 }								t_cy_cal;
 
 typedef bool	(*t_int_fn)(t_object_list *, t_ray *, t_hit_record *);
