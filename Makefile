@@ -25,6 +25,7 @@ parser/utils/init_mlx.c \
 parser/utils/check_range.c \
 parser/utils/errors.c \
 parser/utils/free_objs.c \
+parser/utils/add_objs.c \
 parser/utils/utils.c \
 parser/utils/smart_split.c \
 parser/load_elements/load_scene.c \
@@ -34,7 +35,6 @@ parser/load_elements/load_light.c \
 parser/load_elements/load_sp.c \
 parser/load_elements/load_pl.c \
 parser/load_elements/load_cy.c \
-canvas/canvas.c \
 vectors.c \
 ray.c \
 camera.c \

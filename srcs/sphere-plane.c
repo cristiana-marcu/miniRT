@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "canvas.h"
+#include "objects.h"
 #include "ray.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "objects.h"
-#include "canvas.h"
 
 t_sphere	*new_sphere(t_vec3 center, double r, t_vec3 color)
 {
@@ -32,17 +32,22 @@ t_sphere	*new_sphere(t_vec3 center, double r, t_vec3 color)
 bool	hit_sphere(t_object_list *obj, t_ray *ray, t_hit_record *rec)
 {
 	t_sphere	*sphere;
+	t_vec3		oc;
+	double		a;
+	double		half_b;
+	double		c;
+	double		discriminant;
+	double		root;
 
 	sphere = (t_sphere *)obj->obj;
-
-	t_vec3 oc = vec3_subs(ray->origin, sphere->center);
-	double a = vec3_dot(ray->direction, ray->direction);
-	double half_b = vec3_dot(oc, ray->direction);
-	double c = vec3_dot(oc, oc) - sphere->r * sphere->r;
-	double discriminant = half_b * half_b - a * c;
+	oc = vec3_subs(ray->origin, sphere->center);
+	a = vec3_dot(ray->direction, ray->direction);
+	half_b = vec3_dot(oc, ray->direction);
+	c = vec3_dot(oc, oc) - sphere->r * sphere->r;
+	discriminant = half_b * half_b - a * c;
 	if (discriminant < 0.0)
 		return (false);
-	double root = (-half_b - sqrt(discriminant)) / a;
+	root = (-half_b - sqrt(discriminant)) / a;
 	if (root < rec->t_min || root > rec->t_max)
 	{
 		root = (-half_b + sqrt(discriminant)) / a;

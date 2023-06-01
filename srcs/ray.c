@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "canvas.h"
+#include "objects.h"
 #include "ray.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "objects.h"
-#include "canvas.h"
 
 double	random_double(void)
 {
@@ -55,17 +55,21 @@ t_vec3	calculate_pixel_color(t_world *world)
 	t_object_list	*obj;
 	t_hit_record	shadow_rec;
 
-	shadow_ray = rctor(vec3_add(world->rec->hit_point, vec3_mult(world->rec->n, 0.001)), vec3_norm(vec3_subs(world->light.pos, world->rec->hit_point)));
+	shadow_ray = rctor(vec3_add(world->rec->hit_point, vec3_mult(world->rec->n,
+					0.001)), vec3_norm(vec3_subs(world->light.pos,
+					world->rec->hit_point)));
 	obj = world->objs;
 	shadow_rec.t_min = EPSILON;
-	shadow_rec.t_max = vec3_magn(vec3_subs(world->light.pos, world->rec->hit_point));
+	shadow_rec.t_max = vec3_magn(vec3_subs(world->light.pos,
+				world->rec->hit_point));
 	while (obj)
 	{
 		if (hit_object(obj, &shadow_ray, &shadow_rec))
 			return (ambient_light_on_obj(world));
 		obj = obj->next;
 	}
-	return (clamp_color(vec3_add(ambient_light_on_obj(world), diffuse_light_on_obj(world, shadow_ray))));
+	return (clamp_color(vec3_add(ambient_light_on_obj(world),
+				diffuse_light_on_obj(world, shadow_ray))));
 }
 
 t_vec3	ray_color(t_ray *r, t_world *world)
@@ -94,13 +98,18 @@ t_vec3	ray_color(t_ray *r, t_world *world)
 	return (vctor(0, 0, 0));
 }
 /**
- * The function shoots a ray from the camera's position through a specific pixel on the screen.
+
+	* The function shoots a ray from the camera's position through a specific pixel on the screen.
  *
- * @param data A pointer to a struct that contains information about the scene and camera settings.
- * @param ray A pointer to a t_ray struct, which represents a ray in 3D space with an origin and
+
+	* @param data A pointer to a struct that contains information about the scene and camera settings.
+ * @param ray A pointer to a t_ray struct,
+	which represents a ray in 3D space with an origin and
  * direction.
- * @param aux The `aux` parameter is a pointer to a `t_vec3` struct that represents the pixel
- * coordinates on the screen. It is used to calculate the u and v values for the ray direction
+
+	* @param aux The `aux` parameter is a pointer to a `t_vec3` struct that represents the pixel
+
+	* coordinates on the screen. It is used to calculate the u and v values for the ray direction
  * calculation.
  */
 
@@ -109,8 +118,13 @@ void	shoot_ray(t_data *data, t_ray *ray, t_vec3 *aux)
 	double	u;
 	double	v;
 
-	u = ((double)aux->x) / (data->view.width - 1); //Antialiasing ((double)aux->x + random_double())
-	v = 1 - ((double)aux->y) / (data->view.height - 1);//Antialiasing ((double)aux->y + random_double())
+	u = ((double)aux->x) / (data->view.width - 1);     
+		//Antialiasing ((double)aux->x + random_double())
+	v = 1 - ((double)aux->y) / (data->view.height - 1);
+		//Antialiasing ((double)aux->y + random_double())
 	ray->origin = data->world->camera.from;
-	ray->direction = vec3_norm(vec3_add(vec3_add(data->world->camera.lower_left_corner, vec3_mult(data->world->camera.horizontal, u)), vec3_subs(vec3_mult(data->world->camera.vertical, v), data->world->camera.from)));
+	ray->direction = vec3_norm(vec3_add(vec3_add(data->world->camera.lower_left_corner,
+					vec3_mult(data->world->camera.horizontal, u)),
+				vec3_subs(vec3_mult(data->world->camera.vertical, v),
+					data->world->camera.from)));
 }

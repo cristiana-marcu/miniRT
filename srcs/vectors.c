@@ -110,26 +110,27 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 
 int	vec3_to_rgb(t_vec3 v)
 {
-	/*_________Antialiasing shit__________*
-	int samples_per_pixel;
-	double scale;
+	int		samples_per_pixel;
+	double	scale;
 
+	/*_________Antialiasing shit__________*
 	samples_per_pixel = 100;
 	scale = 1.0 / samples_per_pixel;
 	v.x *= scale;
 	v.y *= scale;
 	v.z *= scale;
 	*_____________________________________*/
-	return ((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z * 255.999)); //Con esta solución aparece la línea blanca rara en las esferas al sombrear
+	return ((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z
+			* 255.999));
+	//Con esta solución aparece la línea blanca rara en las esferas al sombrear
 }
 
 t_vec3	clamp_color(t_vec3 color)
 {
-	t_vec3 clamped_color;
+	t_vec3	clamped_color;
 
 	clamped_color.x = fmin(fmax(color.x, 0.0), 1);
 	clamped_color.y = fmin(fmax(color.y, 0.0), 1);
 	clamped_color.z = fmin(fmax(color.z, 0.0), 1);
-
 	return (clamped_color);
 }

@@ -12,7 +12,6 @@
 
 #include "parser.h"
 
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -28,4 +27,3 @@ int	main(int argc, char **argv)
 		render(&data);
 	start_rt(&data);
 }
-

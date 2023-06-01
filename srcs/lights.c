@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "canvas.h"
+#include "objects.h"
 #include "ray.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "objects.h"
-#include "canvas.h"
 
 t_light	*new_light(t_vec3 pos, double brightness, t_vec3 color)
 {
@@ -48,8 +48,8 @@ t_vec3	ambient_light_on_obj(t_world *world)
 
 	al = world->amb_light;
 	amb_and_obj = vctor(al.range * (al.color.x) * (world->rec->color.x),
-			al.range * (al.color.y) * (world->rec->color.y),
-			al.range * (al.color.z) * (world->rec->color.z));
+						al.range * (al.color.y) * (world->rec->color.y),
+						al.range * (al.color.z) * (world->rec->color.z));
 	return (amb_and_obj);
 }
 
@@ -58,7 +58,8 @@ t_vec3	diffuse_light_on_obj(t_world *world, t_ray shadow_ray)
 	t_vec3	diffuse;
 	double	dot_NL;
 
-	dot_NL = vec3_dot(vec3_norm(world->rec->n), vec3_norm(shadow_ray.direction));
+	dot_NL = vec3_dot(vec3_norm(world->rec->n),
+			vec3_norm(shadow_ray.direction));
 	if (dot_NL < 0)
 		dot_NL = 0;
 	diffuse.x = world->light.brightness * world->rec->color.x * dot_NL;

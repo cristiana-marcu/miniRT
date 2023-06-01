@@ -18,6 +18,8 @@
 # include <math.h>
 # include <stdlib.h>
 
+# define K_ESC 53
+
 typedef struct s_object_list	t_object_list;
 
 typedef enum e_type
@@ -159,10 +161,5 @@ t_vec3							diffuse_light_on_obj(t_world *world, \
 t_camera						init_camera(t_data *data);
 void							render(t_data *data);
 
-t_object_list					*obj_lstnew(void *obj, int type);
-void							obj_lstadd_back(t_object_list **lst, \
-		t_object_list *new_obj);
-void							*add_obj_to_scene(t_world *world, \
-		void *obj, int type);
 void							*ft_calloc(size_t count, size_t size);
 #endif

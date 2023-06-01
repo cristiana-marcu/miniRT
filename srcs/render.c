@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "canvas.h"
+#include "objects.h"
 #include "ray.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "objects.h"
-#include "canvas.h"
+
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 void	set_face_normal(t_ray *ray, t_hit_record *rec)
 {
@@ -23,46 +25,12 @@ void	set_face_normal(t_ray *ray, t_hit_record *rec)
 		rec->n = vec3_negate(rec->n);
 }
 
-t_object_list	*obj_lstnew(void *obj, int type)
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	t_object_list	*result;
+	char	*dst;
 
-	result = ft_calloc(1, sizeof(t_object_list));
-	if (!result)
-		return (NULL);
-	result->type = type;
-	result->obj = obj;
-	result->next = NULL;
-	return (result);
-}
-
-void	obj_lstadd_back(t_object_list **lst, t_object_list *new_obj)
-{
-	t_object_list	*last;
-
-	if (!(*lst)) //En la primera vuelta tendria que entrar por aqui
-	{
-		*lst = new_obj;
-		new_obj->next = NULL;
-		return ;
-	}
-	last = *lst;
-	while (last->next)
-		last = last->next;
-	last->next = new_obj;
-	new_obj->next = NULL;
-	return ;
-}
-
-void	*add_obj_to_scene(t_world *world, void *obj, int type)
-{
-	t_object_list	*elem;
-
-	elem = obj_lstnew(obj, type); //TODO Parser: el type de objeto tiene que llegar de la escena
-	if (!elem)
-		return (NULL);
-	obj_lstadd_back(&(world->objs), elem);
-	return (obj);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 /**
  * The function renders an image by shooting rays and calculating the color of

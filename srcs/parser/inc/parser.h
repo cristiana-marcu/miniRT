@@ -88,8 +88,6 @@ void			free_objs(t_object_list **lst, void (*del)(void*));
 void			init_mlx(t_data	*data);
 void			start_rt(t_data *data);
 char			**smart_split(char *s);
-
-//double			get_bright(char *str);
-//t_vec3			get_colours(char *str);
+void	*add_obj_to_scene(t_world *world, void *obj, int type);
 
 #endif

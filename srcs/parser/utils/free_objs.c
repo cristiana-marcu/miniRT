@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-void	free_ob(t_object_list *lst, void (*del)(void*));
+static void	free_ob(t_object_list *lst, void (*del)(void*));
 
 void	free_objs(t_object_list **lst, void (*del)(void*))
 {
@@ -29,7 +29,7 @@ void	free_objs(t_object_list **lst, void (*del)(void*))
 	return ;
 }
 
-void	free_ob(t_object_list *lst, void (*del)(void*))
+static void	free_ob(t_object_list *lst, void (*del)(void*))
 {
 	if (!lst || !del)
 		return ;
