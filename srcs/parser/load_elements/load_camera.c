@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:48:46 by drontome          #+#    #+#             */
-/*   Updated: 2023/05/17 10:47:18 by drontome         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:22:28 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	load_cam(t_pars *pars, char **tokens)
 	{
 		pars->dup[CAM] = true;
 		cam.from = get_vector(tokens[1], &is_right[0], POINT);
-		cam.lookat = get_vector(tokens[2], &is_right[1], NVEC);
+		cam.lookat = vec3_norm(get_vector(tokens[2], &is_right[1], NVEC));
 		cam.hfov = get_dob(tokens[3], &is_right[2], HFOV);
 		if (cam.hfov == 180)
 			cam.hfov = 179.99;
