@@ -6,11 +6,18 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/06/03 12:16:19 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:07:05 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+/*
+void ch_leaks(void)
+{
+	system("leaks miniRT");
+}
+	atexit(ch_leaks);
+*/
 
 void ch_leaks()
 {
