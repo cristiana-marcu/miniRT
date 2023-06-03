@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drontome <drontome@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:35:29 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/06/01 13:22:01 by drontome         ###   ########.fr       */
+/*   Updated: 2023/06/03 12:58:15 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ t_camera	init_camera(t_data *data)
 	camera.viewport_width = field_width;
 	camera.viewport_height = field_width / data->view.aspect_ratio;
 	camera.w = vec3_negate(camera.lookat);
-	camera.u = vec3_norm(vec3_cross(vctor(0, 1, 0), camera.w));
+	if(vec3_along_y_axis(camera.lookat))
+		camera.u = vec3_norm(vec3_cross(vctor(1, 0, 0), camera.w));
+	else
+		camera.u = vec3_norm(vec3_cross(vctor(0, 1, 0), camera.w));
 	camera.v = vec3_cross(camera.w, camera.u);
 	camera.horizontal = vec3_mult(camera.u, camera.viewport_width);
 	camera.vertical = vec3_mult(camera.v, camera.viewport_height);

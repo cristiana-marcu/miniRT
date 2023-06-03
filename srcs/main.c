@@ -6,17 +6,23 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:39:49 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/05/15 16:30:42 by cmarcu           ###   ########.fr       */
+/*   Updated: 2023/06/03 12:16:19 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+void ch_leaks()
+{
+	system("leaks miniRT");
+}
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
 	data = (t_data){};
+	atexit(ch_leaks);
 	if (check_scene(argc, argv))
 		data.world = load_scene(argv[1]);
 	else

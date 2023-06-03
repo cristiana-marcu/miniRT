@@ -6,7 +6,7 @@
 /*   By: cmarcu <cmarcu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:03:32 by cmarcu            #+#    #+#             */
-/*   Updated: 2023/06/01 18:52:28 by drontome         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:01:23 by cmarcu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,10 @@ int	vec3_to_rgb(t_vec3 v)
 	return ((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z
 			* 255.999));
 }
-/*
-vec3_to_rgb sin norma
 
-int	vec3_to_rgb(t_vec3 v)
+bool	vec3_along_y_axis(t_vec3 a)
 {
-	int		samples_per_pixel;
-	double	scale;
-
-	*_________Antialiasing shit__________*
-	samples_per_pixel = 100;
-	scale = 1.0 / samples_per_pixel;
-	v.x *= scale;
-	v.y *= scale;
-	v.z *= scale;
-	*_____________________________________*
-	return ((int)(v.x * 255.999) << 16 | (int)(v.y * 255.999) << 8 | (int)(v.z
-			* 255.999));
-	//Con esta solución aparece la línea blanca rara en las esferas al sombrear
+	if ((a.y <= 1 || a.y >= -1) && a.x == 0 && a.z == 0)
+		return (true);
+	return (false);
 }
-*/
